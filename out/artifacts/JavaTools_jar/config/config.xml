@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <configs>
+        <templates>
+            <field><![CDATA[@InitReq(cfgKeys = "$0", desc = "$1"$4)
+    public final $5 $3 = $2();]]></field>
+
+            <class><![CDATA[package $package;
+
+import app.game.config.GuiceInitializer;
+import game.initializer.Config;
+import game.initializer.InitReq;
+
+$imports
+import static game.initializer.utils.Defaults.*;
+
+/**
+ * create by javaTools 你可以修改，但是，修改过的，工具重新生成时，不会覆盖你修改的
+ * $date
+ */
+public class $className {
+    $fields
+
+    public $className(Config config, GuiceInitializer initializer) {
+        initializer.initialize(this, $className.class, config);
+    }
+}]]></class>
+        </templates>
+        <gmClassPath>D:\workspace\project\src\main\java\app\game\module\gm\cmd</gmClassPath>
+    </configs>
+</root>

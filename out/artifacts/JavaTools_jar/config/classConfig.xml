@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <configs>
+        <baseCodePath>D:\workspace\project\src\main\java\</baseCodePath>
+        <configitem>
+            <codePath>app\game\config\exp</codePath>
+            <className>HeroExpData</className>
+            <xlsPath>D:\workspace\project\config\data\S-刷怪表  副本.xls</xlsPath>
+        </configitem>
+	 <configitem>
+            <codePath>app\game\config\exp</codePath>
+            <className>HeroExpData1</className>
+            <xlsPath>D:\workspace\project\config\data\S-刷怪表  副本.xls</xlsPath>
+        </configitem>
+        <configitem>
+            <codePath>app\game\config\exp</codePath>
+            <className>HeroExpData1</className>
+            <xlsPath>D:\workspace\project\config\data\S-刷怪表  副本.xls</xlsPath>
+        </configitem>
+    </configs>
+</root>
