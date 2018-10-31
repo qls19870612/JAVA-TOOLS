@@ -74,7 +74,7 @@ public class Xls2LuaUtils {
             return;
         }
         String filePath = file.getParent();
-        String item = shellContentToBuff(sheet, filePath);
+        String item = shellContentToBuff(sheet, filePath, file.getName());
         String date = dateTimeFormatter.format(new Date());
         String content = XLS2TXTController.luaTemplate.replace("&date&", date);
         content = content.replace("&fileName&", file.getName());
@@ -84,7 +84,7 @@ public class Xls2LuaUtils {
 
     }
 
-    private static String shellContentToBuff(Sheet sheet, String filePath) {
+    private static String shellContentToBuff(Sheet sheet, String filePath, String fileName) {
         int rowCount = sheet.getLastRowNum() + 1;
 
         StringBuilder stringBuffer = new StringBuilder();
@@ -92,7 +92,7 @@ public class Xls2LuaUtils {
         for (int i = 0; i < rowCount; i++) {
             Row row = sheet.getRow(i);
             if (row == null) {
-                logger.debug("filePath:{} rowCount:{} i:{}", filePath, rowCount, i);
+                logger.debug("空行filePath:{}\\{} rowCount:{} i:{}", fileName, filePath, rowCount, i);
 
                 continue;
             }

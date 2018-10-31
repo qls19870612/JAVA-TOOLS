@@ -136,8 +136,13 @@ public class Xls2TxtUtils {
                 value = cell.getStringCellValue();
                 break;
             case Cell.CELL_TYPE_FORMULA:
-                value = ((long) cell.getNumericCellValue()) + "";
-                logger.warn("cell.getCellFormula():{}" + cell.getCellFormula());
+                try {
+                    value = ((long) cell.getNumericCellValue()) + "";
+
+                } catch (Exception e) {
+                    value = cell.getStringCellValue();
+                    logger.warn("cell.getCellFormula():{}" + cell.getCellFormula());
+                }
                 break;
             case Cell.CELL_TYPE_BLANK:
                 value = "";
