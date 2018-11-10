@@ -50,7 +50,7 @@ public class XLS2TXTController {
             }
         };
         BlockingQueue<Runnable> queue = new LinkedBlockingQueue<>();
-        threadPoolExecutor = new ThreadPoolExecutor(threadCount, 20, 60L, TimeUnit.MINUTES, queue, threadFactor);
+        threadPoolExecutor = new ThreadPoolExecutor(threadCount, threadCount, 60L, TimeUnit.MINUTES, queue, threadFactor);
         xls2LUAController = new XLS2LUAController(this);
     }
 
