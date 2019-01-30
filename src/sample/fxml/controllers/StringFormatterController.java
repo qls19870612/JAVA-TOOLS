@@ -10,7 +10,9 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputControl;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.DataFormat;
 import javafx.scene.input.MouseEvent;
@@ -29,14 +31,17 @@ public class StringFormatterController {
     public Label afterConvertTF;
     public TextField upperCaseTF;
     public Label afterConvertUpperCaseTF;
+    public TextArea srcStr;
+    public TextArea toStr;
 
     public void init() throws NoSuchMethodException {
         addListener(uplowerTF, afterConvertTF, StringUtils.class.getMethod("toUpLowerString", String.class));
         addListener(upperCaseTF, afterConvertUpperCaseTF, StringUtils.class.getMethod("toUpCase", String.class));
+        addListener(srcStr, toStr, StringUtils.class.getMethod("convertToString", String.class));
 
     }
 
-    private void addListener(TextField textField, Label afterTf, Method formatMethod) {
+    private void addListener(TextInputControl textField, Label afterTf, Method formatMethod) {
         textField.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -64,6 +69,29 @@ public class StringFormatterController {
 
     }
 
+    private void addListener(TextInputControl src, TextArea target, Method formatMethod) {
+        src.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                src.setText("");
+            }
+        });
+        src.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                //                String string = StringUtils.toUpLowerString(newValue);
+                String string = null;
+                try {
+                    string = (String) formatMethod.invoke(null, newValue);
+                } catch (IllegalAccessException | InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+                target.setText(string);
+            }
+        });
+
+    }
+
     public void onCopyBtnClick(MouseEvent mouseEvent) {
 
         copyTxt(afterConvertTF);
@@ -74,6 +102,7 @@ public class StringFormatterController {
         context.put(DataFormat.PLAIN_TEXT, afterConvertTF.getText());
         Clipboard.getSystemClipboard().setContent(context);
     }
+
 
     public void onCopyUpperCaseBtnClick(MouseEvent mouseEvent) {
         copyTxt(afterConvertUpperCaseTF);
@@ -107,4 +136,6 @@ public class StringFormatterController {
             e.printStackTrace();
         }
     }
+
+
 }

@@ -1,5 +1,6 @@
 package sample.utils;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -11,8 +12,8 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigDecimal;
 import java.math.MathContext;
+import java.text.NumberFormat;
 import java.util.Iterator;
 
 import game.initializer.io.loader.FileLoader;
@@ -122,15 +123,19 @@ public class Xls2TxtUtils {
         switch (cellType) {
             case Cell.CELL_TYPE_NUMERIC:
                 MathContext mc = MathContext.DECIMAL64;
-                float v = new BigDecimal(cell.getNumericCellValue()).round(mc).floatValue();
-                int intv = (int) v;
+                double numericCellValue = ((HSSFCell) cell).getNumericCellValue();
+                //double v = new BigDecimal(numericCellValue).round(mc).floatValue();
+                double v = numericCellValue;
+                long intv = (long) v;
                 if (intv < v) {
-
-                    value = String.valueOf(v);
+                    NumberFormat instance = NumberFormat.getInstance();
+                    instance.setGroupingUsed(false);
+                    instance.setMaximumFractionDigits(10);
+                    value = instance.format(v);
                 } else {
                     value = String.valueOf(intv);
                 }
-
+                //                logger.debug("getCellValue value:{}", value);
                 break;
             case Cell.CELL_TYPE_STRING:
                 value = cell.getStringCellValue();

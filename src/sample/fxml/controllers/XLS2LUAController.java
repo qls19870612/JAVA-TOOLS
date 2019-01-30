@@ -73,9 +73,10 @@ public class XLS2LUAController {
         String[] split = s.split(NEX_LINE);
         for (String s1 : split) {
             if (StringUtils.isNotEmpty(s1)) {
-                String[] fileUpdateInfo = s1.split("=");
-                String fileName = fileUpdateInfo[0];
-                long updateTime = Long.parseLong(fileUpdateInfo[1]);
+                //                String[] fileUpdateInfo = s1.split("=");
+                int lastIndexOf = s1.lastIndexOf("=");
+                String fileName = s1.substring(0, lastIndexOf);
+                long updateTime = Long.parseLong(s1.substring(lastIndexOf + 1));
                 luaCfgData.put(fileName, updateTime);
 
             }

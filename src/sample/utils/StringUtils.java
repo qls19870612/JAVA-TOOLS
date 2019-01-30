@@ -3,6 +3,7 @@ package sample.utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.UnsupportedEncodingException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,6 +14,8 @@ import java.util.regex.Pattern;
  */
 public class StringUtils {
     private static Pattern pattern = Pattern.compile("\\$(\\d+)");
+    private static Pattern number = Pattern.compile("\\d+");
+    private static Pattern unicode = Pattern.compile("\"((?:\\\\\\d+)+)\"");
     private static Pattern worldPattern = Pattern.compile("[a-zA-Z0-9]+");
     private static Pattern UPPERCASE = Pattern.compile("[A-Z]+");
     private static final Logger logger = LoggerFactory.getLogger(StringUtils.class);
@@ -120,6 +123,41 @@ public class StringUtils {
             stringBuffer.append(worlds.substring(1).toLowerCase());
         }
 
+        return stringBuffer.toString();
+    }
+
+    private static byte[] getBytes(String s1) {
+
+        String[] split = s1.split("\\\\");
+        byte[] bytes2 = new byte[split.length - 1];
+        int count = 0;
+        for (String s : split) {
+            if (s.equals("")) {
+                continue;
+            }
+            int i = Integer.parseInt(s, 8);
+            bytes2[count++] = (byte) i;
+        }
+        return bytes2;
+    }
+
+    public static String convertToString(String src) {
+        StringBuffer stringBuffer = new StringBuffer();
+        Matcher matcher = unicode.matcher(src);
+
+
+        while (matcher.find()) {
+            String group = matcher.group(1);
+            byte[] bytes = getBytes(group);
+            String string = null;
+            try {
+                string = new String(bytes, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            matcher.appendReplacement(stringBuffer, "\"" + string + "\"");
+        }
+        matcher.appendTail(stringBuffer);
         return stringBuffer.toString();
     }
 }
