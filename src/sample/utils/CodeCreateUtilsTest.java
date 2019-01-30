@@ -1,5 +1,6 @@
 package sample.utils;
 
+
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
@@ -12,6 +13,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -580,6 +582,69 @@ public class CodeCreateUtilsTest {
             String a = (String) name.invoke(zhangShan);
         }
         logger.debug("testField System.currentTimeMillis() - startTime:{}", System.currentTimeMillis() - startTime);
+    }
+
+    @Test
+    public void protoString() throws UnsupportedEncodingException {
+        //        ByteStringConverter byteStringConverter = new ByteStringConverter();
+        //        Byte string = byteStringConverter.fromString("\347\213\274\346\227\217\345\204\277");
+        //        String string1 = byteStringConverter.toString(string);
+        //        logger.error("protoString string1:{}", string1);
+        //
+        //        ByteString bytes = ByteString.copyFromUtf8("德玛西莉亚");
+        //        String string = bytes.toString();
+        //        ByteString bytes1 = ByteString.copyFrom("德玛西莉亚".getBytes());
+        //        String s = bytes1.toStringUtf8();
+        //        logger.debug("protoString string:{}", string);
+        //        logger.debug("protoString s:{}", s);
+        //
+        //
+        //        RankGuildServerProto p = RankGuildServerProto.newBuilder().setGuildName("德玛西莉亚").build();
+        //        logger.debug("protoString :{}", p.toString());
+        java.lang.String s1 = "\345\276\267\347\216\233\350\245\277\350\216\211\344\272\232";
+        byte[] bytes2 = getBytes(s1);
+        java.lang.String s = new java.lang.String(bytes2, "UTF-8");
+
+        logger.debug("protoString s:{}", s);
+        String test = "\\345\\276\\267\\347\\216\\233\\350\\245\\277\\350\\216\\211\\344\\272\\232";
+        byte[] bytes3 = getBytes2(test);
+        java.lang.String s3 = new java.lang.String(bytes3, "UTF-8");
+        logger.debug("protoString s3:{}", s3);
+        //        String string = StringUtils.convertToString(test);
+        //        logger.debug("protoString string:{}", string);
+
+    }
+
+    private byte[] getBytes(String s1) {
+        logger.debug("protoString s1:{}", s1);
+        byte[] bytes2 = new byte[s1.length()];
+        int iLen = s1.length();
+        for (int i = 0; i < iLen; i++) {
+            bytes2[i] = (byte) s1.charAt(i);
+            logger.debug("protoString bytes2[i]:{}", bytes2[i]);
+        }
+        return bytes2;
+    }
+
+    private byte[] getBytes2(String s1) {
+        logger.debug("protoString s1:{}", s1);
+        //        int iLen = s1.length();
+        //        for (int i = 0; i < iLen; i++) {
+        //            bytes2[i] = (byte) s1.charAt(i);
+        //            logger.debug("protoString bytes2[i]:{}", bytes2[i]);
+        //        }
+        String[] split = s1.split("\\\\");
+        byte[] bytes2 = new byte[split.length - 1];
+        int count = 0;
+        for (String s : split) {
+            if (s.equals("")) {
+                continue;
+            }
+            int i = Integer.parseInt(s, 8);
+            bytes2[count++] = (byte) i;
+            logger.debug("getBytes2 i:{}", bytes2[count - 1]);
+        }
+        return bytes2;
     }
 }
 
