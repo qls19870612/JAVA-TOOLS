@@ -75,7 +75,7 @@ public class Xls2LuaUtils {
         }
         String filePath = file.getParent();
         String item = shellContentToBuff(sheet, filePath, file.getName());
-        String date = dateTimeFormatter.format(new Date());
+        String date = dateTimeFormatter.get().format(new Date());
         String content = XLS2TXTController.luaTemplate.replace("&date&", date);
         content = content.replace("&fileName&", file.getName());
         content = content.replace("&item&", item);

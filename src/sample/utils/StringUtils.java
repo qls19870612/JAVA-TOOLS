@@ -160,4 +160,22 @@ public class StringUtils {
         matcher.appendTail(stringBuffer);
         return stringBuffer.toString();
     }
+
+    public static long safeParseLong(String str, long defaultValue) {
+        try {
+            return Long.parseLong(str);
+        } catch (Exception e) {
+        }
+
+        return defaultValue;
+    }
+
+    public static int safeParseInt(String str, int defaultValue) {
+        try {
+            return Integer.parseInt(str);
+        } catch (Exception e) {
+        }
+
+        return defaultValue;
+    }
 }

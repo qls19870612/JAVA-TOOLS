@@ -1,14 +1,15 @@
 package sample.fxml.controllers;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import javafx.application.Platform;
+import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.util.Callback;
 import sample.config.AppConfig;
 import sample.fxml.renders.CreateJavaClassRender;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * @描述
@@ -16,6 +17,7 @@ import java.util.TimerTask;
  * @创建时间 $date$
  */
 public class CreateConfigController {
+    @FXML
     public ListView list;
 
     public void init() {
@@ -27,7 +29,7 @@ public class CreateConfigController {
         });
         list.getItems().addAll(AppConfig.getCodeInfos());
         Timer timer = new Timer();
-        long period = 2*1000;
+        long period = 2 * 1000;
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -36,7 +38,7 @@ public class CreateConfigController {
                     Platform.runLater(() -> updateList());
                 }
             }
-        },period,period);
+        }, period, period);
     }
 
     private void updateList() {

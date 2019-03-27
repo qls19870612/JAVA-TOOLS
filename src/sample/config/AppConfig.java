@@ -40,7 +40,7 @@ public class AppConfig {
     public static HashMap<String, CodeInfo> codeInfos;
     public static String defaultValuePackageName;
 
-    private static Pattern functionPatter = Pattern.compile(" public\\s+static\\s+([\\w\\[\\]]+)\\s+(\\w+)\\s*\\(");
+    private static final Pattern functionPatter = Pattern.compile(" public\\s+static\\s+([\\w\\[\\]]+)\\s+(\\w+)\\s*\\(");
 
     private static long lastConfigModifyTime = 0;
     public static String xlsPath;
@@ -72,6 +72,7 @@ public class AppConfig {
             isUpdate = true;
         } catch (Exception e) {
             e.printStackTrace();
+            document = null;
         }
         return isUpdate;
     }
@@ -102,16 +103,16 @@ public class AppConfig {
     }
 
     public static void initFactory() {
-        if (dbFactory == null) {
-            try {
-                dbFactory = DocumentBuilderFactory.newInstance();
-                dbFactory.setIgnoringComments(true);
-                dbFactory.setIgnoringElementContentWhitespace(true);
-                db = dbFactory.newDocumentBuilder();
-            } catch (ParserConfigurationException e) {
-                e.printStackTrace();
-            }
+
+        try {
+            dbFactory = DocumentBuilderFactory.newInstance();
+            dbFactory.setIgnoringComments(true);
+            dbFactory.setIgnoringElementContentWhitespace(true);
+            db = dbFactory.newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
         }
+
     }
 
     private static HashMap<String, CodeInfo> getCodeInfos(NodeList chidren) {

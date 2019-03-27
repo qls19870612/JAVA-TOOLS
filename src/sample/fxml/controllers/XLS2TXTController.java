@@ -37,7 +37,7 @@ public class XLS2TXTController {
     public CheckBox updateTimeSortCb;
     private ThreadPoolExecutor threadPoolExecutor;
     private int threadCount = Runtime.getRuntime().availableProcessors() * 2;
-    public static int EMPTY_LINE = 99999999;
+    public final static int EMPTY_LINE = 99999999;
     private XLS2LUAController xls2LUAController;
     public static String luaTemplate;
 
@@ -75,7 +75,7 @@ public class XLS2TXTController {
             }
         });
         int len = allFiles.size();
-        int perThreadExecuteNum = (int) Math.ceil(len / threadCount);
+        int perThreadExecuteNum = (int) Math.ceil(len * 1f / threadCount);
         for (int i = 0; i < threadCount; i++) {
             List<File> list = allFiles.subList(i * perThreadExecuteNum, (i + 1) * perThreadExecuteNum);
             int finalI = i;
@@ -89,11 +89,11 @@ public class XLS2TXTController {
     }
 
     private void startConvertXlsList(List<File> list, int finalI) {
-        logger.debug("{} debugListSize:{},startTime:{}", finalI, list.size(), CodeCreateUtils.dateTimeFormatter.format(new Date()));
+        logger.debug("{} debugListSize:{},startTime:{}", finalI, list.size(), CodeCreateUtils.dateTimeFormatter.get().format(new Date()));
         for (File file : list) {
             createTxt(file);
         }
-        logger.debug("{} debugListSize:{},startTime:{}", finalI, list.size(), CodeCreateUtils.dateTimeFormatter.format(new Date()));
+        logger.debug("{} debugListSize:{},startTime:{}", finalI, list.size(), CodeCreateUtils.dateTimeFormatter.get().format(new Date()));
     }
 
 

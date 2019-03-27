@@ -26,11 +26,12 @@ public class $className1 {
     }
 }]]></class>
         </templates>
-        <selectTab>1</selectTab>
-        <readLuaUpdateCfg>0</readLuaUpdateCfg>
+        <selectTab>3</selectTab>
+        <readLuaUpdateCfg>3</readLuaUpdateCfg>
         <!--selectTab  0-2 -->
         <xlsPath>D:\workspace\svn\program\server\server\config\data</xlsPath>
         <luaPath>D:\workspace\svn\client\sg\src\config</luaPath>
         <genMsgPath>C:\Program Files\Git\git-bash.exe D:\workspace\project\bin\gen-msg.sh</genMsgPath>
+        <gmMsgPath>D:\workspace\project\config\data\GM命令.txt</gmMsgPath>
     </configs>
 </root>

@@ -71,6 +71,7 @@ public class FileOperator {
             code = get_charset(file);
         } catch (Exception e) {
             //            System.out.println(e.getMessage());
+            return null;
         }
         String ret = null;
         BufferedReader reader = null;

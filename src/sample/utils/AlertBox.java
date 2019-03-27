@@ -1,4 +1,6 @@
 package sample.utils;
+
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -9,7 +11,7 @@ import javafx.stage.Stage;
 
 public class AlertBox {
 
-    public AlertBox display(String title , String message){
+    public AlertBox display(String title, String message) {
         Stage window = new Stage();
         window.setTitle("title");
         //modality要使用Modality.APPLICATION_MODEL
@@ -23,7 +25,7 @@ public class AlertBox {
         Label label = new Label(message);
 
         VBox layout = new VBox(10);
-        layout.getChildren().addAll(label , button);
+        layout.getChildren().addAll(label, button);
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout);
@@ -32,12 +34,14 @@ public class AlertBox {
         window.showAndWait();
         return this;
     }
-    public static AlertBox showAlert(String title, String message)
-    {
+
+    public static AlertBox showAlert(String title, String message) {
+
         return new AlertBox().display(title, message);
     }
-    public static AlertBox showAlert( String message)
-    {
-        return showAlert("警告", message);
+
+    public static void showAlert(String message) {
+
+        Platform.runLater(() -> showAlert("警告", message));
     }
 }

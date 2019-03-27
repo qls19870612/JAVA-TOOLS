@@ -27,6 +27,11 @@
                         <fx:include fx:id="xml2TXT" source="fxml/XLS2Txt.fxml"/>
                     </content>
                 </Tab>
+                <Tab text="GM" onSelectionChanged="#onChangeToGM">
+                    <content>
+                        <fx:include fx:id="gmProxy" source="fxml/GMProxy.fxml"/>
+                    </content>
+                </Tab>
             </tabs>
         </TabPane>
         <Label fx:id="infoLabel" layoutX="20.0" layoutY="16.0" prefHeight="20.0" prefWidth="534.0" text=""/>

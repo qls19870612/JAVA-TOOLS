@@ -67,7 +67,7 @@ public class ExcelWrite {
         //创建workbook
         workbook = new HSSFWorkbook();
         //添加Worksheet（不添加sheet时生成的xls文件打开时会报错)
-        HSSFSheet sheet1 = workbook.createSheet(sheetName);
+        workbook.createSheet(sheetName);
         //新建文件
         FileOutputStream out = null;
         try {
@@ -79,14 +79,9 @@ public class ExcelWrite {
             }
             out = new FileOutputStream(fileDir);
             workbook.write(out);
+            out.close();
         } catch (Exception e) {
             throw e;
-        } finally {
-            try {
-                out.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -151,14 +146,9 @@ public class ExcelWrite {
 
             out = new FileOutputStream(fileDir);
             workbook.write(out);
+            out.close();
         } catch (Exception e) {
             throw e;
-        } finally {
-            try {
-                out.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 

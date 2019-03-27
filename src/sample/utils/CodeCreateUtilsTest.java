@@ -19,6 +19,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -69,7 +70,7 @@ public class CodeCreateUtilsTest {
 
     @Test
     public void test2() {
-        String src = "\n" + "\n" + "    @InitReq(cfgKeys = \"q_scene\", desc = \"地图\", max = 2)\n" + "    public final RaceId qScene = defaultObj();";
+        String src = "%n" + "%n" + "    @InitReq(cfgKeys = \"q_scene\", desc = \"地图\", max = 2)%n" + "    public final RaceId qScene = defaultObj();";
         Pattern fieldPattern = Pattern.compile("(?:\\S+\\s+)+?(\\S+)\\s*=");
         Matcher matcher = fieldPattern.matcher(src);
         while (matcher.find()) {
@@ -169,8 +170,8 @@ public class CodeCreateUtilsTest {
         String[] empty = new String[]{"@", "#", "$", "%", "*"};
         String[] aArr = strings1.toArray(empty);
         String[] bArr = strings2.toArray(empty);
-        System.out.printf("testArrayList. aArr.length:%s\n", aArr.length);
-        System.out.printf("testArrayList.bArr.length:%s\n", bArr.length);
+        System.out.printf("testArrayList. aArr.length:%s%n", aArr.length);
+        System.out.printf("testArrayList.bArr.length:%s%n", bArr.length);
 
     }
 
@@ -179,37 +180,37 @@ public class CodeCreateUtilsTest {
         long totalPrice = 100;
         int discount = 88;
         float v = discount / 100f;
-        System.out.printf("testCeil.v:%s\n", v);
+        System.out.printf("testCeil.v:%s%n", v);
         float v1 = totalPrice * v;
         long realPrice = (long) Math.ceil(v1);
-        System.out.printf("testCeil.realPrice:%s\n", realPrice);
+        System.out.printf("testCeil.realPrice:%s%n", realPrice);
     }
 
     @Test
     public void testFloat() {
 
-        System.out.printf("testFloat.Float.MAX_VALUE:%s\n", Float.MAX_VALUE);
+        System.out.printf("testFloat.Float.MAX_VALUE:%s%n", Float.MAX_VALUE);
         float f = 9999999999999.33302f;
-        System.out.printf("testFloat.f:%s\n", f);
+        System.out.printf("testFloat.f:%s%n", f);
         float f1 = 132432.3564f;
-        System.out.printf("testFloat.f1:%s\n", f1);
+        System.out.printf("testFloat.f1:%s%n", f1);
         double d = 1343534434342432.3564d;
-        System.out.printf("testFloat.d:%s\n", d);
+        System.out.printf("testFloat.d:%s%n", d);
         long a = 10;
         int b = 10000;
         double ab = Math.ceil(a / (double) b);
-        System.out.printf("testFloat.ab:%s\n", ab);
+        System.out.printf("testFloat.ab:%s%n", ab);
 
     }
 
     @Test
     public void testClassToString() {
         String string = this.getClass().toString();
-        System.out.printf("testClassToString.string:%s\n", string);
+        System.out.printf("testClassToString.string:%s%n", string);
         String string1 = this.getClass().toGenericString();
-        System.out.printf("testClassToString.string1:%s\n", string1);
+        System.out.printf("testClassToString.string1:%s%n", string1);
         String name = this.getClass().getPackage().getName();
-        System.out.printf("testClassToString.name:%s\n", name);
+        System.out.printf("testClassToString.name:%s%n", name);
     }
 
     @Test
@@ -242,10 +243,10 @@ public class CodeCreateUtilsTest {
         }
         aFile.close();
         byte[] array = totalBuff.array();
-        String s = new String(array);
-        String string = array.toString();
-        logger.debug("string:\n{}", string);
-        logger.debug("s:\n{}", s);
+        //        String s = new String(array);
+        //        String string = array.toString();
+        //        logger.debug("string:\n{}", string);
+        //        logger.debug("s:\n{}", s);
     }
 
     @Test
@@ -265,7 +266,7 @@ public class CodeCreateUtilsTest {
         logger.debug("short:{}", aShort);
         byte[] dst = new byte[byteBuffer.remaining()];
         byteBuffer.get(dst);
-        logger.debug("dst:{}", new String(dst));
+        logger.debug("dst:{}", new String(dst, Charset.forName("utf8")));
     }
 
     @Test
@@ -287,7 +288,7 @@ public class CodeCreateUtilsTest {
     @Test
     public void testUpper() {
         String string = StringUtils.toUpCase("adf__YdsfBrown", "_");
-        System.out.printf("testUpper.string:%s\n", string);
+        System.out.printf("testUpper.string:%s%n", string);
     }
 
     @Test
@@ -485,7 +486,7 @@ public class CodeCreateUtilsTest {
         System.out.println(x);
     }
 
-    class People {
+    static class People {
         public String getName() {
             return name;
         }
@@ -502,14 +503,17 @@ public class CodeCreateUtilsTest {
             this.age = age;
         }
 
-        //        @Override
-        //        public int hashCode() {
-        //            return name.hashCode() + age;
-        //        }
+        @Override
+        public int hashCode() {
+            return name.hashCode() + age;
+        }
 
         @Override
         public boolean equals(Object obj) {
             // TODO Auto-generated method stub
+            if (!(obj instanceof People)) {
+                return false;
+            }
             return this.name.equals(((People) obj).name) && this.age == ((People) obj).age;
         }
     }
@@ -522,8 +526,8 @@ public class CodeCreateUtilsTest {
         int count = 0;
         for (ArrayList<Integer> arrayList : arrayLists) {
             count++;
-            System.out.printf("testArray.count:%s\n", count);
-            System.out.printf("testArray.arrayList == null:%s\n", arrayList == null);
+            System.out.printf("testArray.count:%s%n", count);
+            System.out.printf("testArray.arrayList == null:%s%n", arrayList == null);
         }
     }
 
@@ -531,28 +535,28 @@ public class CodeCreateUtilsTest {
     public void testHashMap() {
         HashMap<Integer, Integer> map = new HashMap<>();
         Integer integer = map.get(0);
-        System.out.printf("testHashMap.integer:%s\n", integer);
+        System.out.printf("testHashMap.integer:%s%n", integer);
     }
 
     @Test
     public void testEnum() {
         AchievementType adf = AchievementType.valueOf("HERO_LEVEL");
-        System.out.printf("testEnum.adf:%s\n", adf);
+        System.out.printf("testEnum.adf:%s%n", adf);
     }
 
     @Test
     public void testPattern() {
         Pattern computeFlagPattern = Pattern.compile("([+\\-*/]|\\(\\s*int\\s*\\)|\\(\\s*long\\s*\\))");
         Matcher matcher = computeFlagPattern.matcher("asdf()");
-        System.out.printf("testPattern.matcher.find():%s\n", matcher.find());
+        System.out.printf("testPattern.matcher.find():%s%n", matcher.find());
         matcher = computeFlagPattern.matcher("asdf()");
-        System.out.printf("testPattern.matcher.find():%s\n", matcher.find());
+        System.out.printf("testPattern.matcher.find():%s%n", matcher.find());
         matcher = computeFlagPattern.matcher("asdf(long)");
-        System.out.printf("testPattern.matcher.find():%s\n", matcher.find());
+        System.out.printf("testPattern.matcher.find():%s%n", matcher.find());
         matcher = computeFlagPattern.matcher("asdf(int)");
-        System.out.printf("testPattern.matcher.find():%s\n", matcher.find());
+        System.out.printf("testPattern.matcher.find():%s%n", matcher.find());
         matcher = computeFlagPattern.matcher("asdf( int )");
-        System.out.printf("testPattern.matcher.find():%s\n", matcher.find());
+        System.out.printf("testPattern.matcher.find():%s%n", matcher.find());
     }
 
     @Test

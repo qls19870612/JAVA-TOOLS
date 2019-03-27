@@ -72,6 +72,16 @@
             <version>RELEASE</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>io.ytcode</groupId>
+            <artifactId>reflect</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>fang</groupId>
+            <artifactId>hotswap</artifactId>
+            <version>1.0.4</version>
+        </dependency>
     </dependencies>
 
 </project>

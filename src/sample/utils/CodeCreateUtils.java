@@ -45,7 +45,14 @@ import static sample.utils.ProjectSrcParserUtils.findParserClassMap;
  * @创建时间 $date$
  */
 public class CodeCreateUtils {
-    public static final SimpleDateFormat dateTimeFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static final ThreadLocal<SimpleDateFormat> dateTimeFormatter = new ThreadLocal<SimpleDateFormat>() {
+        @Override
+        protected SimpleDateFormat initialValue() {
+            return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        }
+    };
+
+    //    SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private static Set<String> exceptParamsHashmap = new HashSet<String>() {
         {
             add("cfgKeys");
@@ -53,10 +60,10 @@ public class CodeCreateUtils {
             add("parsers");
         }
     };
-    public static Pattern importPattern = Pattern.compile("import\\s+([\\s\\S]+?);");
-    private static Pattern injectFieldPattern = Pattern.compile("[\\r\\n]+\\s*@InitReq\\((.+)\\)([\\s\\S]+?)\\(\\);");
-    public static Pattern fieldPattern = Pattern.compile("(?:\\S+\\s+)+?(\\S+)\\s*=");
-    public static Pattern paramsPattern = Pattern.compile("([_\\w\\d]+)\\s*=\\s*([^,\\)]+)");
+    public static final Pattern importPattern = Pattern.compile("import\\s+([\\s\\S]+?);");
+    private static final Pattern injectFieldPattern = Pattern.compile("[\\r\\n]+\\s*@InitReq\\((.+)\\)([\\s\\S]+?)\\(\\);");
+    public static final Pattern fieldPattern = Pattern.compile("(?:\\S+\\s+)+?(\\S+)\\s*=");
+    public static final Pattern paramsPattern = Pattern.compile("([_\\w\\d]+)\\s*=\\s*([^,\\)]+)");
 
     //解析类型映射 解析类名，解析出来的数据类型
     public static HashMap<String, JavaSrcFileReadInfo> parserClassTypeMap;
@@ -359,7 +366,7 @@ public class CodeCreateUtils {
         code = code.replace("$imports", importBuffer.toString());
         code = code.replace("$fields", fields.toString());
         Date date = new Date();
-        String dateStr = dateTimeFormatter.format(date);
+        String dateStr = dateTimeFormatter.get().format(date);
         code = code.replace("$date", dateStr);
 
         File file = new File(AppConfig.baseCodePath + item.codePath + "\\" + item.className + ".java");
