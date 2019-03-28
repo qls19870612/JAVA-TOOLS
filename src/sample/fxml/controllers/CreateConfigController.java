@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.util.Callback;
+import sample.ITab;
 import sample.config.AppConfig;
 import sample.fxml.renders.CreateJavaClassRender;
 
@@ -16,19 +17,24 @@ import sample.fxml.renders.CreateJavaClassRender;
  * @创建人 liangsong
  * @创建时间 $date$
  */
-public class CreateConfigController {
+public class CreateConfigController implements ITab {
     @FXML
     public ListView list;
+    private boolean inited;
+    private Timer timer;
 
-    public void init() {
-
+    public void onSelect() {
+        if (inited) {
+            return;
+        }
+        inited = true;
         list.setCellFactory(new Callback<ListView, ListCell>() {
             public ListCell call(ListView param) {
                 return new CreateJavaClassRender();
             }
         });
         list.getItems().addAll(AppConfig.getCodeInfos());
-        Timer timer = new Timer();
+        timer = new Timer();
         long period = 2 * 1000;
         timer.schedule(new TimerTask() {
             @Override
@@ -39,6 +45,14 @@ public class CreateConfigController {
                 }
             }
         }, period, period);
+    }
+
+    @Override
+    public void onAppClose() {
+        if (!inited) {
+            return;
+        }
+        timer.cancel();
     }
 
     private void updateList() {

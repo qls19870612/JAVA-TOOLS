@@ -7,6 +7,10 @@ import com.google.inject.Injector;
 
 import com.alibaba.fastjson.JSON;
 
+import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
+import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
+import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
+
 import org.apache.commons.lang.StringUtils;
 import org.iq80.snappy.Snappy;
 import org.joda.time.DateTime;
@@ -48,6 +52,14 @@ import javafx.util.Duration;
 import static com.google.common.base.Preconditions.checkArgument;
 
 public class Utils extends CommonUtils {
+
+    public static final HanyuPinyinOutputFormat outputFormat = new HanyuPinyinOutputFormat();
+    public static final String BR = "\r\n";
+
+    static {
+        outputFormat.setToneType(HanyuPinyinToneType.WITHOUT_TONE);
+        outputFormat.setVCharType(HanyuPinyinVCharType.WITH_V);
+    }
 
     private static final Logger logger = LoggerFactory.getLogger(Utils.class);
     private static String[] nums = {"零", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十"};

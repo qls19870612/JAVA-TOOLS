@@ -1,5 +1,8 @@
 package sample.fxml.controllers.gm;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadFactory;
 
@@ -12,6 +15,8 @@ import game.sink.util.concurrent.PaddedAtomicInteger;
  * 创建时间 2019/03/27 16:29
  */
 public class TimeService {
+    private static final Logger logger = LoggerFactory.getLogger(TimeService.class);
+
     public SafeScheduledExecutorService getScheduledExec() {
         return scheduledExec;
     }
@@ -32,6 +37,13 @@ public class TimeService {
             }
         });
         scheduledExec.setExecuteExistingDelayedTasksAfterShutdownPolicy(false);
+
         this.scheduledExec = new SafeScheduledExecutorService(scheduledExec);
+
+    }
+
+    public void close() {
+        this.scheduledExec.getService().shutdown();
+
     }
 }

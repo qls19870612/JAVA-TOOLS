@@ -63,8 +63,6 @@ public class Client {
         sendBuffer.writeByte(0);//检查字节
         ++msgCount;
         int calculateOffset = calculateOffset(msgCount);
-        logger.debug("sendBuffer calculateOffset:{}", calculateOffset);
-        logger.debug("sendBuffer msgCount:{},this.account:{},moduleId:{},sequence:{}", msgCount, this.account, moduleId, sequence);
         sendBuffer.writeByte(calculateOffset);//检验消息序列
         sendBuffer.writeInt(getMsgId(moduleId, sequence));//模块ID
         if (array.length > 0) {
@@ -76,7 +74,9 @@ public class Client {
         int checkSum = stream.getCheckSum();
         sendBuffer.setByte(writeIndex, checkSum);
         Channels.write(channel, sendBuffer);
-
+        if (moduleId != 2 && sequence != 2) {
+            logger.debug("sendBuffer moduleId:{},sequence:{}", moduleId, sequence);
+        }
 
     }
 
@@ -102,11 +102,6 @@ public class Client {
         } else {
             logger.debug("onReciveMsg 未处理的模块消息 moduleId:{},sequenceId:{}", moduleId, sequenceId);
         }
-
-    }
-
-
-    private void onNotice(int sequenceId, ChannelBuffer message) {
 
     }
 
@@ -186,5 +181,10 @@ public class Client {
             scheduledFuture.cancel(true);
             scheduledFuture = null;
         }
+        this.channel.close();
+    }
+
+    public void disconnect() {
+        this.channel.close();
     }
 }

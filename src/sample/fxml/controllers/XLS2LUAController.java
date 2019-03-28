@@ -11,6 +11,7 @@ import javafx.application.Platform;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
+import sample.ITab;
 import sample.config.AppConfig;
 import sample.datas.vo.XlsInfo;
 import sample.file.FileOperator;
@@ -27,23 +28,29 @@ import static sample.file.FileOperator.NEX_LINE;
  * 创建人  liangsong
  * 创建时间 2018/10/26 9:54
  */
-public class XLS2LUAController {
-    private final XLS2TXTController xls2TXTController;
+public class XLS2LUAController implements ITab {
+    private final XlsController xlsController;
     private final ListView list;
     private HashMap<String, XlsInfo> allXlsInfoMap = new HashMap<>();
     private XlsInfo[] allXmlInfoArr = XlsInfo.EMPTY;
     public static XLS2LUAController instance;
     public final File luaCfgFile = new File("config/lua.cfg");
     private HashMap<String, Long> luaCfgData = new HashMap<>();
+    private boolean inited;
+    private Timer timer;
 
-    public XLS2LUAController(XLS2TXTController xls2TXTController) {
-        this.xls2TXTController = xls2TXTController;
-        this.list = xls2TXTController.xlsList;
+    public XLS2LUAController(XlsController xlsController) {
+        this.xlsController = xlsController;
+        this.list = xlsController.xlsList;
         instance = this;
-        this.init();
+
     }
 
     private void init() {
+        if (inited) {
+            return;
+        }
+        inited = true;
         if (readLuaUpdateCfg) {
             readLuaCfg();
             readLuaCfg();
@@ -51,7 +58,7 @@ public class XLS2LUAController {
         checkUpdateDp();
         list.setCellFactory((Callback<ListView, XlsItemRender>) param -> new XlsItemRender());
         list.getItems().addAll(getXlsInfos());
-        Timer timer = new Timer();
+        timer = new Timer();
         long period = 2 * 1000;
         timer.schedule(new TimerTask() {
             @Override
@@ -177,11 +184,24 @@ public class XLS2LUAController {
     }
 
     private void updateSort() {
-        if (xls2TXTController.updateTimeSortCb.isSelected()) {
+        if (xlsController.updateTimeSortCb.isSelected()) {
             Arrays.sort(this.allXmlInfoArr, XlsInfo.MODIFY_TIME_SORT);
 
         } else {
             Arrays.sort(this.allXmlInfoArr, XlsInfo.NAME_SORT);
         }
+    }
+
+    @Override
+    public void onSelect() {
+        this.init();
+    }
+
+    @Override
+    public void onAppClose() {
+        if (!inited) {
+            return;
+        }
+        timer.cancel();
     }
 }

@@ -4,7 +4,9 @@ import javafx.event.EventHandler;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.util.converter.DefaultStringConverter;
+import sample.utils.StringUtils;
 
 /**
  *
@@ -30,15 +32,23 @@ public class GmProxyItemRender extends TextFieldListCell<String> {
     }
 
 
-    //    @Override
-    //    public void updateItem(String item, boolean empty) {
-    //        super.updateItem(item, empty);
-    //        if (StringUtils.isNotEmpty(item)) {
-    //
-    //            setText(item);
-    //        } else {
-    //
-    //        }
-    //
-    //    }
+    @Override
+    public void updateItem(String item, boolean empty) {
+        super.updateItem(item, empty);
+        if (StringUtils.isNotEmpty(item)) {
+            setText(item);
+
+            if (this.getListView() != null) {
+                if (item.equals(getListView().getUserData())) {
+
+                    setTextFill(Color.DARKGREEN);
+                } else {
+                    setTextFill(Color.GRAY);
+                }
+            }
+        } else {
+
+        }
+
+    }
 }

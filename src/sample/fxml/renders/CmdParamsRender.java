@@ -11,9 +11,11 @@ import javafx.scene.Group;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import sample.fxml.componet.NumberTextField;
 import sample.fxml.controllers.gm.handlers.GmHandler.CmdParam;
 import sample.utils.StringUtils;
+import sample.utils.Utils;
 
 /**
  *
@@ -49,6 +51,9 @@ public class CmdParamsRender extends Group {
         this.label = new Label();
         this.label.setLayoutX(50);
         label.setPrefSize(100, 22);
+        Tooltip toolTip = new Tooltip();
+        Utils.hackTooltipStartTiming(toolTip);
+        label.setTooltip(toolTip);
         this.getChildren().add(label);
     }
 
@@ -63,6 +68,7 @@ public class CmdParamsRender extends Group {
             this.getChildren().add(label);
         }
         label.setText(param.paramsName);
+        label.getTooltip().setText(param.paramsName);
         switch (param.type) {
             case INT:
             case LONG:
@@ -105,7 +111,7 @@ public class CmdParamsRender extends Group {
     }
 
     public boolean isValid() {
-        if (this.param.defaultValue == null) {
+        if (this.param.defaultValue == null || "".equals(this.param.defaultValue)) {
             //没有默认值
             switch (param.type) {
                 case STRING:

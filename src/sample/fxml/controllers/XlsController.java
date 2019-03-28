@@ -18,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
+import sample.ITab;
 import sample.config.AppConfig;
 import sample.file.FileOperator;
 import sample.utils.CodeCreateUtils;
@@ -31,8 +32,8 @@ import static sample.utils.Xls2TxtUtils.createTxt;
 
  *@创建时间 2018/7/21/021 14:34
  */
-public class XLS2TXTController {
-    private static final Logger logger = LoggerFactory.getLogger(XLS2TXTController.class);
+public class XlsController implements ITab {
+    private static final Logger logger = LoggerFactory.getLogger(XlsController.class);
     public ListView xlsList;
     public CheckBox updateTimeSortCb;
     private ThreadPoolExecutor threadPoolExecutor;
@@ -40,8 +41,13 @@ public class XLS2TXTController {
     public final static int EMPTY_LINE = 99999999;
     private XLS2LUAController xls2LUAController;
     public static String luaTemplate;
+    private boolean inited;
 
-    public void init() {
+    public void onSelect() {
+        if (inited) {
+            return;
+        }
+        inited = true;
         luaTemplate = FileOperator.readFiles(new File("config/luaTemplate.lua"));
         ThreadFactory threadFactor = new ThreadFactory() {
             @Override
@@ -52,6 +58,16 @@ public class XLS2TXTController {
         BlockingQueue<Runnable> queue = new LinkedBlockingQueue<>();
         threadPoolExecutor = new ThreadPoolExecutor(threadCount, threadCount, 60L, TimeUnit.MINUTES, queue, threadFactor);
         xls2LUAController = new XLS2LUAController(this);
+        xls2LUAController.onSelect();
+    }
+
+    @Override
+    public void onAppClose() {
+        if (!inited) {
+            return;
+        }
+        threadPoolExecutor.shutdown();
+        xls2LUAController.onAppClose();
     }
 
     public void onCreateBtnClick(MouseEvent mouseEvent) {

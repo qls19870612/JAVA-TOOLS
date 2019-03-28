@@ -20,7 +20,7 @@ import game.initializer.io.loader.FileLoader;
 import game.initializer.io.loader.FileLoaderOS;
 import sample.datas.vo.XlsInfo;
 import sample.file.FileOperator;
-import sample.fxml.controllers.XLS2TXTController;
+import sample.fxml.controllers.XlsController;
 
 import static sample.Controller.log;
 import static sample.config.AppConfig.luaPath;
@@ -76,7 +76,7 @@ public class Xls2LuaUtils {
         String filePath = file.getParent();
         String item = shellContentToBuff(sheet, filePath, file.getName());
         String date = dateTimeFormatter.get().format(new Date());
-        String content = XLS2TXTController.luaTemplate.replace("&date&", date);
+        String content = XlsController.luaTemplate.replace("&date&", date);
         content = content.replace("&fileName&", file.getName());
         content = content.replace("&item&", item);
         String txtPath = luaPath + "/" + sheetName + ".lua";

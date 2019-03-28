@@ -49,6 +49,8 @@ public class AppConfig {
     public static String luaPath;
     public static int selectTab = 0;
     public static boolean readLuaUpdateCfg;
+    public static int gmPort;
+    public static String gmIp;
 
     public static boolean parseClassConfig() {
         boolean isUpdate = false;
@@ -94,6 +96,8 @@ public class AppConfig {
             xlsPath = document.getElementsByTagName("xlsPath").item(0).getChildNodes().item(0).getNodeValue();
             luaPath = document.getElementsByTagName("luaPath").item(0).getChildNodes().item(0).getNodeValue();
             genMsgPath = document.getElementsByTagName("genMsgPath").item(0).getChildNodes().item(0).getNodeValue();
+            gmIp = document.getElementsByTagName("gm_ip").item(0).getChildNodes().item(0).getNodeValue();
+            gmPort = Integer.parseInt(document.getElementsByTagName("gm_port").item(0).getChildNodes().item(0).getNodeValue());
             readLuaUpdateCfg =
                     document.getElementsByTagName("readLuaUpdateCfg").item(0).getChildNodes().item(0).getNodeValue().equals("1") ? true : false;
             selectTab = Integer.parseInt(document.getElementsByTagName("selectTab").item(0).getChildNodes().item(0).getNodeValue());

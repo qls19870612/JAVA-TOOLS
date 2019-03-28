@@ -60,7 +60,11 @@
         </plugins>
     </build>
     <dependencies>
-
+        <dependency>
+            <groupId>com.belerweb</groupId>
+            <artifactId>pinyin4j</artifactId>
+            <version>2.5.1</version>
+        </dependency>
         <dependency>
             <groupId>fang</groupId>
             <artifactId>initializer</artifactId>
@@ -81,6 +85,11 @@
             <groupId>fang</groupId>
             <artifactId>hotswap</artifactId>
             <version>1.0.4</version>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty</artifactId>
+            <version>3.10.6.Final</version>
         </dependency>
     </dependencies>
 

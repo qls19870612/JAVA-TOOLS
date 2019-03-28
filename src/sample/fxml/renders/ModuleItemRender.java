@@ -14,6 +14,9 @@ public class ModuleItemRender extends ListCell<GmModule> {
         super.updateItem(item, empty);
         if (item != null) {
             setText(item.moduleName);
+        } else {
+            setText("");
         }
+
     }
 }

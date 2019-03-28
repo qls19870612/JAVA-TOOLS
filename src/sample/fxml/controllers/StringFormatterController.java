@@ -16,6 +16,7 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.DataFormat;
 import javafx.scene.input.MouseEvent;
+import sample.ITab;
 import sample.config.AppConfig;
 import sample.utils.StringUtils;
 
@@ -26,19 +27,37 @@ import sample.utils.StringUtils;
 
  *@创建时间 2018/7/13/013 10:52
  */
-public class StringFormatterController {
+public class StringFormatterController implements ITab {
     public TextField uplowerTF;
     public Label afterConvertTF;
     public TextField upperCaseTF;
     public Label afterConvertUpperCaseTF;
     public TextArea srcStr;
     public TextArea toStr;
+    private boolean inited;
 
-    public void init() throws NoSuchMethodException {
-        addListener(uplowerTF, afterConvertTF, StringUtils.class.getMethod("toUpLowerString", String.class));
-        addListener(upperCaseTF, afterConvertUpperCaseTF, StringUtils.class.getMethod("toUpCase", String.class));
-        addListener(srcStr, toStr, StringUtils.class.getMethod("convertToString", String.class));
+    public void onSelect() {
+        if (inited) {
+            return;
 
+        }
+        inited = true;
+
+        try {
+            addListener(uplowerTF, afterConvertTF, StringUtils.class.getMethod("toUpLowerString", String.class));
+            addListener(upperCaseTF, afterConvertUpperCaseTF, StringUtils.class.getMethod("toUpCase", String.class));
+            addListener(srcStr, toStr, StringUtils.class.getMethod("convertToString", String.class));
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void onAppClose() {
+        if (!inited) {
+            return;
+        }
     }
 
     private void addListener(TextInputControl textField, Label afterTf, Method formatMethod) {

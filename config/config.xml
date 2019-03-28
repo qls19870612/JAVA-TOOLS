@@ -33,5 +33,7 @@ public class $className1 {
         <luaPath>D:\workspace\svn\client\sg\src\config</luaPath>
         <genMsgPath>C:\Program Files\Git\git-bash.exe D:\workspace\project\bin\gen-msg.sh</genMsgPath>
         <gmMsgPath>D:\workspace\project\config\data\GM命令.txt</gmMsgPath>
+        <gm_ip>localhost</gm_ip>
+        <gm_port>9999</gm_port>
     </configs>
 </root>

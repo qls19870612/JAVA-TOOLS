@@ -1,40 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <AnchorPane prefHeight="600" prefWidth="660" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <children>
-        <TabPane fx:id="tabPanel" layoutX="19.0" layoutY="42.0" prefHeight="538.0" prefWidth="620.0" tabClosingPolicy="UNAVAILABLE"
-                 AnchorPane.bottomAnchor="20.0"
-                 AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="42.0">
+        <TabPane fx:id="tabPanel" prefHeight="538.0" prefWidth="639.0" tabClosingPolicy="UNAVAILABLE" tabMinWidth="70" AnchorPane.bottomAnchor="40.0"
+                 AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
             <tabs>
 
-                <Tab text="配置生成">
+                <Tab text="配置生成" fx:id="configTab">
                     <content>
                         <!--<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="297.0" prefWidth="432.0" />-->
                         <fx:include fx:id="createConfig" source="fxml/CreateConfig.fxml"/>
                     </content>
                 </Tab>
-                <Tab text="文本格式化">
+                <Tab text="文本格式化" fx:id="txtTab">
                     <content>
                         <fx:include fx:id="stringFormatter" source="fxml/StringFormatter.fxml"/>
                     </content>
                 </Tab>
-                <Tab text="XLS转换">
+                <Tab text="XLS转换" fx:id="xlsTab">
                     <content>
-                        <fx:include fx:id="xml2TXT" source="fxml/XLS2Txt.fxml"/>
+                        <fx:include fx:id="xls" source="fxml/XLS2Txt.fxml"/>
                     </content>
                 </Tab>
-                <Tab text="GM" onSelectionChanged="#onChangeToGM">
+                <Tab text="GM" fx:id="gmTab">
                     <content>
                         <fx:include fx:id="gmProxy" source="fxml/GMProxy.fxml"/>
                     </content>
                 </Tab>
             </tabs>
         </TabPane>
-        <Label fx:id="infoLabel" layoutX="20.0" layoutY="16.0" prefHeight="20.0" prefWidth="534.0" text=""/>
-        <Label fx:id="timeLabel" layoutX="543.0" layoutY="19.0" prefHeight="15.0" prefWidth="92.0" text="" textAlignment="RIGHT"/>
+        <Label fx:id="infoLabel" prefHeight="20.0" prefWidth="534.0" text="info" AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="10"
+               AnchorPane.rightAnchor="120"/>
+        <Label fx:id="timeLabel" prefHeight="20" prefWidth="100" text="time" textAlignment="LEFT" AnchorPane.bottomAnchor="10"
+               AnchorPane.rightAnchor="10"/>
+        <Separator style="-fx-background-color: LIGHTSKYBLUE;" AnchorPane.bottomAnchor="33" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10"/>
     </children>
 </AnchorPane>

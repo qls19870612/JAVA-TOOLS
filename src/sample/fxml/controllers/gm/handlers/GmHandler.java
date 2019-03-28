@@ -1,5 +1,8 @@
 package sample.fxml.controllers.gm.handlers;
 
+import net.sourceforge.pinyin4j.PinyinHelper;
+import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
+
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import sample.Controller;
 import sample.fxml.controllers.gm.Client;
 import sample.fxml.controllers.gm.Modules;
 import sample.fxml.controllers.gm.handlers.base.GMParamType;
@@ -14,6 +18,9 @@ import sample.fxml.controllers.gm.handlers.base.Handler;
 import sample.fxml.controllers.gm.handlers.base.HandlerBase;
 import sample.utils.BufferUtil;
 import sample.utils.StringUtils;
+import sample.utils.Utils;
+
+import static sample.utils.Utils.BR;
 
 /**
  *
@@ -22,9 +29,9 @@ import sample.utils.StringUtils;
  */
 @Handler(moduleId = Modules.GM_MODULE_ID)
 public class GmHandler extends HandlerBase {
+
     private static final Logger logger = LoggerFactory.getLogger(GmHandler.class);
-    public static final String BR = "\r\n";
-    private ArrayList<GmModule> modules;
+
 
     @Override
     public void handle(Client client, int sequence, ChannelBuffer buffer) {
@@ -37,6 +44,14 @@ public class GmHandler extends HandlerBase {
             client.gmProxyController.updateModules(modules);
         } else {
             logger.debug("handle gmMsg:{}", gmMsg);
+            Controller.log(gmMsg);
+            if (gmMsg.startsWith("设置代理目标")) {
+                String[] split = gmMsg.split("：");
+                client.gmProxyController.setProxy(split[1]);
+            } else if (gmMsg.startsWith("清空代理目标")) {
+                client.gmProxyController.setProxy("");
+
+            }
         }
 
 
@@ -44,7 +59,7 @@ public class GmHandler extends HandlerBase {
 
     private ArrayList<GmModule> parseAllGm(String substring) {
         String[] lines = substring.split(BR);
-        modules = new ArrayList<>();
+        ArrayList<GmModule> modules = new ArrayList<>();
         GmModule module = null;
         GmCmd cmd = null;
         CmdParam params = null;
@@ -72,6 +87,7 @@ public class GmHandler extends HandlerBase {
             params = new CmdParam(paramArr);
             cmd.addCmdParams(params);
         }
+        modules.sort((o1, o2) -> o1.pinyinString.compareTo(o2.pinyinString));
         return modules;
     }
 
@@ -79,8 +95,20 @@ public class GmHandler extends HandlerBase {
         public final String moduleName;
         public ArrayList<GmCmd> cmds = new ArrayList<>();
 
+        public String getPinyinString() {
+            return pinyinString;
+        }
+
+        private String pinyinString;
+
         public GmModule(String moduleName) {
             this.moduleName = moduleName;
+            try {
+                pinyinString = PinyinHelper.toHanYuPinyinString(moduleName, Utils.outputFormat, "", true).toLowerCase();
+            } catch (BadHanyuPinyinOutputFormatCombination badHanyuPinyinOutputFormatCombination) {
+                badHanyuPinyinOutputFormatCombination.printStackTrace();
+                pinyinString = moduleName.toLowerCase();
+            }
         }
 
         public void addGm(GmCmd cmd) {
@@ -91,10 +119,12 @@ public class GmHandler extends HandlerBase {
     public class GmCmd {
         public final String cmdName;
         public final String comment;
+        public final String lowerCmdName;
         public ArrayList<CmdParam> params = new ArrayList<>();
 
         public GmCmd(String cmdName, String comment) {
             this.cmdName = cmdName;
+            this.lowerCmdName = cmdName.toLowerCase();
             this.comment = comment;
         }
 

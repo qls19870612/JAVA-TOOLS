@@ -27,6 +27,7 @@ public class SingleDecoderHandler extends LengthFieldBasedFrameDecoder implement
     public SingleDecoderHandler(GMProxyController controller) {
         super(DEFAULT_MSG_SIZE_LIMIT, 0, 2, -2, 0);
         this.controller = controller;
+
     }
 
     @Override

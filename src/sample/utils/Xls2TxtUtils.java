@@ -21,7 +21,7 @@ import game.initializer.io.loader.FileLoaderOS;
 import sample.file.FileOperator;
 
 import static sample.Controller.log;
-import static sample.fxml.controllers.XLS2TXTController.EMPTY_LINE;
+import static sample.fxml.controllers.XlsController.EMPTY_LINE;
 import static sample.utils.CodeCreateUtils.getEncodePath;
 
 /**

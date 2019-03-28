@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="sample.fxml.controllers.XLS2TXTController"
+            fx:controller="sample.fxml.controllers.XlsController"
             prefHeight="600.0" prefWidth="600.0">
     <HBox AnchorPane.leftAnchor="10" AnchorPane.topAnchor="10" spacing="10" alignment="CENTER">
 

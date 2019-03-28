@@ -9,7 +9,6 @@ import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
-import javafx.scene.control.OverrunStyle;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
@@ -57,7 +56,6 @@ public class CmdItemRender extends ListCell<GmCmd> {
             if (vBox == null) {
                 label = new Label();
                 Tooltip tooltip = new Tooltip();
-                tooltip.setTextOverrun(OverrunStyle.CENTER_WORD_ELLIPSIS);
                 Utils.hackTooltipStartTiming(tooltip);
                 label.setTooltip(tooltip);
 

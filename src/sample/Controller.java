@@ -1,27 +1,38 @@
 package sample;
 
+import com.sun.javafx.tk.Toolkit;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
-import javafx.event.Event;
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.Tooltip;
 import sample.config.AppConfig;
 import sample.fxml.controllers.CreateConfigController;
 import sample.fxml.controllers.GMProxyController;
 import sample.fxml.controllers.StringFormatterController;
-import sample.fxml.controllers.XLS2TXTController;
+import sample.fxml.controllers.XlsController;
+import sample.utils.Utils;
 
 public class Controller {
+    private static final Logger logger = LoggerFactory.getLogger(Controller.class);
     private static int count = 0;
     @FXML
     public CreateConfigController createConfigController;
     @FXML
     public StringFormatterController stringFormatterController;
     @FXML
-    public XLS2TXTController xml2TXTController;
+    public XlsController xlsController;
     @FXML
     public GMProxyController gmProxyController;
     @FXML
@@ -31,22 +42,53 @@ public class Controller {
     @FXML
     public TabPane tabPanel;
     private static Controller instance = null;
+    public Tab gmTab;
+    public Tab xlsTab;
+    public Tab txtTab;
+    public Tab configTab;
     private SimpleDateFormat timeDataFormat;
+    private ArrayList<ITab> tabs;
 
     public void init() {
-        createConfigController.init();
-        try {
-            stringFormatterController.init();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
-        xml2TXTController.init();
+
+        tabs = new ArrayList<ITab>();
+        tabs.add(stringFormatterController);
+        tabs.add(createConfigController);
+        tabs.add(xlsController);
+        tabs.add(gmProxyController);
         timeDataFormat = new SimpleDateFormat("HH:mm:ss");
         instance = this;
+
+        tabPanel.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
+            @Override
+            public void changed(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
+                logger.debug("changed newValue.getText:{}", newValue.getText());
+                if (newValue == gmTab) {
+                    gmProxyController.onSelect();
+                } else if (newValue == xlsTab) {
+                    xlsController.onSelect();
+                } else if (newValue == txtTab) {
+                    stringFormatterController.onSelect();
+                } else if (newValue == configTab) {
+                    createConfigController.onSelect();
+                }
+            }
+        });
         tabPanel.getSelectionModel().select(AppConfig.selectTab);
+        infoLabel.setText("");
+        timeLabel.setText("");
     }
 
+
     public static void log(String... args) {
+        if (!Toolkit.getToolkit().isFxUserThread()) {
+            Platform.runLater(() -> showLogInFxThread(args));
+            return;
+        }
+        showLogInFxThread(args);
+    }
+
+    private static void showLogInFxThread(String[] args) {
         String showTxt = null;
         if (args.length == 1) {
             showTxt = args[0];
@@ -66,20 +108,22 @@ public class Controller {
             showTxt = showTxt.substring(0, 30) + "...." + showTxt.substring(showTxt.length() - 40);
         }
         instance.infoLabel.setText(showTxt);
+        if (instance.infoLabel.getTooltip() == null) {
+
+            Tooltip toolTip = new Tooltip();
+            Utils.hackTooltipStartTiming(toolTip);
+            instance.infoLabel.setTooltip(toolTip);
+        }
+        instance.infoLabel.getTooltip().setText(showTxt);
         count++;
         instance.timeLabel.setText(count + ": " + instance.timeDataFormat.format(new Date()));
     }
 
-    public void onChangeToGM(Event event) {
-        if (event.getTarget() instanceof Tab) {
-            Tab target = (Tab) event.getTarget();
-            switch (target.getText()) {
-                case "GM":
 
-                    gmProxyController.onSelect();
-                    break;
-
-            }
+    public void onAppClose() {
+        for (ITab tab : tabs) {
+            tab.onAppClose();
         }
+
     }
 }
