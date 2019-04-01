@@ -1,58 +1,139 @@
-package sample.fxml.controllers.gm;
+package sample.fxml.controllers.client;
 
+
+import org.jboss.netty.bootstrap.ClientBootstrap;
 import org.jboss.netty.buffer.ChannelBuffer;
+import org.jboss.netty.buffer.HeapChannelBufferFactory;
 import org.jboss.netty.buffer.LittleEndianHeapChannelBuffer;
 import org.jboss.netty.channel.Channel;
+import org.jboss.netty.channel.ChannelFuture;
+import org.jboss.netty.channel.ChannelPipeline;
 import org.jboss.netty.channel.Channels;
+import org.jboss.netty.channel.socket.nio.NioClientSocketChannelFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.InetSocketAddress;
+import java.nio.ByteOrder;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
+import game.service.IThreadService;
 import game.service.ScheduleRunnable;
 import game.sink.server.CheckSumStream;
 import game.sink.util.StringEncoder;
-import sample.fxml.controllers.GMProxyController;
-import sample.fxml.controllers.gm.handlers.base.HandlerBase;
-import sample.fxml.controllers.gm.msgs.MiscModuleMessages;
+import game.sink.util.concurrent.DisruptorExecutor;
+import sample.config.AppConfig;
+import sample.fxml.controllers.client.handlers.base.HandlerBase;
+import sample.fxml.controllers.client.msgs.MiscModuleMessages;
+import sample.utils.AlertBox;
 import sample.utils.BufferUtil;
 import sample.utils.TimeUtils;
+import sample.utils.Utils;
 
-import static sample.fxml.controllers.gm.msgs.GMModuleMessages.C2S_G_M;
+import static sample.fxml.controllers.client.msgs.GMModuleMessages.C2S_G_M;
+
 
 /**
  *
  * 创建人  liangsong
  * 创建时间 2019/03/25 20:06
  */
-public class Client {
+public abstract class ClientBase implements IClient {
     private static final ChannelBuffer EMPTY_BUFF = new LittleEndianHeapChannelBuffer(0);
     private final CheckSumStream stream;
-    public final byte[] roleName;
-    private final String account;
-    private final Channel channel;
-    public final GMProxyController gmProxyController;
+    protected boolean isLogined;
+    private ClientBootstrap socket;
+
+
+    private Channel channel;
+    private final TimeService timeService;
+    private final HandlerHub handlerHub;
+    private IConnTimeOut conTimeOut;
+
+
+    private int accountId;
+    private final IThreadService threadService;
+
+    @Override
+    public byte[] getRoleName() {
+        return roleName;
+    }
+
+    private byte[] roleName;
+    private String account;
+
     private int msgCount = -1;
-    private static final Logger logger = LoggerFactory.getLogger(Client.class);
+    private static final Logger logger = LoggerFactory.getLogger(ClientBase.class);
     private Hero[] heros;
     private long severTime;
     private long clientTime;
     private ScheduledFuture<?> scheduledFuture;
 
-    public Client(String account, Channel channel, GMProxyController gmProxyController) {
-        this.account = account;
+    public ClientBase(ClientDepends depends) {
+        this.timeService = depends.timeService;
+        this.handlerHub = depends.handlerHub;
+        threadService = depends.threadService;
 
-        this.channel = channel;
-        this.gmProxyController = gmProxyController;
         stream = new CheckSumStream();
+    }
+
+    public int getAccountId() {
+        return accountId;
+    }
+
+
+    @Override
+    public void setChannel(Channel channel) {
+        this.channel = channel;
+    }
+
+    public void startLoginAccount(String account) {
+        if (isLogined) {
+            return;
+        }
+
+        this.account = account;
+        accountId = Utils.safeParseInt(this.account, 0);
+        if (accountId == 0) {
+            accountId = account.hashCode();
+        }
         roleName = StringEncoder.encode(account);
+
+
+        socket = new ClientBootstrap(new NioClientSocketChannelFactory(Executors.newCachedThreadPool(), Executors.newCachedThreadPool()));
+        socket.setOption("bufferFactory", HeapChannelBufferFactory.getInstance(ByteOrder.LITTLE_ENDIAN));
+        socket.setOption("tcpNoDelay", true);
+        socket.setOption("keepAlive", false);
+        socket.setOption("sendBufferSize", 8192 * 4);
+        socket.setOption("receiveBufferSize", 8192 * 4);
+
+        socket.setPipelineFactory(() -> {
+            ChannelPipeline pipeline = Channels.pipeline();
+            pipeline.addLast("dsf", new SingleDecoderHandler(this));
+            return pipeline;
+
+        });
+
+        ChannelFuture connect = socket.connect(new InetSocketAddress(AppConfig.gmIp, AppConfig.gmPort));
+        connect.addListener(future -> {
+
+            if (!future.isSuccess()) {
+                if (conTimeOut != null) {
+                    conTimeOut.onTimeOut(this);
+                }
+                AlertBox.showAlert("无法连接服务器:" + AppConfig.gmIp + ":" + AppConfig.gmPort);
+
+            }
+        });
     }
 
     private static int getMsgId(int moduleId, int sequence) {
         return moduleId * 1000 + sequence;
     }
 
+    @Override
     public void sendBuffer(ChannelBuffer buffer, int moduleId, int sequence) {
 
         byte[] array = buffer.toByteBuffer().array();
@@ -96,7 +177,7 @@ public class Client {
     }
 
     public void onReciveMsg(int moduleId, int sequenceId, ChannelBuffer message) {
-        HandlerBase handler = gmProxyController.getHandler(moduleId);
+        HandlerBase handler = handlerHub.getHandler(moduleId);
         if (handler != null) {
             handler.handle(this, sequenceId, message);
         } else {
@@ -111,9 +192,8 @@ public class Client {
         sendBuffer(Modules.GM_MODULE_ID, C2S_G_M, s);
     }
 
-
+    @Override
     public void onMessage(ChannelBuffer message) {
-
 
         short len = message.readShort();
 
@@ -125,20 +205,22 @@ public class Client {
         onReciveMsg(moduleId, sequenceId, message);
     }
 
+    @Override
     public void onDisconnect() {
-        gmProxyController.onSocketClose();
         dispose();
     }
 
+    @Override
     public void onConnect() {
 
+        loginAccount();
+    }
 
-        int ModuleId = 1;
-        int sequence = 1;
+    private void loginAccount() {
         int operatorID = 1;
         int serverID = 1;
         byte[] deviceid = StringEncoder.encode("5ac0264b5c78c336af5ba94ddb69cc89");
-        byte[] userId = StringEncoder.encode(gmProxyController.userIdTF.getText());
+        byte[] userId = StringEncoder.encode(account);
         int msgLen = userId.length + 2 + BufferUtil.computeVarInt32Size(operatorID) + BufferUtil.computeVarInt32Size(serverID) + deviceid.length + 2;
 
         ChannelBuffer channelBuffer = new LittleEndianHeapChannelBuffer(msgLen);
@@ -146,22 +228,26 @@ public class Client {
         BufferUtil.writeVarInt32(channelBuffer, operatorID);
         BufferUtil.writeVarInt32(channelBuffer, serverID);
         BufferUtil.writeUTF(channelBuffer, deviceid);
-        sendBuffer(channelBuffer, ModuleId, sequence);
+
+        sendBuffer(channelBuffer, Modules.LOGIN_MODULE_ID, sample.fxml.controllers.client.msgs.LoginModuleMessages.C2S_ACCOUNT_LOGIN);
     }
 
+    @Override
     public void setHeros(Hero[] heros) {
         this.heros = heros;
     }
 
+    @Override
     public void sendBuffer(int moduleId, int sequnce) {
 
         sendBuffer(EMPTY_BUFF, moduleId, sequnce);
     }
 
+    @Override
     public void setServerTime(long serverTime) {
         this.severTime = serverTime;
         this.clientTime = System.currentTimeMillis();
-        scheduledFuture = gmProxyController.getTimeService().getScheduledExec().scheduleWithFixedDelay(new ScheduleRunnable("向服务器发送心跳") {
+        scheduledFuture = timeService.getScheduledExec().scheduleWithFixedDelay(new ScheduleRunnable("向服务器发送心跳") {
             @Override
             public void doRun() throws Throwable {
                 int currServerSec = TimeUtils.millsToSecond(getServerTime());
@@ -172,19 +258,38 @@ public class Client {
         }, 10, 10, TimeUnit.SECONDS);
     }
 
+    @Override
     public long getServerTime() {
         return this.severTime + System.currentTimeMillis() - this.clientTime;
     }
 
+    @Override
     public void dispose() {
         if (scheduledFuture != null) {
             scheduledFuture.cancel(true);
             scheduledFuture = null;
         }
         this.channel.close();
+        this.socket.releaseExternalResources();
     }
 
+    @Override
     public void disconnect() {
         this.channel.close();
+    }
+
+    @Override
+    public String toString() {
+        return "ClientBase{" + "account='" + account + '\'' + '}';
+    }
+
+    @Override
+    public void setConnTimeOut(IConnTimeOut timeOut) {
+        this.conTimeOut = timeOut;
+    }
+
+    @Override
+    public DisruptorExecutor getDisruptorExecutor() {
+        return threadService.getExecutor(accountId);
     }
 }

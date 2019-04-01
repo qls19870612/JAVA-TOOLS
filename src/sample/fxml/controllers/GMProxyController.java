@@ -1,26 +1,8 @@
 package sample.fxml.controllers;
 
-import org.jboss.netty.bootstrap.ClientBootstrap;
-import org.jboss.netty.buffer.HeapChannelBufferFactory;
-import org.jboss.netty.channel.ChannelFuture;
-import org.jboss.netty.channel.ChannelPipeline;
-import org.jboss.netty.channel.Channels;
-import org.jboss.netty.channel.socket.nio.NioClientSocketChannelFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.File;
-import java.lang.reflect.Modifier;
-import java.net.InetSocketAddress;
-import java.nio.ByteOrder;
 import java.util.ArrayList;
-import java.util.concurrent.Executors;
 
-import game.collection.IntHashMap;
-import game.collection.IntHashMap.Entry;
-import io.ytcode.reflect.clazz.Classes;
-import io.ytcode.reflect.resource.Resources;
-import io.ytcode.reflect.resource.Scanner;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
@@ -32,21 +14,17 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import sample.Controller;
 import sample.ITab;
-import sample.config.AppConfig;
 import sample.file.FileOperator;
-import sample.fxml.controllers.gm.Client;
-import sample.fxml.controllers.gm.Modules;
-import sample.fxml.controllers.gm.SingleDecoderHandler;
-import sample.fxml.controllers.gm.TimeService;
-import sample.fxml.controllers.gm.handlers.GmHandler.GmCmd;
-import sample.fxml.controllers.gm.handlers.GmHandler.GmModule;
-import sample.fxml.controllers.gm.handlers.base.Handler;
-import sample.fxml.controllers.gm.handlers.base.HandlerBase;
+import sample.fxml.controllers.client.ClientDepends;
+import sample.fxml.controllers.client.TimeService;
+import sample.fxml.controllers.client.gm.GmClient;
+import sample.fxml.controllers.client.handlers.gm.GmCmd;
+import sample.fxml.controllers.client.handlers.gm.GmModule;
 import sample.fxml.renders.CmdItemRender;
 import sample.fxml.renders.GmProxyItemRender;
 import sample.fxml.renders.ModuleItemRender;
-import sample.utils.AlertBox;
 import sample.utils.StringUtils;
 
 import static sample.utils.Utils.BR;
@@ -57,7 +35,6 @@ import static sample.utils.Utils.BR;
  * 创建时间 2019/03/25 15:03
  */
 public class GMProxyController implements ITab {
-    private static final Logger logger = LoggerFactory.getLogger(GMProxyController.class);
     public TextField userIdTF;
     public Button loginBtn;
 
@@ -65,33 +42,29 @@ public class GMProxyController implements ITab {
     public ListView<String> proxyListView;
     public ListView<GmModule> moduleListView;
     public ListView<GmCmd> cmdListView;
-    //    public TextField moduleTF;
     public ComboBox<String> cmdComboBox;
     public ComboBox<String> moduleComboBox;
-    private ClientBootstrap socket;
     private boolean inited;
     private boolean isLogined;
-    private Client client;
-    private HandlerBase[] handlers;
+    private GmClient client;
+
     private ArrayList<GmModule> modules = new ArrayList<>();
     private final String proxyClientListFile = "proxyClientList.txt";
     private final String searchFile = "searchFile.txt";
 
 
-    public TimeService getTimeService() {
-        return timeService;
-    }
-
     private TimeService timeService;
 
     public static GMProxyController THIS;
 
-    public void loginBtnClick(MouseEvent mouseEvent) {
+    public void loginBtnClick() {
         if (isLogined) {
             startLogout();
         } else {
-
-            startLogin();
+            if (StringUtils.isEmpty(userIdTF.getText())) {
+                userIdTF.setText(userIdTF.getPromptText());
+            }
+            client.startLoginAccount(userIdTF.getText());
         }
 
 
@@ -103,37 +76,6 @@ public class GMProxyController implements ITab {
         }
     }
 
-    private void startLogin() {
-        if (isLogined) {
-            return;
-        }
-        if (StringUtils.isEmpty(userIdTF.getText())) {
-            userIdTF.setText(userIdTF.getPromptText());
-        }
-
-        socket = new ClientBootstrap(new NioClientSocketChannelFactory(Executors.newCachedThreadPool(), Executors.newCachedThreadPool()));
-        socket.setOption("bufferFactory", HeapChannelBufferFactory.getInstance(ByteOrder.LITTLE_ENDIAN));
-        socket.setOption("tcpNoDelay", true);
-        socket.setOption("keepAlive", false);
-        socket.setOption("sendBufferSize", 8192 * 4);
-        socket.setOption("receiveBufferSize", 8192 * 4);
-
-        socket.setPipelineFactory(() -> {
-            ChannelPipeline pipeline = Channels.pipeline();
-            pipeline.addLast("dsf", new SingleDecoderHandler(GMProxyController.this));
-            return pipeline;
-
-        });
-
-        ChannelFuture connect = socket.connect(new InetSocketAddress(AppConfig.gmIp, AppConfig.gmPort));
-        connect.addListener(future -> {
-
-            if (!future.isSuccess()) {
-                AlertBox.showAlert("无法连接服务器:" + AppConfig.gmIp + ":" + AppConfig.gmPort);
-
-            }
-        });
-    }
 
     public void onSocketClose() {
         setIsLogined(false);
@@ -186,13 +128,14 @@ public class GMProxyController implements ITab {
 
         THIS = this;
         timeService = new TimeService();
-        initGMHandlers();
         inited = true;
+        ClientDepends depends = Controller.getClientDepends();
+        client = new GmClient(this, depends);
         initComponent();
         readProxyList();
         readSearchList();
         if (StringUtils.isNotEmpty(userIdTF.getText())) {
-            startLogin();
+            client.startLoginAccount(userIdTF.getText());
         }
     }
 
@@ -270,7 +213,7 @@ public class GMProxyController implements ITab {
             cmdListView.getItems().clear();
             for (GmModule module : modules) {
                 for (GmCmd cmd : module.cmds) {
-                    if (cmd.lowerCmdName.contains(newValue)) {
+                    if (cmd.lowerCmdName.contains(newValue) || cmd.getCommentPinYin().contains(newValue)) {
                         cmdListView.getItems().add(cmd);
                     }
                 }
@@ -337,49 +280,9 @@ public class GMProxyController implements ITab {
         if (timeService != null) {
             timeService.close();
         }
-        if (socket != null) {
-
-            socket.releaseExternalResources();
-        }
-    }
-
-
-    private void initGMHandlers() {
-        Resources rs = Scanner.pkgs(Modules.class.getPackage().getName()).scan();
-        Classes clss = rs.classes().subTypeOf(HandlerBase.class).filter(input -> !input.isInterface() && !Modifier.isAbstract(input.getModifiers()));
-        IntHashMap<HandlerBase> handlerBases = new IntHashMap<>();
-        int maxModuleId = 0;
-        for (Class<?> cls : clss) {
-            Handler annotation = cls.getAnnotation(Handler.class);
-            if (annotation != null) {
-                Class<HandlerBase> handlerBaseClass = (Class<HandlerBase>) cls;
-                HandlerBase handlerBase = null;
-                try {
-                    handlerBase = handlerBaseClass.newInstance();
-                } catch (InstantiationException | IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-                if (handlerBase == null) {
-                    continue;
-                }
-                maxModuleId = Math.max(maxModuleId, annotation.moduleId());
-                handlerBases.put(annotation.moduleId(), handlerBase);
-            }
-        }
-        handlers = new HandlerBase[maxModuleId + 1];
-        for (Entry<HandlerBase> handlerBaseEntry : handlerBases.entrySet()) {
-            handlers[handlerBaseEntry.getKey()] = handlerBaseEntry.getValue();
-        }
-
 
     }
 
-    public HandlerBase getHandler(int moduleId) {
-        if (moduleId < 0 || moduleId >= handlers.length) {
-            return null;
-        }
-        return handlers[moduleId];
-    }
 
     private void readProxyList() {
         String s = FileOperator.readFiles(new File(proxyClientListFile));
@@ -453,11 +356,6 @@ public class GMProxyController implements ITab {
         FileOperator.writeFile(new File(proxyClientListFile), stringBuilder.toString());
     }
 
-
-    public void setClient(Client client) {
-
-        this.client = client;
-    }
 
     public void updateModules(ArrayList<GmModule> modules) {
         this.modules = modules;

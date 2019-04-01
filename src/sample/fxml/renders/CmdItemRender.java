@@ -14,8 +14,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import sample.fxml.controllers.GMProxyController;
-import sample.fxml.controllers.gm.handlers.GmHandler.CmdParam;
-import sample.fxml.controllers.gm.handlers.GmHandler.GmCmd;
+import sample.fxml.controllers.client.handlers.gm.CmdParam;
+import sample.fxml.controllers.client.handlers.gm.GmCmd;
 import sample.utils.AlertBox;
 import sample.utils.Utils;
 

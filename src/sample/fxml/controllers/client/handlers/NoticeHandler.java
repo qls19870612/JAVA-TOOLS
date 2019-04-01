@@ -1,13 +1,13 @@
-package sample.fxml.controllers.gm.handlers;
+package sample.fxml.controllers.client.handlers;
 
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import sample.fxml.controllers.gm.Client;
-import sample.fxml.controllers.gm.Modules;
-import sample.fxml.controllers.gm.handlers.base.Handler;
-import sample.fxml.controllers.gm.handlers.base.HandlerBase;
+import sample.fxml.controllers.client.IClient;
+import sample.fxml.controllers.client.Modules;
+import sample.fxml.controllers.client.handlers.base.Handler;
+import sample.fxml.controllers.client.handlers.base.HandlerBase;
 
 /**
  *
@@ -19,7 +19,7 @@ public class NoticeHandler extends HandlerBase {
     private static final Logger logger = LoggerFactory.getLogger(NoticeHandler.class);
 
     @Override
-    public void handle(Client client, int sequence, ChannelBuffer buffer) {
+    public void handle(IClient client, int sequence, ChannelBuffer buffer) {
         logger.debug("handle sequence:{}", sequence);
     }
 }

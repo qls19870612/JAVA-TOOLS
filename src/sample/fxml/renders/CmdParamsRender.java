@@ -13,7 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import sample.fxml.componet.NumberTextField;
-import sample.fxml.controllers.gm.handlers.GmHandler.CmdParam;
+import sample.fxml.controllers.client.handlers.gm.CmdParam;
 import sample.utils.StringUtils;
 import sample.utils.Utils;
 

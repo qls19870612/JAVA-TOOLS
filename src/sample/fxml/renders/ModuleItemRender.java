@@ -1,7 +1,7 @@
 package sample.fxml.renders;
 
 import javafx.scene.control.ListCell;
-import sample.fxml.controllers.gm.handlers.GmHandler.GmModule;
+import sample.fxml.controllers.client.handlers.gm.GmModule;
 
 /**
  *

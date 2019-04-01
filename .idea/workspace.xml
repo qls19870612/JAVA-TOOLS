@@ -2,11 +2,51 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aed95fc1-e526-4bd3-b844-fa4ae712b8ad" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/sample/fxml/Robot.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/RobotController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/ClientDepends.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/HandlerHub.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/IClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/IConnTimeOut.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/IHandlerHub.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/gm/GmClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/handlers/base/HandlerBase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/handlers/gm/CmdParam.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/handlers/gm/GmCmd.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/handlers/gm/GmModule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/robots/DBService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/robots/HeroEasyInfoCoder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/robots/RobotClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/robots/SimpleAccountInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/robots/TomcatJdbcPool.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/threads/ThreadServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxyClientList.txt" beforeDir="false" afterPath="$PROJECT_DIR$/proxyClientList.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/searchFile.txt" beforeDir="false" afterPath="$PROJECT_DIR$/searchFile.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/fxml/GMProxy.fxml.bak" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sample/fxml/controllers/GMProxyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/GMProxyController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/fxml/controllers/gm/handlers/GmHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/gm/handlers/GmHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/fxml/controllers/gm/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/ClientBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/fxml/controllers/gm/Hero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/Hero.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/fxml/controllers/gm/Modules.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/Modules.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/fxml/controllers/gm/SingleDecoderHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/SingleDecoderHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/fxml/controllers/gm/TimeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/TimeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/fxml/controllers/gm/handlers/GmHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/handlers/GmHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/fxml/controllers/gm/handlers/LoginHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/handlers/LoginHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/fxml/controllers/gm/handlers/MiscHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/handlers/MiscHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/fxml/controllers/gm/handlers/NoticeHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/handlers/NoticeHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/fxml/controllers/gm/handlers/SceneHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/handlers/SceneHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/fxml/controllers/gm/handlers/base/GMParamType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/handlers/base/GMParamType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/fxml/controllers/gm/handlers/base/Handler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/handlers/base/Handler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/fxml/controllers/gm/handlers/base/HandlerBase.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/fxml/controllers/gm/msgs/GMModuleMessages.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/msgs/GMModuleMessages.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/fxml/controllers/gm/msgs/LoginModuleMessages.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/msgs/LoginModuleMessages.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/fxml/controllers/gm/msgs/MiscModuleMessages.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/msgs/MiscModuleMessages.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/fxml/controllers/gm/msgs/SceneModuleMessages.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/msgs/SceneModuleMessages.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/fxml/renders/CmdItemRender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/renders/CmdItemRender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/fxml/renders/CmdParamsRender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/renders/CmdParamsRender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/fxml/renders/ModuleItemRender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/renders/ModuleItemRender.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -20,11 +60,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="CmdItemRender.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sample/fxml/renders/CmdItemRender.java">
+      <file leaf-file-name="GMProxyController.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/GMProxyController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="756">
-              <caret line="58" column="54" selection-start-line="58" selection-start-column="54" selection-end-line="58" selection-end-column="54" />
+            <state relative-caret-position="175">
+              <caret line="130" column="22" selection-start-line="130" selection-start-column="22" selection-end-line="130" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -32,20 +72,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="config.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/config.xml">
+      <file leaf-file-name="HandlerHub.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/client/HandlerHub.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
-              <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
+            <state relative-caret-position="175">
+              <caret line="20" column="19" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="19" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#572#573#0" expanded="true" />
+                <element signature="e#604#605#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GmHandler.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/gm/handlers/GmHandler.java">
+      <file leaf-file-name="ClientDepends.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/client/ClientDepends.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="46" column="34" selection-start-line="46" selection-start-column="34" selection-end-line="46" selection-end-column="34" />
+            <state relative-caret-position="280">
+              <caret line="20" column="32" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -53,33 +98,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClientBootstrap.java" pinned="false" current-in-tab="false">
-        <entry file="file://D:/workspace/netty_git/src/main/java/org/jboss/netty/bootstrap/ClientBootstrap.java">
+      <file leaf-file-name="RobotController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/RobotController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="203">
-              <caret line="176" column="25" selection-start-line="176" selection-start-column="25" selection-end-line="176" selection-end-column="25" />
+            <state relative-caret-position="287">
+              <caret line="55" column="56" lean-forward="true" selection-start-line="55" selection-start-column="56" selection-end-line="55" selection-end-column="56" />
               <folding>
-                <element signature="e#4417#4418#0" expanded="true" />
-                <element signature="e#4454#4455#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Utils.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sample/utils/Utils.java">
+      <file leaf-file-name="RobotClient.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/client/robots/RobotClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="392">
-              <caret line="1208" column="37" selection-start-line="1208" selection-start-column="37" selection-end-line="1208" selection-end-column="37" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="85" column="44" lean-forward="true" selection-start-line="85" selection-start-column="44" selection-end-line="85" selection-end-column="44" />
+            <state relative-caret-position="168">
+              <caret line="12" column="11" selection-start-line="12" selection-start-column="11" selection-end-line="12" selection-end-column="11" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#363#364#0" expanded="true" />
+                <element signature="e#409#410#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -89,9 +129,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="FxmlFile" />
         <option value="AnnotationType" />
         <option value="XSLT Stylesheet" />
+        <option value="FxmlFile" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -122,6 +163,9 @@
       <find>setOnInputMethodTextChanged</find>
       <find>moduleTF</find>
       <find>cmdComboBox</find>
+      <find>LoginHandler</find>
+      <find>C2S_ACCOUNT_LOGIN</find>
+      <find>GmModule</find>
     </findStrings>
     <replaceStrings>
       <replace>static final</replace>
@@ -135,37 +179,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/sample/file/FileOperator.java" />
-        <option value="$PROJECT_DIR$/src/sample/utils/ClassParserUtils.java" />
-        <option value="$PROJECT_DIR$/src/sample/utils/ExcelWrite.java" />
-        <option value="$PROJECT_DIR$/src/sample/utils/CodeCreateUtils.java" />
-        <option value="$PROJECT_DIR$/src/sample/utils/Xls2LuaUtils.java" />
-        <option value="$PROJECT_DIR$/src/sample/utils/CodeCreateUtilsTest.java" />
-        <option value="$PROJECT_DIR$/src/sample/utils/AlertBox.java" />
-        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/gm/msgs/SceneModuleMessages.java" />
-        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/gm/Hero.java" />
-        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/gm/handlers/HandlerBase.java" />
-        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/gm/handlers/Handler.java" />
-        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/gm/handlers/LoginHandler.java" />
-        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/gm/handlers/NoticeHandler.java" />
-        <option value="$PROJECT_DIR$/src/sample/fxml/componet/NumberTextField.java" />
-        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/gm/handlers/base/Handler.java" />
-        <option value="$PROJECT_DIR$/src/sample/utils/StringUtils.java" />
-        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/gm/handlers/base/GMParamType.java" />
-        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/gm/msgs/MiscModuleMessages.java" />
-        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/gm/handlers/SceneHandler.java" />
-        <option value="$PROJECT_DIR$/src/sample/utils/TimeUtils.java" />
-        <option value="$PROJECT_DIR$/src/sample/utils/ITimeData.java" />
-        <option value="$PROJECT_DIR$/src/sample/utils/DurationTime.java" />
-        <option value="$PROJECT_DIR$/src/sample/utils/Empty.java" />
-        <option value="$PROJECT_DIR$/src/sample/utils/TimeData.java" />
-        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/gm/handlers/MiscHandler.java" />
-        <option value="$PROJECT_DIR$/src/sample/fxml/renders/CmdItemRender.css" />
-        <option value="$PROJECT_DIR$/src/sample/fxml/XLS2Txt.fxml" />
-        <option value="$PROJECT_DIR$/src/sample/fxml/GMProxy.fxml.bak" />
-        <option value="$PROJECT_DIR$/src/sample/fxml/renders/CmdItemRender.java" />
-        <option value="$PROJECT_DIR$/src/sample/ITab.java" />
-        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/XLS2TXTController.java" />
         <option value="$PROJECT_DIR$/src/sample/Main.java" />
         <option value="$PROJECT_DIR$/src/sample/fxml/controllers/CreateConfigController.java" />
         <option value="$PROJECT_DIR$/src/sample/fxml/controllers/StringFormatterController.java" />
@@ -173,19 +186,50 @@
         <option value="$PROJECT_DIR$/src/sample/fxml/controllers/XlsController.java" />
         <option value="$PROJECT_DIR$/src/sample/sample.fxml" />
         <option value="$PROJECT_DIR$/src/sample/fxml/controllers/gm/TimeService.java" />
-        <option value="$PROJECT_DIR$/src/sample/Controller.java" />
         <option value="$PROJECT_DIR$/src/sample/fxml/renders/GmProxyItemRender.java" />
-        <option value="$PROJECT_DIR$/src/sample/fxml/renders/ModuleItemRender.java" />
         <option value="$PROJECT_DIR$/src/sample/utils/Utils.java" />
-        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/gm/Client.java" />
         <option value="$PROJECT_DIR$/src/sample/fxml/GMProxy.fxml" />
-        <option value="$PROJECT_DIR$/src/sample/fxml/renders/CmdParamsRender.java" />
         <option value="$PROJECT_DIR$/src/sample/config/AppConfig.java" />
-        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/gm/SingleDecoderHandler.java" />
-        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/GMProxyController.java" />
         <option value="$PROJECT_DIR$/config/config.xml" />
-        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/gm/handlers/GmHandler.java" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/gm/handlers/base/HandlerBase.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/gm/handlers/MiscHandler.java" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/gm/handlers/NoticeHandler.java" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/gm/handlers/SceneHandler.java" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/gm/IClient.java" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/IHandlerHub.java" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/gm/HandlerHub.java" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/gm/handlers/GmHandler.java" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/gm/handlers/LoginHandler.java" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/robots/RobotClient.java" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/gm/Client.java" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/gm/GmClient.java" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/gm/SingleDecoderHandler.java" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/client/gm/Client.java" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/client/handlers/gm/CmdParam.java" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/client/handlers/gm/GmCmd.java" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/client/handlers/gm/GmModule.java" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/client/handlers/GmHandler.java" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/renders/CmdItemRender.java" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/renders/CmdParamsRender.java" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/renders/ModuleItemRender.java" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/Robot.fxml" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/client/robots/TomcatJdbcPool.java" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/client/robots/SimpleAccountInfo.java" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/client/robots/HeroEasyInfoCoder.java" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/client/robots/DBService.java" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/client/IConnTimeOut.java" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/client/threads/ThreadServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/client/gm/GmClient.java" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/client/robots/RobotClient.java" />
+        <option value="$PROJECT_DIR$/src/sample/Controller.java" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/RobotController.java" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/client/IClient.java" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/client/SingleDecoderHandler.java" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/client/ClientDepends.java" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/client/Client.java" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/client/ClientBase.java" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/GMProxyController.java" />
       </list>
     </option>
   </component>
@@ -239,7 +283,7 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="1912" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
@@ -299,7 +343,7 @@
               <item name="sample" type="462c0819:PsiDirectoryNode" />
               <item name="fxml" type="462c0819:PsiDirectoryNode" />
               <item name="controllers" type="462c0819:PsiDirectoryNode" />
-              <item name="gm" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="javaTools" type="b2602c69:ProjectViewProjectNode" />
@@ -308,8 +352,8 @@
               <item name="sample" type="462c0819:PsiDirectoryNode" />
               <item name="fxml" type="462c0819:PsiDirectoryNode" />
               <item name="controllers" type="462c0819:PsiDirectoryNode" />
-              <item name="gm" type="462c0819:PsiDirectoryNode" />
-              <item name="handlers" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="robots" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="javaTools" type="b2602c69:ProjectViewProjectNode" />
@@ -318,8 +362,8 @@
               <item name="sample" type="462c0819:PsiDirectoryNode" />
               <item name="fxml" type="462c0819:PsiDirectoryNode" />
               <item name="controllers" type="462c0819:PsiDirectoryNode" />
-              <item name="gm" type="462c0819:PsiDirectoryNode" />
-              <item name="msgs" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="threads" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="javaTools" type="b2602c69:ProjectViewProjectNode" />
@@ -354,15 +398,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="sample.fxml.controllers.client.threads" />
+      <recent name="sample.fxml.controllers.client.robots" />
       <recent name="sample.utils" />
       <recent name="sample.fxml.controllers.gm.msgs" />
       <recent name="sample.fxml.controllers.gm.handlers.base" />
-      <recent name="sample.fxml.controllers.gm.login" />
-      <recent name="sample.fxml.controllers.gm" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
-      <recent name="sample.fxml.renders" />
+      <recent name="sample.fxml.controllers.client" />
+      <recent name="sample.fxml.controllers.client.msgs" />
+      <recent name="sample.fxml.controllers" />
       <recent name="sample.fxml.controllers.gm" />
+      <recent name="sample.fxml.renders" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -520,32 +567,32 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-8" width="1936" height="1056" extended-state="0" />
+    <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="FindBugs-IDEA" order="7" sideWeight="0.81396586" weight="0.18200621" />
-      <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.48187634" weight="0.32827735" />
+      <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.48027718" weight="0.32827735" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.10074627" side_tool="true" visible="true" weight="0.33586133" />
-      <window_info active="true" anchor="right" id="Maven Projects" order="3" visible="true" weight="0.13326226" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50319827" side_tool="true" visible="true" weight="0.37378114" />
+      <window_info anchor="right" id="Maven Projects" order="3" visible="true" weight="0.13752665" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32936078" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.8992537" visible="true" weight="0.33586133" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.8987207" weight="0.39761648" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.862969" visible="true" weight="0.22068231" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.85813147" visible="true" weight="0.14232409" />
       <window_info anchor="bottom" id="Run with VisualVM" order="8" sideWeight="0.4989339" weight="0.32936078" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4978678" weight="0.32936078" />
-      <window_info id="Structure" order="1" sideWeight="0.13703099" side_tool="true" visible="true" weight="0.22068231" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4968017" weight="0.3206934" />
+      <window_info id="Structure" order="1" sideWeight="0.14186852" side_tool="true" visible="true" weight="0.14232409" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.9003198" weight="0.37378114" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.8987207" weight="0.37378114" />
       <window_info anchor="bottom" id="Debug with VisualVM" order="8" sideWeight="0.4989339" weight="0.32936078" />
       <window_info anchor="bottom" id="Dependency Viewer" order="8" sideWeight="0.49946696" weight="0.32936078" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -595,16 +642,16 @@
           <option name="timeStamp" value="149" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/sample/fxml/controllers/gm/SingleDecoderHandler.java</url>
-          <line>51</line>
+          <url>file://$PROJECT_DIR$/src/sample/fxml/controllers/client/ClientBase.java</url>
+          <line>217</line>
           <properties />
-          <option name="timeStamp" value="153" />
+          <option name="timeStamp" value="220" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="209" />
+      <option name="time" value="222" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -663,318 +710,128 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/sample/fxml/renders/GmProxyItemRender.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/io/netty/netty/3.10.6.Final/netty-3.10.6.Final.jar!/org/jboss/netty/handler/codec/frame/FrameDecoder.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="35" column="56" selection-start-line="35" selection-start-column="56" selection-end-line="35" selection-end-column="56" />
+        <state relative-caret-position="199">
+          <caret line="146" column="16" selection-start-line="146" selection-start-column="16" selection-end-line="146" selection-end-column="16" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/client/handlers/SceneHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="36" column="21" selection-start-line="36" selection-start-column="21" selection-end-line="36" selection-end-column="21" />
+        <state relative-caret-position="84">
+          <caret line="16" column="17" lean-forward="true" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/gm/msgs/GMModuleMessages.java">
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/client/handlers/NoticeHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="17" column="38" lean-forward="true" selection-start-line="17" selection-start-column="38" selection-end-line="17" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/lang/Object.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="234" column="18" selection-start-line="234" selection-start-column="18" selection-end-line="234" selection-end-column="18" />
+          <folding>
+            <element signature="e#10065#10066#0" expanded="true" />
+            <element signature="e#10148#10149#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/client/msgs/GMModuleMessages.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
           <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/workspace/pinyin4j/src/main/java/net/sourceforge/pinyin4j/PinyinHelper.java">
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/client/handlers/MiscHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="28" column="25" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="140">
+          <caret line="21" column="46" lean-forward="true" selection-start-line="21" selection-start-column="46" selection-end-line="21" selection-end-column="46" />
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/workspace/pinyin4j/src/test/java/net/sourceforge/pinyin4j/test/PinyinHelperTest.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/io/netty/netty/3.10.6.Final/netty-3.10.6.Final.jar!/org/jboss/netty/channel/SimpleChannelUpstreamHandler.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="24" column="55" selection-start-line="24" selection-start-column="55" selection-end-line="24" selection-end-column="55" />
+        <state relative-caret-position="183">
+          <caret line="102" column="16" selection-start-line="102" selection-start-column="16" selection-end-line="102" selection-end-column="16" />
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/workspace/pinyin4j/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/workspace/pinyin4j/src/test/java/net/sourceforge/pinyin4j/test/Q.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="19" selection-start-line="19" selection-end-line="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/workspace/netty_git/src/main/java/org/jboss/netty/channel/AbstractChannel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="207" selection-start-line="207" selection-end-line="207" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/fang/server-common/1.0.3/server-common-1.0.3.jar!/game/service/SafeScheduledExecutorService.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="20" selection-start-line="20" selection-end-line="20" />
-          <folding>
-            <element signature="e#601#602#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/gm/TimeService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="497">
-          <caret line="47" selection-start-line="47" selection-end-line="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/util/concurrent/Executors.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="214" column="34" selection-start-line="214" selection-start-column="34" selection-end-line="214" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/workspace/netty_git/src/main/java/org/jboss/netty/channel/socket/nio/NioClientBossPool.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="48" column="101" lean-forward="true" selection-start-line="48" selection-start-column="101" selection-end-line="48" selection-end-column="101" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/workspace/netty_git/src/main/java/org/jboss/netty/channel/socket/nio/NioClientSocketChannelFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="215" column="28" lean-forward="true" selection-start-line="215" selection-start-column="28" selection-end-line="215" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/workspace/netty_git/src/main/java/org/jboss/netty/channel/ChannelFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="72" column="9" selection-start-line="72" selection-start-column="9" selection-end-line="72" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/workspace/netty_git/src/main/java/org/jboss/netty/bootstrap/Bootstrap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="81" selection-start-line="81" selection-end-line="81" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/workspace/netty_git/src/main/java/org/jboss/netty/channel/ChannelUpstreamHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="497">
-          <caret line="96" column="9" selection-start-line="96" selection-start-column="9" selection-end-line="96" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/workspace/netty_git/src/main/java/org/jboss/netty/channel/Channels.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="57" column="36" selection-start-line="57" selection-start-column="36" selection-end-line="57" selection-end-column="36" />
-          <folding>
-            <element signature="e#2003#2004#0" expanded="true" />
-            <element signature="e#2054#2055#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/fang/server-common/1.0.3/server-common-1.0.3.jar!/game/sink/server/SingleHandlerChannelPipeline.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="44" column="16" selection-start-line="44" selection-start-column="16" selection-end-line="44" selection-end-column="16" />
-          <folding>
-            <element signature="e#1531#1532#0" expanded="true" />
-            <element signature="e#1588#1589#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/workspace/netty_git/src/main/java/org/jboss/netty/channel/ChannelPipeline.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="235" column="9" selection-start-line="235" selection-start-column="9" selection-end-line="235" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/scene/control/TextField.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="71" column="13" selection-start-line="71" selection-start-column="13" selection-end-line="71" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/XlsController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-126">
-          <caret line="60" column="37" lean-forward="true" selection-start-line="60" selection-start-column="37" selection-end-line="60" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/XLS2LUAController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2079">
-          <caret line="204" column="23" selection-start-line="204" selection-start-column="23" selection-end-line="204" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/workspace/netty_git/src/main/java/org/jboss/netty/channel/DefaultChannelPipeline.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-119">
-          <caret line="59" column="54" lean-forward="true" selection-start-line="59" selection-start-column="54" selection-end-line="59" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/StringFormatterController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="62" column="94" lean-forward="true" selection-start-line="62" selection-start-column="94" selection-end-line="62" selection-end-column="94" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/collections/ObservableMap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="43" column="16" selection-start-line="43" selection-start-column="16" selection-end-line="43" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/scene/Node.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="8224" column="40" selection-start-line="8224" selection-start-column="40" selection-end-line="8224" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/sample.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="31" column="69" selection-start-line="31" selection-start-column="69" selection-end-line="31" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/fxml/renders/ModuleItemRender.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/util/List.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="306" column="12" selection-start-line="306" selection-start-column="12" selection-end-line="306" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/proxyClientList.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/scene/control/TextInputControl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="1044" column="16" selection-start-line="1044" selection-start-column="16" selection-end-line="1044" selection-end-column="16" />
-          <folding>
-            <element signature="e#37226#37227#0" expanded="true" />
-            <element signature="e#37300#37301#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/file/FileOperator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="67" column="25" selection-start-line="67" selection-start-column="25" selection-end-line="67" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/gm/Client.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="187" column="29" selection-start-line="187" selection-start-column="29" selection-end-line="187" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#6466#6467#0" expanded="true" />
-            <element signature="e#6501#6502#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/utils/Utils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="1208" column="37" selection-start-line="1208" selection-start-column="37" selection-end-line="1208" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/fxml/GMProxy.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="30" column="22" lean-forward="true" selection-start-line="30" selection-start-column="22" selection-end-line="30" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/config/AppConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="51" column="4" selection-start-line="51" selection-start-column="4" selection-end-line="51" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/net/Inet4Address.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="44" column="36" lean-forward="true" selection-start-line="44" selection-start-column="36" selection-end-line="44" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/net/SocketAddress.java">
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/client/Modules.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
-          <caret line="40" column="22" selection-start-line="40" selection-start-column="22" selection-end-line="40" selection-end-column="22" />
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/workspace/netty_git/src/main/java/org/jboss/netty/channel/ChannelHandler.java">
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/client/Hero.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="208" column="17" selection-start-line="208" selection-start-column="17" selection-end-line="208" selection-end-column="17" />
+        <state relative-caret-position="126">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/workspace/netty_git/src/main/java/org/jboss/netty/channel/ChannelDownstreamHandler.java">
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/client/IHandlerHub.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="77" column="58" selection-start-line="77" selection-start-column="58" selection-end-line="77" selection-end-column="58" />
+        <state relative-caret-position="126">
+          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/workspace/netty_git/src/main/java/org/jboss/netty/handler/codec/frame/LengthFieldBasedFrameDecoder.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/com/google/inject/guice/3.0/guice-3.0.jar!/com/google/inject/util/Modules.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="497">
-          <caret line="416" column="41" lean-forward="true" selection-start-line="416" selection-start-column="41" selection-end-line="416" selection-end-column="41" />
+        <state relative-caret-position="420">
+          <caret line="33" column="19" selection-start-line="33" selection-start-column="19" selection-end-line="33" selection-end-column="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/gm/SingleDecoderHandler.java">
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/client/msgs/MiscModuleMessages.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="91">
-          <caret line="19" column="55" selection-start-line="19" selection-start-column="55" selection-end-line="19" selection-end-column="55" />
+        <state relative-caret-position="98">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/client/handlers/gm/CmdParam.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="22" column="34" lean-forward="true" selection-start-line="22" selection-start-column="34" selection-end-line="22" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/client/handlers/gm/GmCmd.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="43" column="1" selection-start-line="43" selection-start-column="1" selection-end-line="43" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/client/handlers/gm/GmModule.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="18" column="33" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/client/msgs/LoginModuleMessages.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="28">
+          <caret line="2" column="43" lean-forward="true" selection-start-line="2" selection-start-column="8" selection-end-line="2" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -983,36 +840,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/fxml/renders/CmdParamsRender.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="69" column="40" lean-forward="true" selection-start-line="69" selection-start-column="40" selection-end-line="69" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/net/InetAddress.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="1073" column="30" selection-start-line="1073" selection-start-column="30" selection-end-line="1073" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/net/InetSocketAddress.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="214" column="11" selection-start-line="214" selection-start-column="11" selection-end-line="214" selection-end-column="11" />
-          <folding>
-            <element signature="e#4750#4751#0" expanded="true" />
-            <element signature="e#4807#4808#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/GMProxyController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="132" column="13" selection-start-line="132" selection-start-column="13" selection-end-line="132" selection-end-column="13" />
+        <state relative-caret-position="-602">
+          <caret line="64" column="34" selection-start-line="64" selection-start-column="34" selection-end-line="64" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1021,46 +850,279 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/fxml/renders/CmdItemRender.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="756">
-          <caret line="58" column="54" selection-start-line="58" selection-start-column="54" selection-end-line="58" selection-end-column="54" />
+        <state relative-caret-position="434">
+          <caret line="104" column="29" selection-start-line="104" selection-start-column="29" selection-end-line="104" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1174#1175#0" expanded="true" />
+            <element signature="e#1197#1198#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/renders/ModuleItemRender.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="10" column="54" selection-start-line="10" selection-start-column="54" selection-end-line="10" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/client/handlers/GmHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="36" column="38" selection-start-line="36" selection-start-column="38" selection-end-line="36" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/config.xml">
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/GMProxy.fxml.bak">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/CreateConfig.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/GMProxy.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
+        <state relative-caret-position="28">
+          <caret line="2" column="38" lean-forward="true" selection-start-line="2" selection-start-column="38" selection-end-line="2" selection-end-column="38" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/gm/handlers/GmHandler.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/fang/server-common/1.0.3/server-common-1.0.3.jar!/game/service/db/DBPool.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="46" column="34" selection-start-line="46" selection-start-column="34" selection-end-line="46" selection-end-column="34" />
+        <state relative-caret-position="84">
+          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/client/robots/TomcatJdbcPool.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="57" column="21" selection-start-line="57" selection-start-column="11" selection-end-line="57" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/workspace/netty_git/src/main/java/org/jboss/netty/bootstrap/ClientBootstrap.java">
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/client/robots/SimpleAccountInfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="176" column="25" selection-start-line="176" selection-start-column="25" selection-end-line="176" selection-end-column="25" />
+        <state relative-caret-position="182">
+          <caret line="13" column="31" selection-start-line="13" selection-start-column="31" selection-end-line="13" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/client/robots/HeroEasyInfoCoder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
           <folding>
-            <element signature="e#4417#4418#0" expanded="true" />
-            <element signature="e#4454#4455#0" expanded="true" />
+            <element signature="e#486#487#0" expanded="true" />
+            <element signature="e#544#545#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/Robot.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="85" column="44" lean-forward="true" selection-start-line="85" selection-start-column="44" selection-end-line="85" selection-end-column="44" />
+        <state relative-caret-position="182">
+          <caret line="13" column="59" lean-forward="true" selection-start-line="13" selection-start-column="59" selection-end-line="13" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/client/TimeService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/client/robots/DBService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="87">
+          <caret line="18" column="82" selection-start-line="18" selection-start-column="82" selection-end-line="18" selection-end-column="82" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/renders/CreateJavaClassRender.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-147">
+          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/renders/GlobalMenu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-126">
+          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/renders/GmProxyItemRender.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-105">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/XlsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="32" column="27" lean-forward="true" selection-start-line="32" selection-start-column="27" selection-end-line="32" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/renders/XlsItemRender.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="35">
+          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/client/IConnTimeOut.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/client/threads/ThreadServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="122" column="5" lean-forward="true" selection-start-line="122" selection-start-column="5" selection-end-line="122" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/client/handlers/LoginHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="61" selection-start-line="61" selection-end-line="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/lang/Integer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="613" column="22" selection-start-line="613" selection-start-column="22" selection-end-line="613" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/com/sun/jmx/snmp/tasks/ThreadService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="33" column="17" lean-forward="true" selection-start-line="33" selection-start-column="17" selection-end-line="33" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/RobotController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287">
+          <caret line="55" column="56" lean-forward="true" selection-start-line="55" selection-start-column="56" selection-end-line="55" selection-end-column="56" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/client/robots/RobotClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="12" column="11" selection-start-line="12" selection-start-column="11" selection-end-line="12" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#363#364#0" expanded="true" />
+            <element signature="e#409#410#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="406">
+          <caret line="53" column="40" selection-start-line="53" selection-start-column="40" selection-end-line="53" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/client/handlers/base/HandlerBase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="12" column="84" lean-forward="true" selection-start-line="12" selection-start-column="84" selection-end-line="12" selection-end-column="84" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/client/gm/GmClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="77">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/client/IClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="30" column="9" selection-start-line="30" selection-start-column="9" selection-end-line="30" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/client/SingleDecoderHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="34" column="68" selection-start-line="34" selection-start-column="68" selection-end-line="34" selection-end-column="68" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/client/ClientBase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="42" column="28" selection-start-line="42" selection-start-column="28" selection-end-line="42" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#9177#9178#0" expanded="true" />
+            <element signature="e#9204#9205#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/client/ClientDepends.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="20" column="32" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/client/HandlerHub.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="20" column="19" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#572#573#0" expanded="true" />
+            <element signature="e#604#605#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/GMProxyController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="130" column="22" selection-start-line="130" selection-start-column="22" selection-end-line="130" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

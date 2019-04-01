@@ -22,11 +22,13 @@ import sample.fxml.controllers.CreateConfigController;
 import sample.fxml.controllers.GMProxyController;
 import sample.fxml.controllers.StringFormatterController;
 import sample.fxml.controllers.XlsController;
+import sample.fxml.controllers.client.ClientDepends;
 import sample.utils.Utils;
 
 public class Controller {
     private static final Logger logger = LoggerFactory.getLogger(Controller.class);
     private static int count = 0;
+    private static ClientDepends clientDepends;
     @FXML
     public CreateConfigController createConfigController;
     @FXML
@@ -48,6 +50,13 @@ public class Controller {
     public Tab configTab;
     private SimpleDateFormat timeDataFormat;
     private ArrayList<ITab> tabs;
+
+    public static ClientDepends getClientDepends() {
+        if (clientDepends == null) {
+            clientDepends = new ClientDepends();
+        }
+        return clientDepends;
+    }
 
     public void init() {
 

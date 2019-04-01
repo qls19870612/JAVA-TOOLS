@@ -1,4 +1,4 @@
-package sample.fxml.controllers.gm.handlers.base;
+package sample.fxml.controllers.client.handlers.base;
 
 import sample.utils.StringUtils;
 

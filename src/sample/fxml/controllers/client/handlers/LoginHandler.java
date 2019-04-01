@@ -1,22 +1,22 @@
-package sample.fxml.controllers.gm.handlers;
+package sample.fxml.controllers.client.handlers;
 
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.LittleEndianHeapChannelBuffer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import sample.fxml.controllers.gm.Client;
-import sample.fxml.controllers.gm.Hero;
-import sample.fxml.controllers.gm.Modules;
-import sample.fxml.controllers.gm.handlers.base.Handler;
-import sample.fxml.controllers.gm.handlers.base.HandlerBase;
-import sample.fxml.controllers.gm.msgs.LoginModuleMessages;
-import sample.fxml.controllers.gm.msgs.SceneModuleMessages;
+import sample.fxml.controllers.client.Hero;
+import sample.fxml.controllers.client.IClient;
+import sample.fxml.controllers.client.Modules;
+import sample.fxml.controllers.client.handlers.base.Handler;
+import sample.fxml.controllers.client.handlers.base.HandlerBase;
+import sample.fxml.controllers.client.msgs.LoginModuleMessages;
+import sample.fxml.controllers.client.msgs.SceneModuleMessages;
 import sample.utils.BufferUtil;
 
-import static sample.fxml.controllers.gm.msgs.LoginModuleMessages.S2C_ACCOUNT_LOGIN_OK;
-import static sample.fxml.controllers.gm.msgs.LoginModuleMessages.S2C_CREATE_ROLE_OK;
-import static sample.fxml.controllers.gm.msgs.LoginModuleMessages.S2C_ROLE_LOGIN_OK;
+import static sample.fxml.controllers.client.msgs.LoginModuleMessages.S2C_ACCOUNT_LOGIN_OK;
+import static sample.fxml.controllers.client.msgs.LoginModuleMessages.S2C_CREATE_ROLE_OK;
+import static sample.fxml.controllers.client.msgs.LoginModuleMessages.S2C_ROLE_LOGIN_OK;
 
 /**
  *
@@ -28,17 +28,18 @@ public class LoginHandler extends HandlerBase {
     private static final Logger logger = LoggerFactory.getLogger(LoginHandler.class);
 
     @Override
-    public void handle(Client client, int sequence, ChannelBuffer buffer) {
+    public void handle(IClient client, int sequence, ChannelBuffer buffer) {
         onLogin(client, sequence, buffer);
     }
 
-    private void onLogin(Client client, int sequenceId, ChannelBuffer message) {
+    private void onLogin(IClient client, int sequenceId, ChannelBuffer message) {
 
         switch (sequenceId) {
             case S2C_ACCOUNT_LOGIN_OK:
             case S2C_CREATE_ROLE_OK:
                 int roleCount = message.readByte();
                 if (roleCount == 0) {
+                    logger.debug("onLogin client:{}", client);
                     createRole(client);
 
                 } else {
@@ -62,25 +63,25 @@ public class LoginHandler extends HandlerBase {
         }
     }
 
-    public void login(Client client, Hero hero) {
+    public void login(IClient client, Hero hero) {
         LittleEndianHeapChannelBuffer buffer = new LittleEndianHeapChannelBuffer(hero.heroIdBytes.length + 2);
         BufferUtil.writeUTF(buffer, hero.heroIdBytes);
         client.sendBuffer(buffer, Modules.LOGIN_MODULE_ID, LoginModuleMessages.C2S_ROLE_LOGIN);
         logger.debug("login hero:{}", hero);
     }
 
-    public void createRole(Client client) {
+    public void createRole(IClient client) {
         int race = 1;
         boolean isMan = true;
 
-        LittleEndianHeapChannelBuffer buffer = new LittleEndianHeapChannelBuffer(1 + 1 + client.roleName.length + 2);
+        LittleEndianHeapChannelBuffer buffer = new LittleEndianHeapChannelBuffer(1 + 1 + client.getRoleName().length + 2);
         buffer.writeByte(race);
         BufferUtil.writeBoolean(buffer, isMan);
-        BufferUtil.writeUTF(buffer, client.roleName);
+        BufferUtil.writeUTF(buffer, client.getRoleName());
         client.sendBuffer(buffer, Modules.LOGIN_MODULE_ID, LoginModuleMessages.C2S_CREATE_ROLE);
     }
 
-    public void sendEnterScene(Client client) {
+    public void sendEnterScene(IClient client) {
         int range = 5;
         LittleEndianHeapChannelBuffer buffer = new LittleEndianHeapChannelBuffer(BufferUtil.computeVarInt32Size(range));
         BufferUtil.writeVarInt32(buffer, range);

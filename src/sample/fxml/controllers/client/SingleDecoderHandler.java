@@ -1,4 +1,4 @@
-package sample.fxml.controllers.gm;
+package sample.fxml.controllers.client;
 
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.channel.ChannelDownstreamHandler;
@@ -10,8 +10,6 @@ import org.jboss.netty.handler.codec.frame.LengthFieldBasedFrameDecoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import sample.fxml.controllers.GMProxyController;
-
 /**
  *
  * 创建人  liangsong
@@ -20,14 +18,12 @@ import sample.fxml.controllers.GMProxyController;
 public class SingleDecoderHandler extends LengthFieldBasedFrameDecoder implements ChannelDownstreamHandler {
     private static final int DEFAULT_MSG_SIZE_LIMIT = 12000;
     private static final Logger logger = LoggerFactory.getLogger(SingleDecoderHandler.class);
-    private Client client;
+    private final IClient client;
 
-    private GMProxyController controller;
-
-    public SingleDecoderHandler(GMProxyController controller) {
+    public SingleDecoderHandler(IClient client) {
         super(DEFAULT_MSG_SIZE_LIMIT, 0, 2, -2, 0);
-        this.controller = controller;
 
+        this.client = client;
     }
 
     @Override
@@ -36,7 +32,8 @@ public class SingleDecoderHandler extends LengthFieldBasedFrameDecoder implement
 
 
             ChannelBuffer input = buffer.slice(index, length);
-            client.onMessage(input);
+            client.getDisruptorExecutor().execute(() -> client.onMessage(input));
+
         } catch (NullPointerException ex) {
             logger.error("extractFrame ex:{}", ex);
         } catch (Throwable ex) {
@@ -48,20 +45,16 @@ public class SingleDecoderHandler extends LengthFieldBasedFrameDecoder implement
 
     @Override
     public void channelConnected(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
-        if (client != null) {
-            client.dispose();
-        }
 
-        client = new Client(controller.userIdTF.getText(), e.getChannel(), controller);
+
+        client.setChannel(ctx.getChannel());
         client.onConnect();
-        controller.setClient(client);
     }
 
     @Override
     public void channelDisconnected(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
 
         client.onDisconnect();
-        client = null;
         super.channelDisconnected(ctx, e);
         logger.debug("socket closed");
     }

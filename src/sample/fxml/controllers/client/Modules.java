@@ -1,4 +1,4 @@
-package sample.fxml.controllers.gm;
+package sample.fxml.controllers.client;
 
 
 public class Modules {

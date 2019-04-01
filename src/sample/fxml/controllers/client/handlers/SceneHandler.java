@@ -1,16 +1,16 @@
-package sample.fxml.controllers.gm.handlers;
+package sample.fxml.controllers.client.handlers;
 
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import sample.fxml.controllers.gm.Client;
-import sample.fxml.controllers.gm.Modules;
-import sample.fxml.controllers.gm.handlers.base.Handler;
-import sample.fxml.controllers.gm.handlers.base.HandlerBase;
-import sample.fxml.controllers.gm.msgs.MiscModuleMessages;
+import sample.fxml.controllers.client.IClient;
+import sample.fxml.controllers.client.Modules;
+import sample.fxml.controllers.client.handlers.base.Handler;
+import sample.fxml.controllers.client.handlers.base.HandlerBase;
+import sample.fxml.controllers.client.msgs.MiscModuleMessages;
 
-import static sample.fxml.controllers.gm.msgs.SceneModuleMessages.S2C_SCENE_LOAD_OK;
+import static sample.fxml.controllers.client.msgs.SceneModuleMessages.S2C_SCENE_LOAD_OK;
 
 /**
  *
@@ -23,14 +23,14 @@ public class SceneHandler extends HandlerBase {
     private static final Logger logger = LoggerFactory.getLogger(SceneHandler.class);
 
     @Override
-    public void handle(Client client, int sequence, ChannelBuffer buffer) {
+    public void handle(IClient client, int sequence, ChannelBuffer buffer) {
         onScene(client, sequence, buffer);
     }
 
-    private void onScene(Client client, int sequenceId, ChannelBuffer message) {
+    private void onScene(IClient client, int sequenceId, ChannelBuffer message) {
         switch (sequenceId) {
             case S2C_SCENE_LOAD_OK:
-                client.gmProxyController.onEnterScene();
+                client.onEnterScene();
                 client.sendGmMsg("all");
 
                 client.sendBuffer(Modules.MISC_MODULE_ID, MiscModuleMessages.C2S_GET_SERVER_TIME);

@@ -1,4 +1,4 @@
-package sample.fxml.controllers.gm;
+package sample.fxml.controllers.client;
 
 import org.jboss.netty.buffer.ChannelBuffer;
 
