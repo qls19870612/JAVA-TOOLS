@@ -36,7 +36,7 @@ import static sample.utils.Xls2TxtUtils.getSheetNum;
  */
 public class Xls2LuaUtils {
     private static final Logger logger = LoggerFactory.getLogger(Xls2LuaUtils.class);
-    private static final char TABLE = '\t';
+    public static final char TABLE = '\t';
 
     public static boolean createLua(XlsInfo item) {
         if (!item.isNeedUpdate()) {

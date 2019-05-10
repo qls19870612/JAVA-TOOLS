@@ -18,6 +18,16 @@ public class CmdParam {
     public final GMParamType type;
     public final Object defaultValue;
 
+    public String getInputValue() {
+        return inputValue;
+    }
+
+    public void setInputValue(String inputValue) {
+        this.inputValue = inputValue;
+    }
+
+    private String inputValue;
+
 
     public CmdParam(String[] paramArr) {
         if (paramArr.length < 3) {
@@ -49,4 +59,5 @@ public class CmdParam {
 
 
     }
+
 }

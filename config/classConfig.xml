@@ -2,7 +2,7 @@
 <root>
     <configs>
         <configitem>
-            <codePath>app\game\config\shop</codePath>
+            <codePath>app.game.config.shop</codePath>
             <className>ShopTableData</className>
             <xlsPath>..\config\data\S-商城-分类表.xls</xlsPath>
         </configitem>

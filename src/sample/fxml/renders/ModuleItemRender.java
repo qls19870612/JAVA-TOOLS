@@ -1,7 +1,10 @@
 package sample.fxml.renders;
 
 import javafx.scene.control.ListCell;
+import javafx.scene.input.MouseButton;
+import sample.fxml.controllers.client.handlers.gm.CustomGmModule;
 import sample.fxml.controllers.client.handlers.gm.GmModule;
+import sample.fxml.memu.GmGroupMenu;
 
 /**
  *
@@ -13,8 +16,23 @@ public class ModuleItemRender extends ListCell<GmModule> {
     protected void updateItem(GmModule item, boolean empty) {
         super.updateItem(item, empty);
         if (item != null) {
-            setText(item.moduleName);
+            if (item instanceof CustomGmModule) {
+                setText(item.moduleName + " 自定义");
+
+            } else {
+
+                setText(item.moduleName);
+            }
+
+
+            this.setOnMouseClicked(event -> {
+                if (event.getButton() == MouseButton.SECONDARY) {
+                    GmGroupMenu.showForModuleItemRender(this, event.getScreenX(), event.getScreenY());
+                }
+            });
+
         } else {
+            this.setOnMouseClicked(null);
             setText("");
         }
 

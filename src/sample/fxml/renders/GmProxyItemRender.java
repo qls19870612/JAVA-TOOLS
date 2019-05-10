@@ -1,11 +1,12 @@
 package sample.fxml.renders;
 
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.util.converter.DefaultStringConverter;
+import sample.fxml.memu.RemoveMenu;
 import sample.utils.StringUtils;
 
 /**
@@ -17,18 +18,7 @@ public class GmProxyItemRender extends TextFieldListCell<String> {
     public GmProxyItemRender() {
         super(new DefaultStringConverter());
         this.setEditable(true);
-        GmProxyItemRender render = this;
-        this.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
 
-                if (event.getButton() == MouseButton.SECONDARY) {
-
-                    GlobalMenu.getInstance().show(render, event.getScreenX(), event.getScreenY());
-                }
-            }
-        });
-        //        this.editableProperty().setValue(true);
     }
 
 
@@ -46,8 +36,21 @@ public class GmProxyItemRender extends TextFieldListCell<String> {
                     setTextFill(Color.GRAY);
                 }
             }
-        } else {
+            GmProxyItemRender render = this;
+            this.setOnMouseClicked(event -> {
+                if (event.getButton() == MouseButton.SECONDARY) {
+                    EventHandler<ActionEvent> eventEventHandler = event1 -> {
+                        if (RemoveMenu.getOwner() instanceof GmProxyItemRender) {
+                            GmProxyItemRender owner = (GmProxyItemRender) RemoveMenu.getOwner();
 
+                            owner.getListView().getItems().remove(owner.getItem());
+                        }
+                    };
+                    RemoveMenu.show(render, event.getScreenX(), event.getScreenY(), eventEventHandler);
+                }
+            });
+        } else {
+            this.setOnMouseClicked(null);
         }
 
     }

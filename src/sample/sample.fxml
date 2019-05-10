@@ -32,6 +32,13 @@
                         <fx:include fx:id="gmProxy" source="fxml/GMProxy.fxml"/>
                     </content>
                 </Tab>
+
+                <Tab text="Robot" fx:id="robotTab">
+                    <content>
+                        <fx:include fx:id="robot" source="fxml/Robot.fxml"/>
+                    </content>
+                </Tab>
+
             </tabs>
         </TabPane>
         <Label fx:id="infoLabel" prefHeight="20.0" prefWidth="534.0" text="info" AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="10"

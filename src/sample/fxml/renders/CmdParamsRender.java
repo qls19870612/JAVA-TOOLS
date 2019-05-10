@@ -69,27 +69,40 @@ public class CmdParamsRender extends Group {
         }
         label.setText(param.paramsName);
         label.getTooltip().setText(param.paramsName);
+        CmdParamsRender render = this;
         switch (param.type) {
             case INT:
             case LONG:
                 if (numberTextField == null) {
                     numberTextField = new NumberTextField();
                     numberTextField.prefWidth(60);
+                    numberTextField.textProperty().addListener((observable, oldValue, newValue) -> render.updateParamsInputValue(newValue));
                 }
+
                 numberTextField.setLayoutX(offsetX);
                 this.getChildren().add(numberTextField);
-                numberTextField.setText("");
-                numberTextField.setPromptText(param.defaultValue.toString());
+                if (param.getInputValue() != null) {
+
+                    numberTextField.setText(param.getInputValue());
+                } else {
+                    numberTextField.setText("");
+                    numberTextField.setPromptText(param.defaultValue.toString());
+                }
                 break;
             case STRING:
                 if (textInput == null) {
                     textInput = new TextField();
                     textInput.prefWidth(60);
+                    textInput.textProperty().addListener((observable, oldValue, newValue) -> render.updateParamsInputValue(newValue));
                 }
                 textInput.setLayoutX(offsetX);
                 this.getChildren().add(textInput);
-                textInput.setText("");
-                textInput.setPromptText(param.defaultValue.toString());
+                if (param.getInputValue() != null) {
+                    textInput.setText(param.getInputValue());
+                } else {
+                    textInput.setText("");
+                    textInput.setPromptText(param.defaultValue.toString());
+                }
                 break;
             case BOOLEAN:
                 if (combox == null) {
@@ -97,17 +110,37 @@ public class CmdParamsRender extends Group {
                     combox.setEditable(false);
                     combox.getItems().add(false);
                     combox.getItems().add(true);
+                    combox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                        if (newValue) {
+                            render.updateParamsInputValue("1");
+                        } else {
+                            render.updateParamsInputValue("0");
+                        }
+                    });
                 }
                 combox.setLayoutX(offsetX);
                 this.getChildren().add(combox);
-                if ((Boolean) param.defaultValue) {
-                    combox.getSelectionModel().select(1);
+                if (param.getInputValue() != null) {
+                    if ("1".equals(param.getInputValue())) {
+                        combox.getSelectionModel().select(1);
+                    } else {
+                        combox.getSelectionModel().select(0);
+                    }
                 } else {
-                    combox.getSelectionModel().select(0);
+
+                    if ((Boolean) param.defaultValue) {
+                        combox.getSelectionModel().select(1);
+                    } else {
+                        combox.getSelectionModel().select(0);
+                    }
                 }
                 break;
 
         }
+    }
+
+    private void updateParamsInputValue(String newValue) {
+        param.setInputValue(newValue);
     }
 
     public boolean isValid() {

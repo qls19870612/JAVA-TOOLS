@@ -5,7 +5,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 import sample.Controller;
 import sample.fxml.controllers.client.IClient;
@@ -89,7 +88,6 @@ public class GmHandler extends HandlerBase {
             params = new CmdParam(paramArr);
             cmd.addCmdParams(params);
         }
-        modules.sort(Comparator.comparing(GmModule::getPinyinString));
         return modules;
     }
 

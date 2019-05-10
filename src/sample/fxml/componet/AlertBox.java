@@ -1,10 +1,11 @@
-package sample.utils;
+package sample.fxml.componet;
 
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -13,15 +14,19 @@ public class AlertBox {
 
     public AlertBox display(String title, String message) {
         Stage window = new Stage();
-        window.setTitle("title");
+        window.setTitle(title);
         //modality要使用Modality.APPLICATION_MODEL
         window.initModality(Modality.APPLICATION_MODAL);
         window.setMinWidth(300);
         window.setMinHeight(150);
 
-        Button button = new Button("Close the window");
+        Button button = new Button("关 闭");
         button.setOnAction(e -> window.close());
-
+        button.setOnKeyReleased(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                window.close();
+            }
+        });
         Label label = new Label(message);
 
         VBox layout = new VBox(10);

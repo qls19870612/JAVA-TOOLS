@@ -1,6 +1,8 @@
 package sample.fxml.controllers.client;
 
 
+import com.google.protobuf.InvalidProtocolBufferException;
+
 import org.jboss.netty.bootstrap.ClientBootstrap;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.HeapChannelBufferFactory;
@@ -25,9 +27,9 @@ import game.sink.server.CheckSumStream;
 import game.sink.util.StringEncoder;
 import game.sink.util.concurrent.DisruptorExecutor;
 import sample.config.AppConfig;
+import sample.fxml.componet.AlertBox;
 import sample.fxml.controllers.client.handlers.base.HandlerBase;
 import sample.fxml.controllers.client.msgs.MiscModuleMessages;
-import sample.utils.AlertBox;
 import sample.utils.BufferUtil;
 import sample.utils.TimeUtils;
 import sample.utils.Utils;
@@ -48,6 +50,11 @@ public abstract class ClientBase implements IClient {
 
 
     private Channel channel;
+
+    public TimeService getTimeService() {
+        return timeService;
+    }
+
     private final TimeService timeService;
     private final HandlerHub handlerHub;
     private IConnTimeOut conTimeOut;
@@ -106,8 +113,8 @@ public abstract class ClientBase implements IClient {
         socket.setOption("bufferFactory", HeapChannelBufferFactory.getInstance(ByteOrder.LITTLE_ENDIAN));
         socket.setOption("tcpNoDelay", true);
         socket.setOption("keepAlive", false);
-        socket.setOption("sendBufferSize", 8192 * 4);
-        socket.setOption("receiveBufferSize", 8192 * 4);
+        socket.setOption("sendBufferSize", 8192);
+        socket.setOption("receiveBufferSize", 8192 * 8);
 
         socket.setPipelineFactory(() -> {
             ChannelPipeline pipeline = Channels.pipeline();
@@ -155,9 +162,9 @@ public abstract class ClientBase implements IClient {
         int checkSum = stream.getCheckSum();
         sendBuffer.setByte(writeIndex, checkSum);
         Channels.write(channel, sendBuffer);
-        if (moduleId != 2 && sequence != 2) {
-            logger.debug("sendBuffer moduleId:{},sequence:{}", moduleId, sequence);
-        }
+        //        if (moduleId != 2 && sequence != 2) {
+        //            logger.debug("sendBuffer moduleId:{},sequence:{}", moduleId, sequence);
+        //        }
 
     }
 
@@ -179,7 +186,11 @@ public abstract class ClientBase implements IClient {
     public void onReciveMsg(int moduleId, int sequenceId, ChannelBuffer message) {
         HandlerBase handler = handlerHub.getHandler(moduleId);
         if (handler != null) {
-            handler.handle(this, sequenceId, message);
+            try {
+                handler.handle(this, sequenceId, message);
+            } catch (InvalidProtocolBufferException e) {
+                e.printStackTrace();
+            }
         } else {
             logger.debug("onReciveMsg 未处理的模块消息 moduleId:{},sequenceId:{}", moduleId, sequenceId);
         }
@@ -201,7 +212,9 @@ public abstract class ClientBase implements IClient {
         //int roleCount = message.readByte();
         int moduleId = msgId / 1000;
         int sequenceId = msgId % 1000;
-        logger.debug("onMessage moduleId:{},sequenceId:{}", moduleId, sequenceId);
+
+        logger.debug("onMessage moduleId-sequenceId:{}-{}", moduleId, sequenceId);
+
         onReciveMsg(moduleId, sequenceId, message);
     }
 
@@ -212,15 +225,16 @@ public abstract class ClientBase implements IClient {
 
     @Override
     public void onConnect() {
-
+        msgCount = -1;
         loginAccount();
     }
 
     private void loginAccount() {
-        int operatorID = 1;
-        int serverID = 1;
+        int operatorID = AppConfig.operatorID;
+        int serverID = AppConfig.serverID;
         byte[] deviceid = StringEncoder.encode("5ac0264b5c78c336af5ba94ddb69cc89");
         byte[] userId = StringEncoder.encode(account);
+        logger.debug("loginAccount account:{}", account);
         int msgLen = userId.length + 2 + BufferUtil.computeVarInt32Size(operatorID) + BufferUtil.computeVarInt32Size(serverID) + deviceid.length + 2;
 
         ChannelBuffer channelBuffer = new LittleEndianHeapChannelBuffer(msgLen);
@@ -269,8 +283,14 @@ public abstract class ClientBase implements IClient {
             scheduledFuture.cancel(true);
             scheduledFuture = null;
         }
-        this.channel.close();
-        this.socket.releaseExternalResources();
+        if (this.channel != null) {
+
+            this.channel.close();
+        }
+        msgCount = -1;
+        if (this.socket != null) {
+            this.socket.releaseExternalResources();
+        }
     }
 
     @Override

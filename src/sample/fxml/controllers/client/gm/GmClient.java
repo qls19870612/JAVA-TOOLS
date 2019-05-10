@@ -29,8 +29,8 @@ public class GmClient extends ClientBase {
 
     @Override
     public void onDisconnect() {
-        super.onDisconnect();
         gmProxyController.onSocketClose();
+        super.onDisconnect();
     }
 
 

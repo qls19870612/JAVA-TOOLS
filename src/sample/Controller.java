@@ -20,6 +20,7 @@ import javafx.scene.control.Tooltip;
 import sample.config.AppConfig;
 import sample.fxml.controllers.CreateConfigController;
 import sample.fxml.controllers.GMProxyController;
+import sample.fxml.controllers.RobotController;
 import sample.fxml.controllers.StringFormatterController;
 import sample.fxml.controllers.XlsController;
 import sample.fxml.controllers.client.ClientDepends;
@@ -38,6 +39,8 @@ public class Controller {
     @FXML
     public GMProxyController gmProxyController;
     @FXML
+    public RobotController robotController;
+    @FXML
     public Label timeLabel;
     @FXML
     public Label infoLabel;
@@ -48,6 +51,7 @@ public class Controller {
     public Tab xlsTab;
     public Tab txtTab;
     public Tab configTab;
+    public Tab robotTab;
     private SimpleDateFormat timeDataFormat;
     private ArrayList<ITab> tabs;
 
@@ -58,13 +62,15 @@ public class Controller {
         return clientDepends;
     }
 
+
     public void init() {
 
-        tabs = new ArrayList<ITab>();
+        tabs = new ArrayList<>();
         tabs.add(stringFormatterController);
         tabs.add(createConfigController);
         tabs.add(xlsController);
         tabs.add(gmProxyController);
+        tabs.add(robotController);
         timeDataFormat = new SimpleDateFormat("HH:mm:ss");
         instance = this;
 
@@ -80,6 +86,10 @@ public class Controller {
                     stringFormatterController.onSelect();
                 } else if (newValue == configTab) {
                     createConfigController.onSelect();
+                } else if (newValue == robotTab) {
+                    robotController.onSelect();
+                } else {
+                    throw new RuntimeException("未处理的Tab:" + newValue.getText());
                 }
             }
         });
@@ -95,6 +105,18 @@ public class Controller {
             return;
         }
         showLogInFxThread(args);
+    }
+
+    public static void log2Robot(String... args) {
+        if (!Toolkit.getToolkit().isFxUserThread()) {
+            Platform.runLater(() -> showRobotLogInFxThread(args));
+            return;
+        }
+        showRobotLogInFxThread(args);
+    }
+
+    private static void showRobotLogInFxThread(String... args) {
+        instance.robotController.showLog(args);
     }
 
     private static void showLogInFxThread(String[] args) {

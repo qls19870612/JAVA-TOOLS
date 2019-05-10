@@ -178,4 +178,11 @@ public class StringUtils {
 
         return defaultValue;
     }
+
+    public static String rightFill(String s, int i, String oneChar) {
+        while (s.length() < i) {
+            s = s + oneChar;
+        }
+        return s;
+    }
 }

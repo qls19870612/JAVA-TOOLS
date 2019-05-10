@@ -12,7 +12,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import sample.datas.vo.XlsInfo;
 import sample.fxml.controllers.XLS2LUAController;
-import sample.utils.AlertBox;
+import sample.fxml.componet.AlertBox;
 import sample.utils.Xls2LuaUtils;
 
 import static sample.utils.Xls2TxtUtils.createTxt;

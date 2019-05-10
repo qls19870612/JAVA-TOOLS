@@ -20,7 +20,7 @@ public class DBService {
     private final TomcatJdbcPool tomcatJdbcPool;
 
     public DBService() {
-        tomcatJdbcPool = new TomcatJdbcPool("localhost", "root", "123456");
+        tomcatJdbcPool = new TomcatJdbcPool("localhost:3306/online_0404_1", "root", "123456");
     }
 
     public void close() {
@@ -30,7 +30,7 @@ public class DBService {
     public ArrayList<String> getAllAccount(int limitLevel, int operatorId, int serverId) {
         ArrayList<String> accounts = new ArrayList<>();
         try (Connection conn = tomcatJdbcPool.getConnection(); PreparedStatement pstmt = conn
-                .prepareStatement("select name，easy_info from users where server_id=" + serverId + " and operator_id=" + serverId)) {
+                .prepareStatement("select name,easy_info from users where server_id=" + serverId + " and operator_id=" + operatorId)) {
 
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {

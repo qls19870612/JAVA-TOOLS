@@ -49,7 +49,7 @@ public class CodeCreateUtilsTest {
     @Test
     public void test() {
         String src = "@InitReq(cfgKeys = \"q_scene\", desc = \"地图\", max = 1, cfgSplitSep = \";\")";
-        Matcher matcher = CodeCreateUtils.paramsPattern.matcher(src);
+        Matcher matcher = sample.utils.CodeCreateUtils.paramsPattern.matcher(src);
         while (matcher.find()) {
             System.out.println(matcher.group(1));
             System.out.println(matcher.group(2));
@@ -83,7 +83,7 @@ public class CodeCreateUtilsTest {
     @Test
     public void test3() {
         String str = "depot_max_size";
-        String aft = StringUtils.toUpLowerString(str);
+        String aft = sample.utils.StringUtils.toUpLowerString(str);
         System.out.println(aft);
     }
 
@@ -287,7 +287,7 @@ public class CodeCreateUtilsTest {
 
     @Test
     public void testUpper() {
-        String string = StringUtils.toUpCase("adf__YdsfBrown", "_");
+        String string = sample.utils.StringUtils.toUpCase("adf__YdsfBrown", "_");
         System.out.printf("testUpper.string:%s%n", string);
     }
 
@@ -540,7 +540,7 @@ public class CodeCreateUtilsTest {
 
     @Test
     public void testEnum() {
-        AchievementType adf = AchievementType.valueOf("HERO_LEVEL");
+        sample.utils.AchievementType adf = sample.utils.AchievementType.valueOf("HERO_LEVEL");
         System.out.printf("testEnum.adf:%s%n", adf);
     }
 
@@ -605,14 +605,14 @@ public class CodeCreateUtilsTest {
         //
         //        RankGuildServerProto p = RankGuildServerProto.newBuilder().setGuildName("德玛西莉亚").build();
         //        logger.debug("protoString :{}", p.toString());
-        java.lang.String s1 = "\345\276\267\347\216\233\350\245\277\350\216\211\344\272\232";
+        String s1 = "\345\276\267\347\216\233\350\245\277\350\216\211\344\272\232";
         byte[] bytes2 = getBytes(s1);
-        java.lang.String s = new java.lang.String(bytes2, "UTF-8");
+        String s = new String(bytes2, "UTF-8");
 
         logger.debug("protoString s:{}", s);
         String test = "\\345\\276\\267\\347\\216\\233\\350\\245\\277\\350\\216\\211\\344\\272\\232";
         byte[] bytes3 = getBytes2(test);
-        java.lang.String s3 = new java.lang.String(bytes3, "UTF-8");
+        String s3 = new String(bytes3, "UTF-8");
         logger.debug("protoString s3:{}", s3);
         //        String string = StringUtils.convertToString(test);
         //        logger.debug("protoString string:{}", string);

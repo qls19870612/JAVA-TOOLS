@@ -15,8 +15,8 @@ import sample.ITab;
 import sample.config.AppConfig;
 import sample.datas.vo.XlsInfo;
 import sample.file.FileOperator;
+import sample.fxml.componet.AlertBox;
 import sample.fxml.renders.XlsItemRender;
-import sample.utils.AlertBox;
 import sample.utils.StringUtils;
 import sample.utils.Xls2LuaUtils;
 

@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
  * 创建时间 2019/03/26 18:00
  */
 public class SingleDecoderHandler extends LengthFieldBasedFrameDecoder implements ChannelDownstreamHandler {
-    private static final int DEFAULT_MSG_SIZE_LIMIT = 12000;
+    private static final int DEFAULT_MSG_SIZE_LIMIT = 65536;
     private static final Logger logger = LoggerFactory.getLogger(SingleDecoderHandler.class);
     private final IClient client;
 
@@ -30,9 +30,11 @@ public class SingleDecoderHandler extends LengthFieldBasedFrameDecoder implement
     protected ChannelBuffer extractFrame(ChannelBuffer buffer, int index, int length) {
         try {
 
-
+            //            logger.debug("extractFrame buffer.array.length:{},buffer.arrayOffset:{},buffer.array:{}", buffer.array().length, buffer.arrayOffset(),
+            //                    buffer.array());
             ChannelBuffer input = buffer.slice(index, length);
             client.getDisruptorExecutor().execute(() -> client.onMessage(input));
+
 
         } catch (NullPointerException ex) {
             logger.error("extractFrame ex:{}", ex);
@@ -53,10 +55,15 @@ public class SingleDecoderHandler extends LengthFieldBasedFrameDecoder implement
 
     @Override
     public void channelDisconnected(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
-
-        client.onDisconnect();
         super.channelDisconnected(ctx, e);
         logger.debug("socket closed");
+    }
+
+    @Override
+    public void channelClosed(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
+        super.channelClosed(ctx, e);
+        logger.debug("channelClosed ");
+        client.onDisconnect();
     }
 
     @Override

@@ -28,6 +28,7 @@ public class CodeInfo {
         if (path.startsWith("\\")) {
             path = path.substring(1);
         }
+        path = path.replaceAll("\\.", "\\\\");
         codePath = path;
         className = AppConfig.getNodeValue(element, "className");
         xlsPath = AppConfig.getNodeValue(element, "xlsPath");

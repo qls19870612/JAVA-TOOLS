@@ -6,17 +6,20 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.Tooltip;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import sample.fxml.componet.AlertBox;
 import sample.fxml.controllers.GMProxyController;
 import sample.fxml.controllers.client.handlers.gm.CmdParam;
 import sample.fxml.controllers.client.handlers.gm.GmCmd;
-import sample.utils.AlertBox;
+import sample.fxml.memu.GmCmdMenu;
 import sample.utils.Utils;
 
 /**
@@ -26,6 +29,12 @@ import sample.utils.Utils;
  */
 public class CmdItemRender extends ListCell<GmCmd> {
     private static final Logger logger = LoggerFactory.getLogger(CmdItemRender.class);
+
+    public GmCmd getGmCmd() {
+        return item;
+    }
+
+    private GmCmd item;
 
     ArrayList<CmdParamsRender> getRenders() {
         return renders;
@@ -41,10 +50,12 @@ public class CmdItemRender extends ListCell<GmCmd> {
 
     public CmdItemRender() {
         super();
+
     }
 
     @Override
     protected void updateItem(GmCmd item, boolean empty) {
+        this.item = item;
         super.updateItem(item, empty);
 
         for (CmdParamsRender render : renders) {
@@ -93,7 +104,7 @@ public class CmdItemRender extends ListCell<GmCmd> {
             if (vBox.getParent() == null) {
                 this.getChildren().add(vBox);
             }
-            label.setText(item.comment + "<" + item.cmdName + ">");
+            label.setText(item.comment + " [" + item.cmdName + "] ");
             label.getTooltip().setText(label.getText());
 
 
@@ -107,7 +118,14 @@ public class CmdItemRender extends ListCell<GmCmd> {
                 vBox.getChildren().add(render);
             }
             setGraphic(vBox);
+            Node render = this;
+            this.setOnMouseClicked(event -> {
 
+                if (event.getButton() == MouseButton.SECONDARY) {
+
+                    GmCmdMenu.getInstance().show(render, event.getScreenX(), event.getScreenY());
+                }
+            });
 
         } else {
             count = 1;

@@ -43,6 +43,8 @@
 
         </Group>
         <ListView fx:id="moduleListView" prefWidth="215" AnchorPane.bottomAnchor="120" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="70"/>
+        <Button fx:id="customModuleBtn" prefWidth="80" AnchorPane.bottomAnchor="93" AnchorPane.leftAnchor="135" text="自定义模块"
+                onMouseClicked="#customModuleBtnClick"/>
         <ListView fx:id="cmdListView" layoutY="70.0" prefHeight="530.0" prefWidth="375.0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="225"
                   AnchorPane.rightAnchor="0" AnchorPane.topAnchor="70.0"/>
 

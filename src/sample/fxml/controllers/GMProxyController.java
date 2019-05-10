@@ -2,6 +2,8 @@ package sample.fxml.controllers;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -10,6 +12,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -17,15 +20,17 @@ import javafx.scene.paint.Color;
 import sample.Controller;
 import sample.ITab;
 import sample.file.FileOperator;
+import sample.fxml.componet.InputBox;
 import sample.fxml.controllers.client.ClientDepends;
-import sample.fxml.controllers.client.TimeService;
 import sample.fxml.controllers.client.gm.GmClient;
+import sample.fxml.controllers.client.handlers.gm.CustomGmModule;
 import sample.fxml.controllers.client.handlers.gm.GmCmd;
 import sample.fxml.controllers.client.handlers.gm.GmModule;
 import sample.fxml.renders.CmdItemRender;
 import sample.fxml.renders.GmProxyItemRender;
 import sample.fxml.renders.ModuleItemRender;
 import sample.utils.StringUtils;
+import sample.utils.Utils;
 
 import static sample.utils.Utils.BR;
 
@@ -44,6 +49,7 @@ public class GMProxyController implements ITab {
     public ListView<GmCmd> cmdListView;
     public ComboBox<String> cmdComboBox;
     public ComboBox<String> moduleComboBox;
+    public Button customModuleBtn;
     private boolean inited;
     private boolean isLogined;
     private GmClient client;
@@ -53,9 +59,9 @@ public class GMProxyController implements ITab {
     private final String searchFile = "searchFile.txt";
 
 
-    private TimeService timeService;
-
     public static GMProxyController THIS;
+    private ClientDepends depends;
+    public ArrayList<CustomGmModule> customModules = new ArrayList<>();
 
     public void loginBtnClick() {
         if (isLogined) {
@@ -127,9 +133,9 @@ public class GMProxyController implements ITab {
         }
 
         THIS = this;
-        timeService = new TimeService();
+
         inited = true;
-        ClientDepends depends = Controller.getClientDepends();
+        depends = Controller.getClientDepends();
         client = new GmClient(this, depends);
         initComponent();
         readProxyList();
@@ -140,6 +146,14 @@ public class GMProxyController implements ITab {
     }
 
     private void initComponent() {
+        Tooltip toolTip = new Tooltip();
+        Utils.hackTooltipStartTiming(toolTip);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("添加自定义模块\n");
+        stringBuilder.append("模块内可添加和删除GM命令\n");
+        stringBuilder.append("在GM命令列表项中右键添加和删除\n");
+        toolTip.setText(stringBuilder.toString());
+        customModuleBtn.setTooltip(toolTip);
         moduleListView.setCellFactory(param -> new ModuleItemRender());
 
         cmdListView.setCellFactory(param -> new CmdItemRender());
@@ -212,7 +226,7 @@ public class GMProxyController implements ITab {
             newValue = newValue.toLowerCase();
             cmdListView.getItems().clear();
             for (GmModule module : modules) {
-                for (GmCmd cmd : module.cmds) {
+                for (GmCmd cmd : module.gmCmds) {
                     if (cmd.lowerCmdName.contains(newValue) || cmd.getCommentPinYin().contains(newValue)) {
                         cmdListView.getItems().add(cmd);
                     }
@@ -244,12 +258,15 @@ public class GMProxyController implements ITab {
     }
 
 
-    private void refreshCmdByModuleListViewSelect() {
+    public void refreshCmdByModuleListViewSelect() {
         cmdListView.getItems().clear();
         ObservableList<GmModule> selectedItems = moduleListView.getSelectionModel().getSelectedItems();
         for (GmModule selectedItem : selectedItems) {
 
-            cmdListView.getItems().addAll(selectedItem.cmds);
+            cmdListView.getItems().addAll(selectedItem.gmCmds);
+            for (GmCmd gmCmd : selectedItem.gmCmds) {
+                gmCmd.setCurrShowParent(selectedItem);
+            }
         }
     }
 
@@ -277,10 +294,7 @@ public class GMProxyController implements ITab {
         if (this.client != null) {
             this.client.dispose();
         }
-        if (timeService != null) {
-            timeService.close();
-        }
-
+        depends.close();
     }
 
 
@@ -300,6 +314,9 @@ public class GMProxyController implements ITab {
             return;
         }
         String[] listArr = s.split("=");
+        if (listArr.length < 1) {
+            return;
+        }
         String userId = listArr[0];
         userIdTF.setText(userId);
         if (listArr.length < 2) {
@@ -323,6 +340,25 @@ public class GMProxyController implements ITab {
                 cmdComboBox.getItems().addAll(cmd);
             }
         }
+        if (listArr.length < 4) {
+            return;
+        }
+        String customModules = listArr[3];
+        if (StringUtils.isNotEmpty(customModules)) {
+
+            String[] customModuleArr = customModules.split("@");
+            for (String customModule : customModuleArr) {
+                String[] split = customModule.split(BR);
+                String moduleName = split[0];
+                CustomGmModule customGmModule = new CustomGmModule(moduleName);
+                if (split.length > 1) {
+                    customGmModule.setCmds(Arrays.copyOfRange(split, 1, split.length));
+                }
+                this.customModules.add(customGmModule);
+            }
+
+        }
+
     }
 
     private void saveData() {
@@ -330,7 +366,7 @@ public class GMProxyController implements ITab {
         saveSelectList();
     }
 
-    private void saveSelectList() {
+    public void saveSelectList() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(userIdTF.getText());
         stringBuilder.append("=");
@@ -343,7 +379,30 @@ public class GMProxyController implements ITab {
             stringBuilder.append(s);
             stringBuilder.append(BR);
         }
+        stringBuilder.append("=");
+        if (customModules.size() > 0) {
 
+            for (CustomGmModule customModule : customModules) {
+                stringBuilder.append(customModule.moduleName);
+                stringBuilder.append(BR);
+                if (customModule.gmCmds.size() > 0) {
+
+                    for (GmCmd gmCmd : customModule.gmCmds) {
+                        stringBuilder.append(gmCmd.lowerCmdName);
+                        stringBuilder.append(BR);
+                    }
+                } else {
+                    if (customModule.getCmds() != null) {
+                        for (String s : customModule.getCmds()) {
+                            stringBuilder.append(s);
+                            stringBuilder.append(BR);
+                        }
+                    }
+                }
+                stringBuilder.append("@");
+            }
+            stringBuilder.setLength(stringBuilder.length() - 1);
+        }
         FileOperator.writeFile(new File(searchFile), stringBuilder.toString());
     }
 
@@ -359,6 +418,17 @@ public class GMProxyController implements ITab {
 
     public void updateModules(ArrayList<GmModule> modules) {
         this.modules = modules;
+        HashMap<String, GmCmd> cmdHashMap = new HashMap<>();
+        for (GmModule module : modules) {
+            for (GmCmd cmd : module.gmCmds) {
+                cmdHashMap.put(cmd.lowerCmdName, cmd);
+            }
+        }
+        for (CustomGmModule customModule : customModules) {
+            customModule.fillCmds(cmdHashMap);
+        }
+        this.modules.addAll(customModules);
+        this.modules.sort(GmModule.moduleSort);
         moduleListView.getItems().addAll(modules);
         refreshProxy();
     }
@@ -384,4 +454,16 @@ public class GMProxyController implements ITab {
     }
 
 
+    public void customModuleBtnClick(MouseEvent mouseEvent) {
+        InputBox.showAlert("请输入模块名", text -> {
+            if (StringUtils.isNotEmpty(text)) {
+                CustomGmModule customGmModule = new CustomGmModule("[" + text + "]");
+                modules.add(customGmModule);
+                modules.sort(GmModule.moduleSort);
+                customModules.add(customGmModule);
+                moduleListView.getItems().setAll(modules);
+
+            }
+        });
+    }
 }

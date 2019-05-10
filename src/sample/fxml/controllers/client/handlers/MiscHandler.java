@@ -27,13 +27,12 @@ public class MiscHandler extends HandlerBase {
         switch (sequence) {
             case S2C_GET_SERVER_TIME_OK:
                 long serverTime = BufferUtil.readVarInt64(buffer);
-                logger.debug("handle serverTime:{}", serverTime);
                 client.setServerTime(serverTime);
                 break;
             case S2C_HEART_BEAT_OK:
                 break;
             default:
-                logger.debug("handle sequence:{}", sequence);
+                //                logger.debug("handle sequence:{}", sequence);
         }
     }
 }

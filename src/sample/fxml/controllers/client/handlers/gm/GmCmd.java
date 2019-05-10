@@ -19,6 +19,16 @@ public class GmCmd {
     private String commentPinYin;
     public ArrayList<CmdParam> params = new ArrayList<>();
 
+    public GmModule getCurrShowParent() {
+        return currShowParent;
+    }
+
+    public void setCurrShowParent(GmModule currShowParent) {
+        this.currShowParent = currShowParent;
+    }
+
+    private GmModule currShowParent;
+
     public GmCmd(String cmdName, String comment) {
         this.cmdName = cmdName;
         this.lowerCmdName = cmdName.toLowerCase();
@@ -35,6 +45,7 @@ public class GmCmd {
         this.params.add(param);
 
     }
+
 
     public String getCommentPinYin() {
         return commentPinYin;

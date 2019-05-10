@@ -5,6 +5,7 @@ import org.jboss.netty.buffer.LittleEndianHeapChannelBuffer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import sample.Controller;
 import sample.fxml.controllers.client.Hero;
 import sample.fxml.controllers.client.IClient;
 import sample.fxml.controllers.client.Modules;
@@ -59,7 +60,7 @@ public class LoginHandler extends HandlerBase {
                 break;
 
             default:
-                logger.warn("onLogin 未处理的 sequenceId:{}", sequenceId);
+                //                logger.warn("onLogin 未处理的 sequenceId:{}", sequenceId);
         }
     }
 
@@ -67,7 +68,7 @@ public class LoginHandler extends HandlerBase {
         LittleEndianHeapChannelBuffer buffer = new LittleEndianHeapChannelBuffer(hero.heroIdBytes.length + 2);
         BufferUtil.writeUTF(buffer, hero.heroIdBytes);
         client.sendBuffer(buffer, Modules.LOGIN_MODULE_ID, LoginModuleMessages.C2S_ROLE_LOGIN);
-        logger.debug("login hero:{}", hero);
+        Controller.log2Robot("登录:" + hero.toString());
     }
 
     public void createRole(IClient client) {
@@ -78,6 +79,7 @@ public class LoginHandler extends HandlerBase {
         buffer.writeByte(race);
         BufferUtil.writeBoolean(buffer, isMan);
         BufferUtil.writeUTF(buffer, client.getRoleName());
+        logger.debug("createRole client.getRoleName:{}", client.getRoleName());
         client.sendBuffer(buffer, Modules.LOGIN_MODULE_ID, LoginModuleMessages.C2S_CREATE_ROLE);
     }
 
