@@ -26,6 +26,7 @@ import game.service.ScheduleRunnable;
 import game.sink.server.CheckSumStream;
 import game.sink.util.StringEncoder;
 import game.sink.util.concurrent.DisruptorExecutor;
+import sample.Controller;
 import sample.config.AppConfig;
 import sample.fxml.componet.AlertBox;
 import sample.fxml.controllers.client.handlers.base.HandlerBase;
@@ -50,6 +51,13 @@ public abstract class ClientBase implements IClient {
 
 
     private Channel channel;
+    private int serverId;
+
+    public boolean isLogining() {
+        return isLogining;
+    }
+
+    private boolean isLogining;
 
     public TimeService getTimeService() {
         return timeService;
@@ -96,11 +104,12 @@ public abstract class ClientBase implements IClient {
         this.channel = channel;
     }
 
-    public void startLoginAccount(String account) {
+    public void startLoginAccount(String account, String ip, int port, int serverId) {
         if (isLogined) {
             return;
         }
-
+        this.serverId = serverId;
+        isLogining = true;
         this.account = account;
         accountId = Utils.safeParseInt(this.account, 0);
         if (accountId == 0) {
@@ -122,16 +131,17 @@ public abstract class ClientBase implements IClient {
             return pipeline;
 
         });
-
-        ChannelFuture connect = socket.connect(new InetSocketAddress(AppConfig.gmIp, AppConfig.gmPort));
+        ChannelFuture connect = socket.connect(new InetSocketAddress(ip, port));
         connect.addListener(future -> {
-
+            isLogining = false;
             if (!future.isSuccess()) {
                 if (conTimeOut != null) {
                     conTimeOut.onTimeOut(this);
                 }
-                AlertBox.showAlert("无法连接服务器:" + AppConfig.gmIp + ":" + AppConfig.gmPort);
-
+                AlertBox.showAlert("无法连接服务器:" + ip + ":" + port);
+                Controller.log("无法连接服务器:" + ip + ":" + port);
+            } else {
+                Controller.log("成功连接服务器:" + ip + ":" + port);
             }
         });
     }
@@ -231,16 +241,16 @@ public abstract class ClientBase implements IClient {
 
     private void loginAccount() {
         int operatorID = AppConfig.operatorID;
-        int serverID = AppConfig.serverID;
+
         byte[] deviceid = StringEncoder.encode("5ac0264b5c78c336af5ba94ddb69cc89");
         byte[] userId = StringEncoder.encode(account);
         logger.debug("loginAccount account:{}", account);
-        int msgLen = userId.length + 2 + BufferUtil.computeVarInt32Size(operatorID) + BufferUtil.computeVarInt32Size(serverID) + deviceid.length + 2;
+        int msgLen = userId.length + 2 + BufferUtil.computeVarInt32Size(operatorID) + BufferUtil.computeVarInt32Size(serverId) + deviceid.length + 2;
 
         ChannelBuffer channelBuffer = new LittleEndianHeapChannelBuffer(msgLen);
         BufferUtil.writeUTF(channelBuffer, userId);
         BufferUtil.writeVarInt32(channelBuffer, operatorID);
-        BufferUtil.writeVarInt32(channelBuffer, serverID);
+        BufferUtil.writeVarInt32(channelBuffer, serverId);
         BufferUtil.writeUTF(channelBuffer, deviceid);
 
         sendBuffer(channelBuffer, Modules.LOGIN_MODULE_ID, sample.fxml.controllers.client.msgs.LoginModuleMessages.C2S_ACCOUNT_LOGIN);

@@ -71,8 +71,24 @@
             </plugin>
 
         </plugins>
+
     </build>
+    <!--<repositories>-->
+    <!--<repository>-->
+    <!--<snapshots>-->
+    <!--<enabled>false</enabled>-->
+    <!--</snapshots>-->
+    <!--<id>center</id>-->
+    <!--<name>test</name>-->
+    <!--<url>http://192.168.1.103:8080/repository/maven-central/</url>-->
+    <!--</repository>-->
+    <!--</repositories>-->
     <dependencies>
+        <!--<dependency>-->
+        <!--<groupId>net.bytebuddy</groupId>-->
+        <!--<artifactId>byte-buddy</artifactId>-->
+        <!--<version>1.9.12</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>

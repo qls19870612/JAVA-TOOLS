@@ -10,6 +10,8 @@ import org.jboss.netty.handler.codec.frame.LengthFieldBasedFrameDecoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import sample.Controller;
+
 /**
  *
  * 创建人  liangsong
@@ -56,7 +58,7 @@ public class SingleDecoderHandler extends LengthFieldBasedFrameDecoder implement
     @Override
     public void channelDisconnected(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
         super.channelDisconnected(ctx, e);
-        logger.debug("socket closed");
+        Controller.log("服务器已断开连接");
     }
 
     @Override

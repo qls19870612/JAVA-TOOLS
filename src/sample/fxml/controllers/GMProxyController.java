@@ -1,5 +1,8 @@
 package sample.fxml.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,6 +22,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import sample.Controller;
 import sample.ITab;
+import sample.config.AppConfig;
 import sample.file.FileOperator;
 import sample.fxml.componet.InputBox;
 import sample.fxml.controllers.client.ClientDepends;
@@ -40,6 +44,7 @@ import static sample.utils.Utils.BR;
  * 创建时间 2019/03/25 15:03
  */
 public class GMProxyController implements ITab {
+    private static final Logger logger = LoggerFactory.getLogger(GMProxyController.class);
     public TextField userIdTF;
     public Button loginBtn;
 
@@ -50,6 +55,11 @@ public class GMProxyController implements ITab {
     public ComboBox<String> cmdComboBox;
     public ComboBox<String> moduleComboBox;
     public Button customModuleBtn;
+    public Button searchModuleBtn;
+    public Button searchCmdBtn;
+    public ComboBox<String> ipComboBox;
+    public ComboBox<String> portComboBox;
+    public ComboBox<String> serverIdComboBox;
     private boolean inited;
     private boolean isLogined;
     private GmClient client;
@@ -62,18 +72,50 @@ public class GMProxyController implements ITab {
     public static GMProxyController THIS;
     private ClientDepends depends;
     public ArrayList<CustomGmModule> customModules = new ArrayList<>();
+    private String cacheGmMsg = null;
 
     public void loginBtnClick() {
         if (isLogined) {
             startLogout();
         } else {
+            if (client.isLogining()) {
+                Controller.log("正在连接中...");
+                return;
+            }
             if (StringUtils.isEmpty(userIdTF.getText())) {
                 userIdTF.setText(userIdTF.getPromptText());
             }
-            client.startLoginAccount(userIdTF.getText());
+            client.startLoginAccount(userIdTF.getText(), getIp(), getPort(), getServerID());
+
         }
 
 
+    }
+
+    private int getServerID() {
+        String text = serverIdComboBox.getEditor().getText();
+        int serverId = Utils.safeParseInt(text, 0);
+        if (serverId > 0) {
+            return serverId;
+        }
+        return AppConfig.serverID;
+    }
+
+    private int getPort() {
+        String text = portComboBox.getEditor().getText();
+        int port = Utils.safeParseInt(text, 0);
+        if (port > 0) {
+            return port;
+        }
+        return AppConfig.gmPort;
+    }
+
+    private String getIp() {
+        String text = ipComboBox.getEditor().getText();
+        if (StringUtils.isNotEmpty(text)) {
+            return text;
+        }
+        return AppConfig.gmIp;
     }
 
     private void startLogout() {
@@ -108,6 +150,10 @@ public class GMProxyController implements ITab {
         } else {
             client.sendGmMsg("proxy " + proxyListView.getItems().get(0));
         }
+        if (cacheGmMsg != null) {
+            client.sendGmMsg(cacheGmMsg);
+            cacheGmMsg = null;
+        }
     }
 
     private void setIsLogined(boolean b) {
@@ -124,6 +170,7 @@ public class GMProxyController implements ITab {
                 loginBtn.setText("登录(未登录)");
             }
         });
+
     }
 
 
@@ -141,7 +188,7 @@ public class GMProxyController implements ITab {
         readProxyList();
         readSearchList();
         if (StringUtils.isNotEmpty(userIdTF.getText())) {
-            client.startLoginAccount(userIdTF.getText());
+            client.startLoginAccount(userIdTF.getText(), getIp(), getPort(), getServerID());
         }
     }
 
@@ -192,73 +239,70 @@ public class GMProxyController implements ITab {
             refreshCmdByModuleListViewSelect();
 
         });
-        moduleComboBox.setEditable(true);
-        moduleComboBox.getEditor().textProperty().addListener((observable, oldValue, newValue) -> searchModules(newValue));
-        moduleComboBox.setVisibleRowCount(10);
-        moduleComboBox.addEventHandler(KeyEvent.KEY_RELEASED, event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                String text = moduleComboBox.getEditor().getText();
-                if (StringUtils.isEmpty(text)) {
-                    return;
-                }
-                for (String s : moduleComboBox.getItems()) {
-                    if (s.equals(text)) {
-                        return;
-                    }
-                }
-                moduleComboBox.getItems().add(0, text);
-                if (moduleComboBox.getItems().size() > 10) {
-                    moduleComboBox.getItems().remove(10);
-                }
-                moduleComboBox.getSelectionModel().select(0);
-                moduleComboBox.getEditor().extendSelection(moduleComboBox.getEditor().getText().length());
-            } else if (event.getCode() == KeyCode.DOWN) {
-                moduleComboBox.show();
-            }
+
+        moduleComboBox.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            searchModules(newValue);
+
         });
 
-        cmdComboBox.setEditable(true);
+
         cmdComboBox.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
             if (StringUtils.isEmpty(newValue)) {
                 refreshCmdByModuleListViewSelect();
                 return;
             }
-            newValue = newValue.toLowerCase();
-            cmdListView.getItems().clear();
-            for (GmModule module : modules) {
-                for (GmCmd cmd : module.gmCmds) {
-                    if (cmd.lowerCmdName.contains(newValue) || cmd.getCommentPinYin().contains(newValue)) {
-                        cmdListView.getItems().add(cmd);
-                    }
-                }
-            }
+            searchCmd(newValue);
         });
-        cmdComboBox.setVisibleRowCount(10);
-        cmdComboBox.addEventHandler(KeyEvent.KEY_RELEASED, event -> {
+        setUpComboBox(moduleComboBox);
+        setUpComboBox(cmdComboBox);
+        setUpComboBox(ipComboBox);
+        setUpComboBox(portComboBox);
+        setUpComboBox(serverIdComboBox);
+    }
+
+    private void setUpComboBox(ComboBox<String> comboBox) {
+        comboBox.setEditable(true);
+
+        comboBox.setVisibleRowCount(10);
+        comboBox.addEventHandler(KeyEvent.KEY_RELEASED, event -> {
             if (event.getCode() == KeyCode.ENTER) {
-                String text = cmdComboBox.getEditor().getText();
+                String text = comboBox.getEditor().getText();
                 if (StringUtils.isEmpty(text)) {
                     return;
                 }
-                for (String s : cmdComboBox.getItems()) {
+                for (String s : comboBox.getItems()) {
                     if (s.equals(text)) {
                         return;
                     }
                 }
-                cmdComboBox.getItems().add(0, text);
-                if (cmdComboBox.getItems().size() > 10) {
-                    cmdComboBox.getItems().remove(10);
+                comboBox.getItems().add(0, text);
+                if (comboBox.getItems().size() > 10) {
+                    comboBox.getItems().remove(10);
                 }
-                cmdComboBox.getSelectionModel().select(0);
-                cmdComboBox.getEditor().extendSelection(cmdComboBox.getEditor().getText().length());
+                comboBox.getSelectionModel().select(0);
+                comboBox.getEditor().extendSelection(comboBox.getEditor().getText().length());
             } else if (event.getCode() == KeyCode.DOWN) {
-                cmdComboBox.show();
+                comboBox.show();
             }
         });
     }
 
+    private void searchCmd(String newValue) {
+        newValue = newValue.toLowerCase();
+        cmdListView.getItems().clear();
+        for (GmModule module : modules) {
+            for (GmCmd cmd : module.gmCmds) {
+                if (cmd.lowerCmdName.contains(newValue) || cmd.getCommentPinYin().contains(newValue)) {
+                    cmdListView.getItems().add(cmd);
+                }
+            }
+        }
+        searchCmdBtn.setText("取消");
+    }
+
 
     public void refreshCmdByModuleListViewSelect() {
+        searchCmdBtn.setText("应用");
         cmdListView.getItems().clear();
         ObservableList<GmModule> selectedItems = moduleListView.getSelectionModel().getSelectedItems();
         for (GmModule selectedItem : selectedItems) {
@@ -274,6 +318,7 @@ public class GMProxyController implements ITab {
         moduleListView.getItems().clear();
         if (StringUtils.isEmpty(newValue)) {
             moduleListView.getItems().addAll(modules);
+            searchModuleBtn.setText("应用");
         } else {
             newValue = newValue.toLowerCase();
             for (GmModule module : modules) {
@@ -281,6 +326,7 @@ public class GMProxyController implements ITab {
                     moduleListView.getItems().add(module);
                 }
             }
+            searchModuleBtn.setText("取消");
         }
     }
 
@@ -322,24 +368,14 @@ public class GMProxyController implements ITab {
         if (listArr.length < 2) {
             return;
         }
-        String moduleList = listArr[1];
-        String[] modules = moduleList.split(BR);
-        for (String module : modules) {
-            if (StringUtils.isNotEmpty(module)) {
 
-                moduleComboBox.getItems().add(module);
-            }
-        }
+        fillComboBoxData(listArr[1], moduleComboBox);
+
         if (listArr.length < 3) {
             return;
         }
-        String cmdList = listArr[2];
-        String[] cmds = cmdList.split(BR);
-        for (String cmd : cmds) {
-            if (StringUtils.isNotEmpty(cmd)) {
-                cmdComboBox.getItems().addAll(cmd);
-            }
-        }
+        fillComboBoxData(listArr[2], cmdComboBox);
+
         if (listArr.length < 4) {
             return;
         }
@@ -356,8 +392,47 @@ public class GMProxyController implements ITab {
                 }
                 this.customModules.add(customGmModule);
             }
-
         }
+        if (listArr.length < 5) {
+            return;
+        }
+        fillComboBoxData(listArr[4], ipComboBox);
+
+        if (listArr.length < 6) {
+            return;
+        }
+        fillComboBoxData(listArr[5], portComboBox);
+        if (listArr.length < 7) {
+            return;
+        }
+        fillComboBoxData(listArr[6], serverIdComboBox);
+    }
+
+    private void fillComboBoxData(String dataString, ComboBox<String> comboBox) {
+        String[] datas = dataString.split(BR);
+        boolean isFirst = true;
+        int selectIndex = -1;
+        comboBox.getItems().add("");
+        for (String data : datas) {
+            if (StringUtils.isNotEmpty(data)) {
+                if (isFirst) {
+                    isFirst = false;
+                    selectIndex = Utils.safeParseInt(data, -1);
+                } else {
+
+                    comboBox.getItems().add(data);
+                }
+            }
+        }
+        logger.debug("fillComboBoxData selectIndex:{}", selectIndex);
+        logger.debug("fillComboBoxData dataString:{}", dataString);
+        comboBox.getSelectionModel().select(selectIndex);
+        if (selectIndex != -1) {
+
+            String value = comboBox.getItems().get(selectIndex);
+            comboBox.getEditor().setText(value);
+        }
+        logger.debug("fillComboBoxData comboBox.getEditor.getText:{}", comboBox.getEditor().getText());
 
     }
 
@@ -369,16 +444,10 @@ public class GMProxyController implements ITab {
     public void saveSelectList() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(userIdTF.getText());
-        stringBuilder.append("=");
-        for (String s : moduleComboBox.getItems()) {
-            stringBuilder.append(s);
-            stringBuilder.append(BR);
-        }
-        stringBuilder.append("=");
-        for (String s : cmdComboBox.getItems()) {
-            stringBuilder.append(s);
-            stringBuilder.append(BR);
-        }
+
+        appendComboBoxData(stringBuilder, moduleComboBox);
+        appendComboBoxData(stringBuilder, cmdComboBox);
+
         stringBuilder.append("=");
         if (customModules.size() > 0) {
 
@@ -403,7 +472,26 @@ public class GMProxyController implements ITab {
             }
             stringBuilder.setLength(stringBuilder.length() - 1);
         }
+        appendComboBoxData(stringBuilder, ipComboBox);
+        appendComboBoxData(stringBuilder, portComboBox);
+        appendComboBoxData(stringBuilder, serverIdComboBox);
+
+
         FileOperator.writeFile(new File(searchFile), stringBuilder.toString());
+    }
+
+    private void appendComboBoxData(StringBuilder stringBuilder, ComboBox<String> comboBox) {
+        stringBuilder.append("=");
+        int selectedIndex = comboBox.getSelectionModel().getSelectedIndex();
+        logger.debug("appendComboBoxData selectedIndex:{}", selectedIndex);
+        stringBuilder.append(selectedIndex);
+        stringBuilder.append(BR);
+        for (String s : comboBox.getItems()) {
+            if (StringUtils.isNotEmpty(s)) {
+                stringBuilder.append(s);
+                stringBuilder.append(BR);
+            }
+        }
     }
 
     private void saveProxyList() {
@@ -434,7 +522,14 @@ public class GMProxyController implements ITab {
     }
 
     public void sendGm(String s) {
-        this.client.sendGmMsg(s);
+        if (isLogined) {
+
+            this.client.sendGmMsg(s);
+            cacheGmMsg = null;
+        } else {
+            loginBtnClick();
+            cacheGmMsg = s;
+        }
     }
 
     public void setProxy(String s) {
@@ -445,12 +540,29 @@ public class GMProxyController implements ITab {
         });
     }
 
-    public void clearSearchModuleBtnClick(MouseEvent mouseEvent) {
-        moduleComboBox.getSelectionModel().select(-1);
+    public void searchModuleBtnClick(MouseEvent mouseEvent) {
+
+        moduleComboBox.getSelectionModel().clearSelection();
+        //        moduleComboBox.getEditor().setText("");
+        if (searchModuleBtn.getText().equals("应用")) {
+
+            searchModules(moduleComboBox.getEditor().getText());
+        } else {
+
+            searchModules("");
+        }
     }
 
-    public void clearSearchCmdBtnClick(MouseEvent mouseEvent) {
-        cmdComboBox.getSelectionModel().select(-1);
+    public void searchCmdBtnClick(MouseEvent mouseEvent) {
+        //        cmdComboBox.getSelectionModel().select(-1);
+        if (searchCmdBtn.getText().equals("应用")) {
+
+            searchCmd(cmdComboBox.getEditor().getText());
+
+        } else {
+
+            refreshCmdByModuleListViewSelect();
+        }
     }
 
 

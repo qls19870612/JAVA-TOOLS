@@ -7,11 +7,15 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
+import javafx.scene.input.KeyEvent;
 import sample.fxml.componet.NumberTextField;
 import sample.fxml.controllers.client.handlers.gm.CmdParam;
 import sample.utils.StringUtils;
@@ -77,6 +81,34 @@ public class CmdParamsRender extends Group {
                     numberTextField = new NumberTextField();
                     numberTextField.prefWidth(60);
                     numberTextField.textProperty().addListener((observable, oldValue, newValue) -> render.updateParamsInputValue(newValue));
+                    numberTextField.onKeyReleasedProperty().addListener(new ChangeListener<EventHandler<? super KeyEvent>>() {
+                        @Override
+                        public void changed(ObservableValue<? extends EventHandler<? super KeyEvent>> observable,
+                                EventHandler<? super KeyEvent> oldValue, EventHandler<? super KeyEvent> newValue) {
+                            logger.debug("changed oldValue:{},newValue:{}", oldValue, newValue);
+                        }
+                    });
+                    //                    numberTextField.setOnKeyReleased(new EventHandler<KeyEvent>() {
+                    //                        @Override
+                    //                        public void handle(KeyEvent event) {
+                    //                            if (event.getCode() == KeyCode.ENTER && event.isControlDown()) {
+                    //                                Parent parent = numberTextField.getParent();
+                    //                                while (parent != null) {
+                    //                                    parent = parent.getParent();
+                    //                                    if (parent instanceof CmdItemRender) {
+                    //                                        CmdItemRender cmdItemRender = (CmdItemRender) parent;
+                    //
+                    //                                        cmdItemRender.onSendBtnClick();
+                    //                                        break;
+                    //                                    } else {
+                    //                                        if (parent != null) {
+                    //                                            logger.debug("handle parent.getClass.getName:{}", parent.getClass().getName());
+                    //                                        }
+                    //                                    }
+                    //                                }
+                    //                            }
+                    //                        }
+                    //                    });
                 }
 
                 numberTextField.setLayoutX(offsetX);

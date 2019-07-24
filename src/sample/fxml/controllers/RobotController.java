@@ -71,7 +71,7 @@ public class RobotController implements ITab {
                     String account = allAccount.get(currIndex);
 
                     RobotClient robotClient = new RobotClient(Controller.getClientDepends());
-                    robotClient.startLoginAccount(account);
+                    robotClient.startLoginAccount(account, AppConfig.gmIp, AppConfig.gmPort, AppConfig.serverID);
                     robotClient.setConnTimeOut(client -> {
                         int count = timeOutCount.incrementAndGet();
                         if (count > 10) {

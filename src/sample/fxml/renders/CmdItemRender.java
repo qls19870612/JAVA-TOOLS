@@ -78,20 +78,7 @@ public class CmdItemRender extends ListCell<GmCmd> {
                 button = new Button("发送");
                 button.setLayoutX(210);
                 button.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-                    CmdItemRender cmdItemRender = CmdItemRender.this;
-                    GmCmd gmCmd = cmdItemRender.getItem();
-
-                    StringBuilder cmd = new StringBuilder(gmCmd.cmdName);
-                    for (CmdParamsRender render : cmdItemRender.getRenders()) {
-                        if (!render.isValid()) {
-                            AlertBox.showAlert(render.getFiled() + " 字段必需填写值");
-                            return;
-                        }
-                        cmd.append(" ");
-                        cmd.append(render.getValue());
-                    }
-
-                    GMProxyController.THIS.sendGm(cmd.toString());
+                    onSendBtnClick();
                 });
                 group = new Group();
                 group.getChildren().addAll(label, button);
@@ -139,6 +126,22 @@ public class CmdItemRender extends ListCell<GmCmd> {
             setStyle("-fx-background-color:IVORY");
         }
 
+    }
+
+    void onSendBtnClick() {
+
+
+        StringBuilder cmd = new StringBuilder(item.cmdName);
+        for (CmdParamsRender render : renders) {
+            if (!render.isValid()) {
+                AlertBox.showAlert(render.getFiled() + " 字段必需填写值");
+                return;
+            }
+            cmd.append(" ");
+            cmd.append(render.getValue());
+        }
+
+        GMProxyController.THIS.sendGm(cmd.toString());
     }
 
     @Override
