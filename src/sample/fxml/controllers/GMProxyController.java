@@ -424,8 +424,7 @@ public class GMProxyController implements ITab {
                 }
             }
         }
-        logger.debug("fillComboBoxData selectIndex:{}", selectIndex);
-        logger.debug("fillComboBoxData dataString:{}", dataString);
+
         comboBox.getSelectionModel().select(selectIndex);
         if (selectIndex != -1) {
 

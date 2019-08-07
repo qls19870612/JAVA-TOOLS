@@ -31,13 +31,18 @@ public class NoticeData {
         } else {
             msg = fixMsg;
         }
-        Matcher matcher = argsReg.matcher(msg);
-        ArrayList<String> argList = new ArrayList<>(4);
-        while (matcher.find()) {
-            String group = matcher.group(1);
-            argList.add(group);
+        if (StringUtils.isNotEmpty(msg)) {
+
+            Matcher matcher = argsReg.matcher(msg);
+            ArrayList<String> argList = new ArrayList<>(4);
+            while (matcher.find()) {
+                String group = matcher.group(1);
+                argList.add(group);
+            }
+            argTypes = argList.toArray(Empty.STRING_ARRAY);
+        } else {
+            argTypes = Empty.STRING_ARRAY;
         }
-        argTypes = argList.toArray(Empty.STRING_ARRAY);
         key = getKey(moduleId, msgId);
 
     }
