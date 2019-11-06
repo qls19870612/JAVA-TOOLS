@@ -38,12 +38,7 @@ public class NoticeDatas {
 
 
     public NoticeDatas() {
-        //        List<Config> list = configLoader.load("D:\\workspace\\project\\config\\data\\X-消息提示.xls");
-        //
-        //        for (Config config : list) {
-        //            NoticeData noticeData = new NoticeData(config);
-        //            datas.put(noticeData.key, noticeData);
-        //        }
+
         List<Map<String, String>> maps = initConfig();
         if (maps != null) {
             for (Map<String, String> map : maps) {
@@ -58,8 +53,7 @@ public class NoticeDatas {
         try {
             File file = new File(noticePath);
             FileLoader fileLoader = FileLoaderOS.of(file.getPath().replace(file.getName(), ""));
-            String filePath = file.getPath();
-            System.out.println("filePath:" + filePath);
+
             String fileName = getEncodePath(file.getName());
             byte[] fileContent = fileLoader.fileToBytes(fileName, true);
 

@@ -1143,18 +1143,6 @@ public class Utils extends CommonUtils {
         return list;
     }
 
-    public static String joinLongArr(long[] arr, String split) {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (long i : arr) {
-            if (stringBuilder.length() == 0) {
-                stringBuilder.append(i);
-            } else {
-                stringBuilder.append(i);
-                stringBuilder.append(split);
-            }
-        }
-        return stringBuilder.toString();
-    }
 
     public static String fillSpaceStr(String s, int len) {
         StringBuilder sBuilder = new StringBuilder(s);
@@ -1221,5 +1209,45 @@ public class Utils extends CommonUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static String joinLongArr(long[] arr, String split) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (long i : arr) {
+            if (stringBuilder.length() == 0) {
+                stringBuilder.append(i);
+            } else {
+                stringBuilder.append(i);
+                stringBuilder.append(split);
+            }
+        }
+        return stringBuilder.toString();
+    }
+
+
+    public static String joinStrArr(String[] arr, String split) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String i : arr) {
+            if (stringBuilder.length() == 0) {
+                stringBuilder.append(i);
+            } else {
+                stringBuilder.append(split);
+                stringBuilder.append(i);
+            }
+        }
+        return stringBuilder.toString();
+    }
+
+    public static String joinIntArr(int[] arr, String split) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (long i : arr) {
+            if (stringBuilder.length() == 0) {
+                stringBuilder.append(i);
+            } else {
+                stringBuilder.append(split);
+                stringBuilder.append(i);
+            }
+        }
+        return stringBuilder.toString();
     }
 }

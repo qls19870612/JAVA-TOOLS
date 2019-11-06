@@ -31,11 +31,14 @@ public class GmProxyItemRender extends TextFieldListCell<String> {
             if (this.getListView() != null) {
                 if (item.equals(getListView().getUserData())) {
 
-                    setTextFill(Color.DARKGREEN);
+                    setTextFill(Color.LIME);
                 } else {
                     setTextFill(Color.GRAY);
                 }
+            } else {
+                setTextFill(Color.WHITE);
             }
+
             GmProxyItemRender render = this;
             this.setOnMouseClicked(event -> {
                 if (event.getButton() == MouseButton.SECONDARY) {
@@ -51,6 +54,7 @@ public class GmProxyItemRender extends TextFieldListCell<String> {
             });
         } else {
             this.setOnMouseClicked(null);
+            setTextFill(Color.WHITE);
         }
 
     }

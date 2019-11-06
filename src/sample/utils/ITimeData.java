@@ -6,4 +6,6 @@ package sample.utils;
  */
 public interface ITimeData {
     DurationTime getNextTime(long ctime);
+
+    DurationTime getBeforeTime(long ctime);
 }

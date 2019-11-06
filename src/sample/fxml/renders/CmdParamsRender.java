@@ -7,15 +7,13 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-import javafx.beans.value.ChangeListener;
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
-import javafx.scene.input.KeyEvent;
 import sample.fxml.componet.NumberTextField;
 import sample.fxml.controllers.client.handlers.gm.CmdParam;
 import sample.utils.StringUtils;
@@ -62,8 +60,19 @@ public class CmdParamsRender extends Group {
     }
 
     private void reset() {
-        this.getChildren().clear();
         this.param = null;
+        this.getChildren().clear();
+        if (numberTextField != null) {
+            numberTextField.setText("");
+        }
+        if (textInput != null) {
+            textInput.setText("");
+        }
+        if (combox != null) {
+            combox.getItems().clear();
+            combox.getSelectionModel().clearSelection();
+        }
+
     }
 
     public void updateData(CmdParam param) {
@@ -81,34 +90,9 @@ public class CmdParamsRender extends Group {
                     numberTextField = new NumberTextField();
                     numberTextField.prefWidth(60);
                     numberTextField.textProperty().addListener((observable, oldValue, newValue) -> render.updateParamsInputValue(newValue));
-                    numberTextField.onKeyReleasedProperty().addListener(new ChangeListener<EventHandler<? super KeyEvent>>() {
-                        @Override
-                        public void changed(ObservableValue<? extends EventHandler<? super KeyEvent>> observable,
-                                EventHandler<? super KeyEvent> oldValue, EventHandler<? super KeyEvent> newValue) {
-                            logger.debug("changed oldValue:{},newValue:{}", oldValue, newValue);
-                        }
-                    });
-                    //                    numberTextField.setOnKeyReleased(new EventHandler<KeyEvent>() {
-                    //                        @Override
-                    //                        public void handle(KeyEvent event) {
-                    //                            if (event.getCode() == KeyCode.ENTER && event.isControlDown()) {
-                    //                                Parent parent = numberTextField.getParent();
-                    //                                while (parent != null) {
-                    //                                    parent = parent.getParent();
-                    //                                    if (parent instanceof CmdItemRender) {
-                    //                                        CmdItemRender cmdItemRender = (CmdItemRender) parent;
-                    //
-                    //                                        cmdItemRender.onSendBtnClick();
-                    //                                        break;
-                    //                                    } else {
-                    //                                        if (parent != null) {
-                    //                                            logger.debug("handle parent.getClass.getName:{}", parent.getClass().getName());
-                    //                                        }
-                    //                                    }
-                    //                                }
-                    //                            }
-                    //                        }
-                    //                    });
+                    numberTextField.onKeyReleasedProperty()
+                            .addListener((observable, oldValue, newValue) -> logger.debug("changed oldValue:{},newValue:{}", oldValue, newValue));
+
                 }
 
                 numberTextField.setLayoutX(offsetX);
@@ -142,8 +126,9 @@ public class CmdParamsRender extends Group {
                     combox.setEditable(false);
                     combox.getItems().add(false);
                     combox.getItems().add(true);
-                    combox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-                        if (newValue) {
+                    ReadOnlyObjectProperty<Boolean> booleanReadOnlyObjectProperty = combox.getSelectionModel().selectedItemProperty();
+                    booleanReadOnlyObjectProperty.addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+                        if (newValue != null && newValue) {
                             render.updateParamsInputValue("1");
                         } else {
                             render.updateParamsInputValue("0");
@@ -172,6 +157,9 @@ public class CmdParamsRender extends Group {
     }
 
     private void updateParamsInputValue(String newValue) {
+        if (param == null) {
+            return;
+        }
         param.setInputValue(newValue);
     }
 
@@ -207,7 +195,11 @@ public class CmdParamsRender extends Group {
                 }
                 return param.defaultValue.toString();
             case BOOLEAN:
-                return combox.getSelectionModel().getSelectedItem() ? "1" : "0";
+                Boolean selectedItem = combox.getSelectionModel().getSelectedItem();
+                if (selectedItem == null) {
+                    return "0";
+                }
+                return selectedItem ? "1" : "0";
         }
         return "";
     }

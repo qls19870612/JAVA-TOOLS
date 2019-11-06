@@ -9,7 +9,6 @@ import org.jboss.netty.buffer.HeapChannelBufferFactory;
 import org.jboss.netty.buffer.LittleEndianHeapChannelBuffer;
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelFuture;
-import org.jboss.netty.channel.ChannelPipeline;
 import org.jboss.netty.channel.Channels;
 import org.jboss.netty.channel.socket.nio.NioClientSocketChannelFactory;
 import org.slf4j.Logger;
@@ -24,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 import game.service.IThreadService;
 import game.service.ScheduleRunnable;
 import game.sink.server.CheckSumStream;
+import game.sink.server.SingleHandlerChannelPipeline;
 import game.sink.util.StringEncoder;
 import game.sink.util.concurrent.DisruptorExecutor;
 import sample.Controller;
@@ -122,14 +122,11 @@ public abstract class ClientBase implements IClient {
         socket.setOption("bufferFactory", HeapChannelBufferFactory.getInstance(ByteOrder.LITTLE_ENDIAN));
         socket.setOption("tcpNoDelay", true);
         socket.setOption("keepAlive", false);
-        socket.setOption("sendBufferSize", 8192);
-        socket.setOption("receiveBufferSize", 8192 * 8);
+        socket.setOption("sendBufferSize", 8192 * 4);
+        socket.setOption("receiveBufferSize", 8192 * 4);
 
         socket.setPipelineFactory(() -> {
-            ChannelPipeline pipeline = Channels.pipeline();
-            pipeline.addLast("dsf", new SingleDecoderHandler(this));
-            return pipeline;
-
+            return new SingleHandlerChannelPipeline(new SingleDecoderHandler(this));
         });
         ChannelFuture connect = socket.connect(new InetSocketAddress(ip, port));
         connect.addListener(future -> {
@@ -202,7 +199,7 @@ public abstract class ClientBase implements IClient {
                 e.printStackTrace();
             }
         } else {
-            logger.debug("onReciveMsg 未处理的模块消息 moduleId:{},sequenceId:{}", moduleId, sequenceId);
+            logger.debug("onReciveMsg un handle moduleId:{},sequenceId:{}", moduleId, sequenceId);
         }
 
     }
@@ -219,7 +216,6 @@ public abstract class ClientBase implements IClient {
         short len = message.readShort();
 
         int msgId = message.readInt();
-        //int roleCount = message.readByte();
         int moduleId = msgId / 1000;
         int sequenceId = msgId % 1000;
 

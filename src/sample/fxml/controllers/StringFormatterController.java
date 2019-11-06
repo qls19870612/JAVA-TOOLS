@@ -1,9 +1,20 @@
 package sample.fxml.controllers;
 
+import com.google.common.io.ByteStreams;
+import com.google.common.io.Files;
+
+import org.iq80.snappy.SnappyInputStream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javafx.beans.value.ChangeListener;
@@ -15,9 +26,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.DataFormat;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import sample.ITab;
 import sample.config.AppConfig;
+import sample.file.FileOperator;
 import sample.utils.StringUtils;
 
 /**
@@ -28,6 +42,7 @@ import sample.utils.StringUtils;
  *@创建时间 2018/7/13/013 10:52
  */
 public class StringFormatterController implements ITab {
+    private static final Logger logger = LoggerFactory.getLogger(StringFormatterController.class);
     public TextField uplowerTF;
     public Label afterConvertTF;
     public TextField upperCaseTF;
@@ -156,5 +171,73 @@ public class StringFormatterController implements ITab {
         }
     }
 
+    private boolean hasLogFile(List<File> files) {
+        for (File file : files) {
+            if (file.isDirectory()) {
+                File[] a = file.listFiles();
+                if (a != null) {
+                    boolean b = hasLogFile(Arrays.asList(a));
+                    if (b) {
+                        return true;
+                    }
+                }
+            } else if (file.getName().endsWith(".log")) {
+                return true;
+            }
+        }
+        return false;
 
+    }
+
+    public void onDragDropped(DragEvent dragEvent) {
+        logger.debug("onDragDropped dragEvent.getEventType:{}", dragEvent.getEventType());
+        unCompress(dragEvent.getDragboard().getFiles());
+    }
+
+    private void unCompress(List<File> files) {
+        for (File file : files) {
+            if (file.isDirectory()) {
+                File[] a = file.listFiles();
+                if (a != null) {
+                    unCompress(Arrays.asList(a));
+                }
+            } else if (file.getName().endsWith(".log")) {
+                try {
+                    File newDir = new File(file.getParent() + "/uncompress");
+                    if (!newDir.exists()) {
+                        newDir.mkdir();
+                    }
+                    uncompress(newDir, file);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private static void uncompress(File newDir, File logFile) throws IOException {
+        byte[] bytes = Files.toByteArray(logFile);
+
+
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
+        SnappyInputStream snappyFramedInputStream = new SnappyInputStream(byteArrayInputStream, true);
+        byte[] uncompress = ByteStreams.toByteArray(snappyFramedInputStream);
+        byteArrayInputStream.close();
+        snappyFramedInputStream.close();
+        String string = new String(uncompress);
+        File file = new File(newDir.getPath() + "/" + logFile.getName());
+
+        FileOperator.writeFile(file, string);
+    }
+
+    public void onDragOver(DragEvent dragEvent) {
+        if (!hasLogFile(dragEvent.getDragboard().getFiles())) {
+            return;
+        }
+        dragEvent.acceptTransferModes(TransferMode.MOVE);
+
+        dragEvent.consume();
+
+
+    }
 }

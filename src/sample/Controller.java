@@ -4,6 +4,7 @@ import com.sun.javafx.tk.Toolkit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,15 +19,19 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.Tooltip;
 import sample.config.AppConfig;
+import sample.enums.ConfigType;
 import sample.fxml.controllers.CreateConfigController;
+import sample.fxml.controllers.DiabloPublishController;
 import sample.fxml.controllers.GMProxyController;
 import sample.fxml.controllers.RobotController;
 import sample.fxml.controllers.StringFormatterController;
 import sample.fxml.controllers.XlsController;
 import sample.fxml.controllers.client.ClientDepends;
+import sample.interfaces.AutowireInterface;
+import sample.mapper.ConfigMapper;
 import sample.utils.Utils;
 
-public class Controller {
+public class Controller implements AutowireInterface {
     private static final Logger logger = LoggerFactory.getLogger(Controller.class);
     private static int count = 0;
     private static ClientDepends clientDepends;
@@ -41,6 +46,8 @@ public class Controller {
     @FXML
     public RobotController robotController;
     @FXML
+    public DiabloPublishController diabloPublishController;
+    @FXML
     public Label timeLabel;
     @FXML
     public Label infoLabel;
@@ -52,8 +59,12 @@ public class Controller {
     public Tab txtTab;
     public Tab configTab;
     public Tab robotTab;
+    public Tab diabloPublishTab;
     private SimpleDateFormat timeDataFormat;
     private ArrayList<ITab> tabs;
+
+    @Autowired
+    private ConfigMapper configMapper;
 
     public static ClientDepends getClientDepends() {
         if (clientDepends == null) {
@@ -64,20 +75,19 @@ public class Controller {
 
 
     public void init() {
-
         tabs = new ArrayList<>();
         tabs.add(stringFormatterController);
         tabs.add(createConfigController);
         tabs.add(xlsController);
         tabs.add(gmProxyController);
         tabs.add(robotController);
+        tabs.add(diabloPublishController);
         timeDataFormat = new SimpleDateFormat("HH:mm:ss");
         instance = this;
 
         tabPanel.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
             @Override
             public void changed(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
-                logger.debug("changed newValue.getText:{}", newValue.getText());
                 if (newValue == gmTab) {
                     gmProxyController.onSelect();
                 } else if (newValue == xlsTab) {
@@ -88,6 +98,8 @@ public class Controller {
                     createConfigController.onSelect();
                 } else if (newValue == robotTab) {
                     robotController.onSelect();
+                } else if (newValue == diabloPublishTab) {
+                    diabloPublishController.onSelect();
                 } else {
                     throw new RuntimeException("未处理的Tab:" + newValue.getText());
                 }
@@ -96,6 +108,7 @@ public class Controller {
         tabPanel.getSelectionModel().select(AppConfig.selectTab);
         infoLabel.setText("");
         timeLabel.setText("");
+
     }
 
 
@@ -155,6 +168,6 @@ public class Controller {
         for (ITab tab : tabs) {
             tab.onAppClose();
         }
-
+        configMapper.setInt(ConfigType.TAB_SELECT_INDEX, tabPanel.getSelectionModel().getSelectedIndex());
     }
 }

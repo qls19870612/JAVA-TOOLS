@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import sample.fxml.controllers.client.handlers.base.GMParamType;
 
@@ -17,6 +18,8 @@ public class CmdParam {
     public final String paramsName;
     public final GMParamType type;
     public final Object defaultValue;
+    private static AtomicInteger idCreator = new AtomicInteger();
+    public final int id;
 
     public String getInputValue() {
         return inputValue;
@@ -30,10 +33,9 @@ public class CmdParam {
 
 
     public CmdParam(String[] paramArr) {
+        this.id = idCreator.incrementAndGet();
         if (paramArr.length < 3) {
-
             logger.debug("CmdParam paramArr:{}", paramArr);
-
         }
         if (paramArr.length > 3) {
             StringBuilder remain = new StringBuilder();

@@ -47,5 +47,12 @@
                 <TextArea fx:id="toStr" prefHeight="314.0" prefWidth="580.0"/>
             </children>
         </VBox>
+        <AnchorPane AnchorPane.topAnchor="10" AnchorPane.rightAnchor="10" prefWidth="200" prefHeight="110"
+                    onDragOver="#onDragOver"
+                    onDragDropped="#onDragDropped" style="-fx-background-color: LIGHTSKYBLUE;">
+            <Label AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" alignment="CENTER">
+                拖动到此处解压游戏服日志
+            </Label>
+        </AnchorPane>
     </children>
 </AnchorPane>

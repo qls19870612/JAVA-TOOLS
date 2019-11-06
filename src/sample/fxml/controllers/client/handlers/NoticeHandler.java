@@ -78,7 +78,7 @@ public class NoticeHandler extends HandlerBase {
                     notice = replace(notice, argType, prizeProto.toString() + "->" + race + "_" + sex + "_" + level);
                     break;
                 default:
-                    logger.debug("handle 未处理的协议参数 ");
+                    logger.debug("未处理的协议参数 argType:{}", argType);
 
             }
         }

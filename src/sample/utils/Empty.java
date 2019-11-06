@@ -2,6 +2,7 @@ package sample.utils;
 
 import org.jboss.netty.buffer.ChannelBuffer;
 
+import java.io.File;
 import java.util.HashMap;
 
 import game.collection.IntPair;
@@ -14,6 +15,7 @@ public final class Empty {
     }
 
     public static final byte[] BYTE_ARRAY = new byte[0];
+    public static final File[] FILES = new File[0];
 
     public static final byte[][] BYTES_ARRAY = new byte[0][];
 

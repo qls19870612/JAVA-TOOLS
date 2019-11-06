@@ -1,14 +1,13 @@
 package sample.fxml.controllers.client;
 
-import java.lang.reflect.Modifier;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import game.collection.IntHashMap;
-import game.collection.IntHashMap.Entry;
-import io.ytcode.reflect.clazz.Classes;
-import io.ytcode.reflect.resource.Resources;
-import io.ytcode.reflect.resource.Scanner;
+import java.util.Map;
+
 import sample.fxml.controllers.client.handlers.base.Handler;
 import sample.fxml.controllers.client.handlers.base.HandlerBase;
+import sample.utils.SpringUtil;
 
 /**
  *
@@ -16,6 +15,7 @@ import sample.fxml.controllers.client.handlers.base.HandlerBase;
  * 创建时间 2019/04/01 14:14
  */
 public class HandlerHub implements IHandlerHub {
+    private static final Logger logger = LoggerFactory.getLogger(HandlerHub.class);
     private HandlerBase[] handlers;
 
     public HandlerHub() {
@@ -23,30 +23,21 @@ public class HandlerHub implements IHandlerHub {
     }
 
     private void initGMHandlers() {
-        Resources rs = Scanner.pkgs(Modules.class.getPackage().getName()).scan();
-        Classes clss = rs.classes().subTypeOf(HandlerBase.class).filter(input -> !input.isInterface() && !Modifier.isAbstract(input.getModifiers()));
-        IntHashMap<HandlerBase> handlerBases = new IntHashMap<>();
+
+        Map<String, Object> handlerMap = SpringUtil.getHandlers();
         int maxModuleId = 0;
-        for (Class<?> cls : clss) {
-            Handler annotation = cls.getAnnotation(Handler.class);
-            if (annotation != null) {
-                Class<HandlerBase> handlerBaseClass = (Class<HandlerBase>) cls;
-                HandlerBase handlerBase = null;
-                try {
-                    handlerBase = handlerBaseClass.newInstance();
-                } catch (InstantiationException | IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-                if (handlerBase == null) {
-                    continue;
-                }
-                maxModuleId = Math.max(maxModuleId, annotation.moduleId());
-                handlerBases.put(annotation.moduleId(), handlerBase);
-            }
+        for (Map.Entry<String, Object> entry : handlerMap.entrySet()) {
+            HandlerBase handlerBase = (HandlerBase) entry.getValue();
+            Handler annotation = handlerBase.getClass().getAnnotation(Handler.class);
+            maxModuleId = Math.max(maxModuleId, annotation.moduleId());
+
         }
-        handlers = new HandlerBase[maxModuleId + 1];
-        for (Entry<HandlerBase> handlerBaseEntry : handlerBases.entrySet()) {
-            handlers[handlerBaseEntry.getKey()] = handlerBaseEntry.getValue();
+        this.handlers = new HandlerBase[maxModuleId + 1];
+
+        for (Map.Entry<String, Object> entry : handlerMap.entrySet()) {
+            HandlerBase handlerBase = (HandlerBase) entry.getValue();
+            Handler annotation = handlerBase.getClass().getAnnotation(Handler.class);
+            this.handlers[annotation.moduleId()] = handlerBase;
         }
 
 

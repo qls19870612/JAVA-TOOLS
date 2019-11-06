@@ -53,7 +53,6 @@ public class XLS2LUAController implements ITab {
         inited = true;
         if (readLuaUpdateCfg) {
             readLuaCfg();
-            readLuaCfg();
         }
         checkUpdateDp();
         list.setCellFactory((Callback<ListView, XlsItemRender>) param -> new XlsItemRender());

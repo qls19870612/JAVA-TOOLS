@@ -37,6 +37,7 @@ public class GmHandler extends HandlerBase {
             return;
         }
         String gmMsg = BufferUtil.readUTF(buffer);
+
         GmClient client = (GmClient) iclient;
 
         if (gmMsg.startsWith("gmAll#")) {
@@ -44,7 +45,6 @@ public class GmHandler extends HandlerBase {
             ArrayList<GmModule> modules = parseAllGm(substring);
             client.updateModules(modules);
         } else {
-            logger.debug("handle gmMsg:{}", gmMsg);
             Controller.log(gmMsg);
             if (gmMsg.startsWith("设置代理目标")) {
                 String[] split = gmMsg.split("：");

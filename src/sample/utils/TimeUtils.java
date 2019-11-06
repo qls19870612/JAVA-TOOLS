@@ -16,8 +16,6 @@ import java.math.RoundingMode;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
-import ch.qos.logback.core.util.TimeUtil;
-
 
 /**
  * @author Liwei
@@ -26,7 +24,9 @@ import ch.qos.logback.core.util.TimeUtil;
 public class TimeUtils {
     private static final Logger logger = LoggerFactory.getLogger(TimeUtils.class);
     public static final DateTimeFormatter FORMATTER = DateTimeFormat.forPattern("yy-MM-dd-HH-mm-ss");
+    public static final DateTimeFormatter FORMATTER2 = DateTimeFormat.forPattern("yy-MM-dd HH:mm:ss");
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat.forPattern("yy年MM月dd日");
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.forPattern("MM月dd日 HH:mm:ss");
 
     private static final ISOChronology chronology = ISOChronology.getInstance();
 
@@ -41,6 +41,23 @@ public class TimeUtils {
         return FORMATTER.print(time);
     }
 
+    public static String printTime(int time) {
+        return FORMATTER.print(TimeUtils.secondToMills(time));
+    }
+
+    /**
+     * MM月dd日 HH:mm:ss
+     * @param time
+     * @return
+     */
+    public static String printDateTime(int time) {
+        return DATE_TIME_FORMATTER.print(TimeUtils.secondToMills(time));
+    }
+
+    public static String printTime2(long time) {
+        return FORMATTER2.print(time);
+    }
+
     public static String printDate(long time) {
         return DATE_FORMATTER.print(time);
     }
@@ -49,9 +66,9 @@ public class TimeUtils {
         return (millis + TimeZone.getDefault().getOffset(millis)) / MILLIS_PER_DAY;
     }
 
-    public static long getMillisOfDayStart(long millis) {
-        return millis + TimeUtils.MILLIS_PER_DAY - TimeUtil.computeStartOfNextDay(millis);
-    }
+    //    public static long getMillisOfDayStart(long millis) {
+    //        return millis + TimeUtils.MILLIS_PER_DAY - TimeUtil.computeStartOfNextDay(millis);
+    //    }
 
     public static int toHourOfDay(long instant) {
         return chronology.hourOfDay().get(instant);
@@ -217,5 +234,10 @@ public class TimeUtils {
     }
 
     private TimeUtils() {
+    }
+
+    public static int getSystemSecond() {
+
+        return TimeUtils.millsToSecond(System.currentTimeMillis());
     }
 }

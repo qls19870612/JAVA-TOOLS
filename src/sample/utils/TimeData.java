@@ -5,10 +5,13 @@ import com.google.common.collect.Sets;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -22,6 +25,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class TimeData implements ITimeData, Parser {
+    private static final Logger logger = LoggerFactory.getLogger(TimeData.class);
     private static final DurationTime MAX_LONG = new DurationTime(Long.MAX_VALUE, Long.MAX_VALUE);
     private static final DurationTime MIN_LONG = new DurationTime(0, 0);
 
@@ -567,6 +571,27 @@ public class TimeData implements ITimeData, Parser {
                 endTime.getMillis() + diff * DateTimeConstants.MILLIS_PER_DAY);
     }
 
+    public DurationTime getRealBeforeTime(long from) {
+        DurationTime beforeTime = getBeforeTime(from);
+        if (beforeTime.startTime != from) {
+            return beforeTime;
+        }
+        return getBeforeTime(from - DateTimeConstants.MILLIS_PER_MINUTE);
+    }
+
+    /**
+     * 得到下一个符合要求的时间点. 没有就返回0,这个时间点必然是传入的时间点+1分钟之后
+     * @param form
+     * @return
+     */
+    public DurationTime getRealNextTime(long form) {
+        DurationTime nextTime = getNextTime(form);
+        if (nextTime.startTime == form) {
+            return getNextTime(form + DateTimeConstants.MILLIS_PER_MINUTE);
+        }
+        return nextTime;
+    }
+
     public DurationTime getBeforeTime(long from) {
         DateTime fromDateTime = new DateTime(from);
 
@@ -943,13 +968,47 @@ public class TimeData implements ITimeData, Parser {
     }
 
     public static void main(String[] args) {
-        TimeData data = TimeData.parse("[*][*][*][19:05-20:05]");
-        long ctime = System.currentTimeMillis();
-        DurationTime time = data.getNextTime(ctime);
-        System.out.println(new DateTime(time.startTime));
-        System.out.println(new DateTime(time.endTime));
-        time = data.getBeforeTime(ctime);
-        System.out.println(new DateTime(time.startTime));
-        System.out.println(new DateTime(time.endTime));
+        String strTime = "[*][*][*][00:01-01:00]";
+        TimeData data;
+
+
+        data = TimeData.parse(strTime);
+        testTime(data, "2019-09-07 19:04:59");
+        testTime(data, "2019-09-07 19:05:00");
+        testTime(data, "2019-09-07 19:05:01");
+        testTimeData(data);
+
+
+    }
+
+    private static void testTimeData(TimeData data) {
+        //        long baseTime = TimeUtils.FORMATTER2.parseMillis("2019-09-07 00:00:00");
+        long baseTime = TimeUtils.FORMATTER2.parseMillis("19-09-07 00:01:53");
+
+        for (int i = 0; i < 1; i++) {
+            //            long ctime = baseTime + (RandomUtils.nextInt(240) - 120) * DateTimeConstants.MILLIS_PER_SECOND;
+            long ctime = baseTime;
+            DurationTime before = data.getRealBeforeTime(ctime);
+            DurationTime next = data.getRealNextTime(ctime);
+
+            String baseTimeStr = TimeUtils.printTime2(ctime);
+            logger.debug("testTimeData baseTimeStr:{}", baseTimeStr);
+            logger.debug("testTimeData before:     {}", before);
+            logger.debug("testTimeData next:       {}", next);
+            logger.debug("testTimeData ================");
+            Date date;
+
+        }
+
+    }
+
+    private static void testTime(ITimeData data, String baseTime) {
+        long ctime = TimeUtils.FORMATTER2.parseMillis(baseTime);
+
+        DurationTime next = data.getNextTime(ctime);
+
+        DurationTime before = data.getBeforeTime(ctime);
+
+        System.out.println("====================");
     }
 }

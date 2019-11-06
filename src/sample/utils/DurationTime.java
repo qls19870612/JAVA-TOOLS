@@ -49,4 +49,9 @@ public class DurationTime {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "[" + TimeUtils.printTime2(startTime) + "#" + TimeUtils.printTime2(endTime) + "]";
+    }
 }

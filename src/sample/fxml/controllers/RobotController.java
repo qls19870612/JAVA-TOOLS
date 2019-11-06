@@ -44,10 +44,6 @@ public class RobotController implements ITab {
     private int msgIndex;
 
     public void onStartCon() {
-        //        showLog(String.valueOf((int) (Math.random() * 10000)));
-        //        if (true) {
-        //            return;
-        //        }
         if (isAdding) {
             return;
         }

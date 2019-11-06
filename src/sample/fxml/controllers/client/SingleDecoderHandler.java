@@ -5,6 +5,7 @@ import org.jboss.netty.channel.ChannelDownstreamHandler;
 import org.jboss.netty.channel.ChannelEvent;
 import org.jboss.netty.channel.ChannelHandlerContext;
 import org.jboss.netty.channel.ChannelStateEvent;
+import org.jboss.netty.channel.ExceptionEvent;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.handler.codec.frame.LengthFieldBasedFrameDecoder;
 import org.slf4j.Logger;
@@ -32,8 +33,7 @@ public class SingleDecoderHandler extends LengthFieldBasedFrameDecoder implement
     protected ChannelBuffer extractFrame(ChannelBuffer buffer, int index, int length) {
         try {
 
-            //            logger.debug("extractFrame buffer.array.length:{},buffer.arrayOffset:{},buffer.array:{}", buffer.array().length, buffer.arrayOffset(),
-            //                    buffer.array());
+
             ChannelBuffer input = buffer.slice(index, length);
             client.getDisruptorExecutor().execute(() -> client.onMessage(input));
 
@@ -84,5 +84,10 @@ public class SingleDecoderHandler extends LengthFieldBasedFrameDecoder implement
         ctx.sendDownstream(evt);
     }
 
-
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e) throws Exception {
+        super.exceptionCaught(ctx, e);
+        String message = e.getCause().getMessage();
+        logger.debug("exceptionCaught message:{}", message);
+    }
 }

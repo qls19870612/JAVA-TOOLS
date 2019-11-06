@@ -38,6 +38,11 @@
                         <fx:include fx:id="robot" source="fxml/Robot.fxml"/>
                     </content>
                 </Tab>
+                <Tab text="发布版本" fx:id="diabloPublishTab">
+                    <content>
+                        <fx:include fx:id="diabloPublish" source="fxml/DiabloPublish.fxml"/>
+                    </content>
+                </Tab>
 
             </tabs>
         </TabPane>

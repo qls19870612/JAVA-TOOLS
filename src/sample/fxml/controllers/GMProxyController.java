@@ -2,28 +2,36 @@ package sample.fxml.controllers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.SplitPane;
+import javafx.scene.control.SplitPane.Divider;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import sample.Controller;
 import sample.ITab;
 import sample.config.AppConfig;
-import sample.file.FileOperator;
+import sample.enums.ConfigType;
 import sample.fxml.componet.InputBox;
 import sample.fxml.controllers.client.ClientDepends;
 import sample.fxml.controllers.client.gm.GmClient;
@@ -33,9 +41,17 @@ import sample.fxml.controllers.client.handlers.gm.GmModule;
 import sample.fxml.renders.CmdItemRender;
 import sample.fxml.renders.GmProxyItemRender;
 import sample.fxml.renders.ModuleItemRender;
+import sample.mapper.ConfigMapper;
 import sample.utils.StringUtils;
 import sample.utils.Utils;
 
+import static sample.enums.ConfigType.GM_CUSTOM_MODULE;
+import static sample.enums.ConfigType.GM_IP;
+import static sample.enums.ConfigType.GM_PORT;
+import static sample.enums.ConfigType.GM_SEARCH_CMD;
+import static sample.enums.ConfigType.GM_SEARCH_MODULE;
+import static sample.enums.ConfigType.GM_SERVER_ID;
+import static sample.enums.ConfigType.GM_USER_ID;
 import static sample.utils.Utils.BR;
 
 /**
@@ -60,19 +76,23 @@ public class GMProxyController implements ITab {
     public ComboBox<String> ipComboBox;
     public ComboBox<String> portComboBox;
     public ComboBox<String> serverIdComboBox;
+    public AnchorPane border;
+    public SplitPane splitPane;
+    public HBox proxyListTitleHb;
+
     private boolean inited;
     private boolean isLogined;
     private GmClient client;
 
     private ArrayList<GmModule> modules = new ArrayList<>();
-    private final String proxyClientListFile = "proxyClientList.txt";
-    private final String searchFile = "searchFile.txt";
 
 
     public static GMProxyController THIS;
     private ClientDepends depends;
     public ArrayList<CustomGmModule> customModules = new ArrayList<>();
     private String cacheGmMsg = null;
+    @Autowired
+    private ConfigMapper configMapper;
 
     public void loginBtnClick() {
         if (isLogined) {
@@ -190,6 +210,8 @@ public class GMProxyController implements ITab {
         if (StringUtils.isNotEmpty(userIdTF.getText())) {
             client.startLoginAccount(userIdTF.getText(), getIp(), getPort(), getServerID());
         }
+
+
     }
 
     private void initComponent() {
@@ -229,10 +251,32 @@ public class GMProxyController implements ITab {
 
 
         });
-        proxyListView.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> refreshProxy());
+        proxyListView.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            refreshProxy();
+        });
         proxyListView.addEventHandler(ListView.editCommitEvent(), event -> Platform.runLater(this::saveProxyList));
 
         proxyListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
+
+        Scene scene = this.border.getScene();
+        this.border.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Node focusOwner = scene.getFocusOwner();
+                if (focusOwner instanceof TextField) {
+                    TextField textField = (TextField) focusOwner;
+                    textField.commitValue();
+                    Node node = textField;
+                    while ((node = node.getParent()) != null) {
+                        if (node instanceof ListCell) {
+                            ((ListCell) node).commitEdit(textField.getText());
+                        }
+                    }
+
+                }
+            }
+        });
 
         moduleListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         moduleListView.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
@@ -258,6 +302,28 @@ public class GMProxyController implements ITab {
         setUpComboBox(ipComboBox);
         setUpComboBox(portComboBox);
         setUpComboBox(serverIdComboBox);
+        setUpSplitPanel();
+    }
+
+    private void setUpSplitPanel() {
+        SplitPane.setResizableWithParent(proxyListTitleHb, true);
+        double fixedHeight = 36d;
+        splitPane.setDividerPositions(0.6d, 0.6d + fixedHeight / splitPane.getHeight());
+        ObservableList<Divider> dividers = splitPane.getDividers();
+
+        double inter = dividers.get(1).getPosition() - dividers.get(0).getPosition();
+        logger.debug("onSelect inter:{}", inter);
+
+        dividers.get(0).positionProperty().addListener((observable, oldValue, newValue) -> {
+            double value = newValue.floatValue() + fixedHeight / splitPane.getHeight();
+            value = Math.min(value, 1d);
+            dividers.get(1).setPosition(value);
+        });
+        dividers.get(1).positionProperty().addListener((observable, oldValue, newValue) -> {
+            double value = newValue.floatValue() - fixedHeight / splitPane.getHeight();
+            value = Math.max(value, 0d);
+            dividers.get(0).setPosition(value);
+        });
     }
 
     private void setUpComboBox(ComboBox<String> comboBox) {
@@ -345,41 +411,36 @@ public class GMProxyController implements ITab {
 
 
     private void readProxyList() {
-        String s = FileOperator.readFiles(new File(proxyClientListFile));
+
+        String s = configMapper.getConfig(ConfigType.GM_CLIENT_LIST);
         if (StringUtils.isEmpty(s)) {
             return;
         }
         String[] split = s.split(BR);
         proxyListView.getItems().addAll(split);
 
+
     }
 
     private void readSearchList() {
-        String s = FileOperator.readFiles(new File(searchFile));
-        if (StringUtils.isEmpty(s)) {
-            return;
-        }
-        String[] listArr = s.split("=");
-        if (listArr.length < 1) {
-            return;
-        }
-        String userId = listArr[0];
+
+        String userId = configMapper.getConfig(GM_USER_ID);
         userIdTF.setText(userId);
-        if (listArr.length < 2) {
-            return;
-        }
 
-        fillComboBoxData(listArr[1], moduleComboBox);
+        readComboBoxDataConfig(GM_SEARCH_MODULE, moduleComboBox);
+        readComboBoxDataConfig(GM_SEARCH_CMD, cmdComboBox);
+        readCustomModuleConfig();
 
-        if (listArr.length < 3) {
-            return;
-        }
-        fillComboBoxData(listArr[2], cmdComboBox);
+        readComboBoxDataConfig(GM_IP, ipComboBox);
 
-        if (listArr.length < 4) {
-            return;
-        }
-        String customModules = listArr[3];
+
+        readComboBoxDataConfig(GM_PORT, portComboBox);
+
+        readComboBoxDataConfig(GM_SERVER_ID, serverIdComboBox);
+    }
+
+    private void readCustomModuleConfig() {
+        String customModules = configMapper.getConfig(GM_CUSTOM_MODULE);
         if (StringUtils.isNotEmpty(customModules)) {
 
             String[] customModuleArr = customModules.split("@");
@@ -393,23 +454,11 @@ public class GMProxyController implements ITab {
                 this.customModules.add(customGmModule);
             }
         }
-        if (listArr.length < 5) {
-            return;
-        }
-        fillComboBoxData(listArr[4], ipComboBox);
-
-        if (listArr.length < 6) {
-            return;
-        }
-        fillComboBoxData(listArr[5], portComboBox);
-        if (listArr.length < 7) {
-            return;
-        }
-        fillComboBoxData(listArr[6], serverIdComboBox);
     }
 
-    private void fillComboBoxData(String dataString, ComboBox<String> comboBox) {
-        String[] datas = dataString.split(BR);
+    private void readComboBoxDataConfig(ConfigType configType, ComboBox<String> comboBox) {
+        String config = configMapper.getConfig(configType);
+        String[] datas = config.split(BR);
         boolean isFirst = true;
         int selectIndex = -1;
         comboBox.getItems().add("");
@@ -431,7 +480,6 @@ public class GMProxyController implements ITab {
             String value = comboBox.getItems().get(selectIndex);
             comboBox.getEditor().setText(value);
         }
-        logger.debug("fillComboBoxData comboBox.getEditor.getText:{}", comboBox.getEditor().getText());
 
     }
 
@@ -441,15 +489,23 @@ public class GMProxyController implements ITab {
     }
 
     public void saveSelectList() {
+        configMapper.setConfig(GM_USER_ID, userIdTF.getText());
+
+        saveComboBoxData(GM_SEARCH_MODULE, moduleComboBox);
+        saveComboBoxData(GM_SEARCH_CMD, cmdComboBox);
+
+
+        saveCustomModule();
+
+        saveComboBoxData(GM_IP, ipComboBox);
+        saveComboBoxData(GM_PORT, portComboBox);
+        saveComboBoxData(GM_SERVER_ID, serverIdComboBox);
+
+    }
+
+    private void saveCustomModule() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(userIdTF.getText());
-
-        appendComboBoxData(stringBuilder, moduleComboBox);
-        appendComboBoxData(stringBuilder, cmdComboBox);
-
-        stringBuilder.append("=");
         if (customModules.size() > 0) {
-
             for (CustomGmModule customModule : customModules) {
                 stringBuilder.append(customModule.moduleName);
                 stringBuilder.append(BR);
@@ -470,19 +526,16 @@ public class GMProxyController implements ITab {
                 stringBuilder.append("@");
             }
             stringBuilder.setLength(stringBuilder.length() - 1);
+
+
         }
-        appendComboBoxData(stringBuilder, ipComboBox);
-        appendComboBoxData(stringBuilder, portComboBox);
-        appendComboBoxData(stringBuilder, serverIdComboBox);
-
-
-        FileOperator.writeFile(new File(searchFile), stringBuilder.toString());
+        configMapper.setConfig(GM_CUSTOM_MODULE, stringBuilder.toString());
     }
 
-    private void appendComboBoxData(StringBuilder stringBuilder, ComboBox<String> comboBox) {
-        stringBuilder.append("=");
+    private void saveComboBoxData(ConfigType configType, ComboBox<String> comboBox) {
+        StringBuilder stringBuilder = new StringBuilder();
         int selectedIndex = comboBox.getSelectionModel().getSelectedIndex();
-        logger.debug("appendComboBoxData selectedIndex:{}", selectedIndex);
+
         stringBuilder.append(selectedIndex);
         stringBuilder.append(BR);
         for (String s : comboBox.getItems()) {
@@ -491,6 +544,7 @@ public class GMProxyController implements ITab {
                 stringBuilder.append(BR);
             }
         }
+        configMapper.setConfig(configType, stringBuilder.toString());
     }
 
     private void saveProxyList() {
@@ -499,12 +553,13 @@ public class GMProxyController implements ITab {
             stringBuilder.append(s);
             stringBuilder.append(BR);
         }
-        FileOperator.writeFile(new File(proxyClientListFile), stringBuilder.toString());
+        configMapper.setConfig(ConfigType.GM_CLIENT_LIST, stringBuilder.toString());
     }
 
 
     public void updateModules(ArrayList<GmModule> modules) {
         this.modules = modules;
+
         HashMap<String, GmCmd> cmdHashMap = new HashMap<>();
         for (GmModule module : modules) {
             for (GmCmd cmd : module.gmCmds) {
@@ -516,7 +571,11 @@ public class GMProxyController implements ITab {
         }
         this.modules.addAll(customModules);
         this.modules.sort(GmModule.moduleSort);
-        moduleListView.getItems().addAll(modules);
+        Platform.runLater(() -> {
+            moduleListView.getItems().clear();
+            moduleListView.getItems().addAll(modules);
+        });
+
         refreshProxy();
     }
 

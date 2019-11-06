@@ -1,5 +1,8 @@
 package sample.file;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -7,15 +10,18 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+
+import sample.utils.StringUtils;
 
 /**
  * Created by liangsong on 2018/4/14
  */
 public class FileOperator {
-
+    private static final Logger logger = LoggerFactory.getLogger(FileOperator.class);
     public static final String NEX_LINE = System.getProperty("line.separator");
 
     public static void openFile(String luaPath) {
@@ -32,6 +38,50 @@ public class FileOperator {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 读取控制台打印的文字
+     * @param in
+     * @return
+     * @throws Exception
+     */
+    public static String readInputstream(InputStream in) {
+        InputStreamReader inputStreamReader = new InputStreamReader(in);
+        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+        StringBuilder sb = new StringBuilder();
+        String line = null;
+        try {
+            while ((line = bufferedReader.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return sb.toString();
+    }
+
+    public static String runBat(String batStr) throws IOException {
+        Process exec = Runtime.getRuntime().exec(batStr);
+        //        exec.waitFor();
+        String info = readInputstream(exec.getInputStream());
+
+        String error = readInputstream(exec.getErrorStream());
+
+        String ret = "";
+        if (StringUtils.isNotEmpty(info)) {
+            ret += "info:" + info;
+        }
+        if (StringUtils.isNotEmpty(error)) {
+            ret += "error:" + error;
+        }
+        exec.destroy();
+        return ret;
     }
 
     public static interface Filter<T> {

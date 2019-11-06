@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import sample.fxml.componet.fxml.FileSelector?>
+<?import sample.fxml.componet.fxml.InputComponent?>
+<?import sample.fxml.componet.fxml.MaskPanel?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="sample.fxml.controllers.DiabloPublishController"
+            prefHeight="600.0" prefWidth="600.0">
+
+    <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="0"
+          AnchorPane.rightAnchor="0">
+
+        <FileSelector label="SVN执行文件" fx:id="svnFileSelector" configType="PUBLISH_SVN_DIRECTOR"/>
+        <FileSelector label="发布版本文件" fx:id="projectFileSelector" configType="PUBLISH_PROJECT_DIRECTOR"/>
+        <FileSelector label="服务器目录" folder="true" fx:id="serverFolderSelector" configType="PUBLISH_SERVER_DIRECTOR"/>
+        <InputComponent label="版本名字" fx:id="versionNameInput" configType="PUBLISH_VERSION_NAME"/>
+        <HBox spacing="10">
+            <Button fx:id="publishBtn" text="发布" prefWidth="1000" HBox.hgrow="ALWAYS" onMouseClicked="#onPublishBtnClick"/>
+            <Button fx:id="kfPublishBtn" text="发布跨服" prefWidth="1000" HBox.hgrow="ALWAYS" onMouseClicked="#onKfPublishBtnClick"/>
+            <Button fx:id="logBtn" text="日志" prefWidth="1000" HBox.hgrow="ALWAYS" onMouseClicked="#onLogBtnClick"/>
+        </HBox>
+        <ListView fx:id="publishHistoryList"/>
+    </VBox>
+    <MaskPanel fx:id="maskPanel" visible="false" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="176"
+               AnchorPane.bottomAnchor="40"/>
+</AnchorPane>

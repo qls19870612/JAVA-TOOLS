@@ -24,7 +24,6 @@ public class ClientDepends {
         handlerHub = new HandlerHub();
         threadService = new ThreadServiceImpl();
         dbService = new DBService();
-        //        ConfigLoader configLoader = new ConfigLoader(threadService);
         noticeDatas = new NoticeDatas();
     }
 

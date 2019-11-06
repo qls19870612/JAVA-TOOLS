@@ -1,0 +1,12 @@
+.list-cell:even {
+    -fx-background-color: GHOSTWHITE;
+}
+.list-cell:odd {
+    -fx-background-color: LAVENDER;
+}
+.list-cell:selected {
+    -fx-background-color:CORNFLOWERBLUE;
+}
+.list-cell:empty {
+    -fx-background-color: white;
+}

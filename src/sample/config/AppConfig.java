@@ -20,10 +20,15 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import sample.datas.vo.CodeInfo;
+import sample.enums.ConfigType;
 import sample.file.FileOperator;
+import sample.mapper.ConfigMapper;
+import sample.services.TableMangerService;
 import sample.utils.ClassParserUtils;
+import sample.utils.SpringUtil;
 
 import static sample.datas.vo.CodeInfo.EMPTY_CODE_INFO;
+
 
 public class AppConfig {
     private static DocumentBuilderFactory dbFactory = null;
@@ -54,6 +59,7 @@ public class AppConfig {
     public static String noticePath;
     public static final int operatorID = 1;
     public static final int serverID = 1;
+    private static ConfigMapper configMapper;
 
     public static boolean parseClassConfig() {
         boolean isUpdate = false;
@@ -65,7 +71,6 @@ public class AppConfig {
             return false;
         }
         lastConfigModifyTime = configFile.lastModified();
-        System.out.println("修改:" + lastConfigModifyTime);
         try {
             String content = FileOperator.readFiles(configFile);
             InputSource inputSource = new InputSource(new StringReader(content));
@@ -83,6 +88,7 @@ public class AppConfig {
     }
 
     public static void parserTemplate() {
+
         File configFile = new File("config/config.xml");
         if (!configFile.exists()) {
             return;
@@ -103,10 +109,12 @@ public class AppConfig {
             noticePath = document.getElementsByTagName("noticePath").item(0).getChildNodes().item(0).getNodeValue();
             gmPort = Integer.parseInt(document.getElementsByTagName("gm_port").item(0).getChildNodes().item(0).getNodeValue());
             readLuaUpdateCfg = document.getElementsByTagName("readLuaUpdateCfg").item(0).getChildNodes().item(0).getNodeValue().equals("1");
-            selectTab = Integer.parseInt(document.getElementsByTagName("selectTab").item(0).getChildNodes().item(0).getNodeValue());
         } catch (Exception e) {
             e.printStackTrace();
         }
+        selectTab = configMapper.getInt(ConfigType.TAB_SELECT_INDEX, 2);
+
+
     }
 
     public static void initFactory() {
@@ -188,4 +196,18 @@ public class AppConfig {
         }
         return null;
     }
+
+    public static void initSqlLite() throws Exception {
+
+        TableMangerService tableMangerService = SpringUtil.getBean(TableMangerService.class);
+        tableMangerService.init();
+        configMapper = SpringUtil.getBean(ConfigMapper.class);
+
+    }
+
+    public AppConfig() {
+
+    }
+
+
 }
