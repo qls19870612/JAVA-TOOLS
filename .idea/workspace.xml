@@ -2,69 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aed95fc1-e526-4bd3-b844-fa4ae712b8ad" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/Administrator.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resource/logback.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/SpringMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/datas/db_entry/PublishLog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/enums/ConfigType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/fxml/DiabloPublish.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/fxml/componet/fxml/AbstractInputComponent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/fxml/componet/fxml/FileSelector.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/fxml/componet/fxml/InputComponent.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/fxml/componet/fxml/InputComponent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/fxml/componet/fxml/MaskPanel.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/fxml/componet/fxml/MaskPanel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/DiabloPublishController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/fxml/renders/PublishLogRender.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/interfaces/AutowireInterface.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/listview.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/mapper/ConfigMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/mapper/DiabloPublishMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/mapper/TableCreatorMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/services/TableMangerService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/utils/SpringUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/utils/TextUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/utils/TimeDataAs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javatools.properties" beforeDir="false" afterPath="$PROJECT_DIR$/javatools.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxyClientList.txt" beforeDir="false" afterPath="$PROJECT_DIR$/proxyClientList.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/searchFile.txt" beforeDir="false" afterPath="$PROJECT_DIR$/searchFile.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/ITab.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/ITab.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/config/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/config/AppConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/file/FileOperator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/file/FileOperator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/fxml/GMProxy.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/GMProxy.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/fxml/StringFormatter.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/StringFormatter.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sample/fxml/controllers/GMProxyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/GMProxyController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/fxml/controllers/RobotController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/RobotController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/fxml/controllers/StringFormatterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/StringFormatterController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/fxml/controllers/XLS2LUAController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/XLS2LUAController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/fxml/controllers/client/ClientBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/ClientBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/fxml/controllers/client/ClientDepends.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/ClientDepends.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/fxml/controllers/client/HandlerHub.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/HandlerHub.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/fxml/controllers/client/SingleDecoderHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/SingleDecoderHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/fxml/controllers/client/config/NoticeDatas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/config/NoticeDatas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/fxml/controllers/client/handlers/GmHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/handlers/GmHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/fxml/controllers/client/handlers/NoticeHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/handlers/NoticeHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/fxml/controllers/client/handlers/base/Handler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/handlers/base/Handler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/fxml/controllers/client/handlers/gm/CmdParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/handlers/gm/CmdParam.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/fxml/controllers/client/robots/HeroEasyInfoCoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/client/robots/HeroEasyInfoCoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/fxml/renders/CmdParamsRender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/renders/CmdParamsRender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/fxml/renders/GmProxyItemRender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/renders/GmProxyItemRender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/sample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/sample.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/utils/DurationTime.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/utils/DurationTime.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/utils/Empty.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/utils/Empty.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/utils/ITimeData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/utils/ITimeData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/utils/TimeData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/utils/TimeData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/utils/TimeUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/utils/TimeUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/utils/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/utils/Utils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../pinyin4j/src/test/java/net/sourceforge/pinyin4j/test/PinyinHelperTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../pinyin4j/src/test/java/net/sourceforge/pinyin4j/test/PinyinHelperTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../pinyin4j/src/test/java/net/sourceforge/pinyin4j/test/Q.java" beforeDir="false" afterPath="$PROJECT_DIR$/../pinyin4j/src/test/java/net/sourceforge/pinyin4j/test/Q.java" afterDir="false" />
     </list>
@@ -89,11 +28,32 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="DiabloPublishController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/DiabloPublishController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="154">
+              <caret line="59" column="16" selection-start-line="59" selection-start-column="16" selection-end-line="59" selection-end-column="16" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GMProxyController.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/GMProxyController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="123">
+              <caret line="323" column="11" lean-forward="true" selection-start-line="323" selection-start-column="11" selection-end-line="323" selection-end-column="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="Controller.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="387">
-              <caret line="70" column="39" selection-start-line="70" selection-start-column="39" selection-end-line="70" selection-end-column="39" />
+            <state relative-caret-position="233">
+              <caret line="92" column="48" lean-forward="true" selection-start-line="92" selection-start-column="48" selection-end-line="92" selection-end-column="48" />
             </state>
           </provider>
         </entry>
@@ -116,30 +76,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="178">
-              <caret line="110" column="30" lean-forward="true" selection-start-line="110" selection-start-column="24" selection-end-line="110" selection-end-column="35" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RobotController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/RobotController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="364">
-              <caret line="45" column="21" lean-forward="true" selection-start-line="45" selection-start-column="21" selection-end-line="45" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Robot.fxml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sample/fxml/Robot.fxml">
-          <provider editor-type-id="JavaFX-Scene-Builder" />
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="13" column="53" selection-start-line="13" selection-start-column="53" selection-end-line="13" selection-end-column="53" />
+            <state relative-caret-position="290">
+              <caret line="118" column="21" lean-forward="true" selection-start-line="118" selection-start-column="21" selection-end-line="118" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -196,9 +137,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>SpringUtil.getBean(TableMangerService.class)</find>
-      <find>onSelectBtnClick</find>
-      <find>onInputMethodTextChanged</find>
       <find>changeText</find>
       <find>ObservableList</find>
       <find>getGraphic()</find>
@@ -226,6 +164,9 @@
       <find>exceptionCaught</find>
       <find>filePath:</find>
       <find>fl</find>
+      <find>init flag:</find>
+      <find>onSelect</find>
+      <find>onSelect inter</find>
     </findStrings>
     <replaceStrings>
       <replace>static final</replace>
@@ -256,7 +197,6 @@
         <option value="$PROJECT_DIR$/src/sample/fxml/componet/fxml/FolderSelector.java" />
         <option value="$PROJECT_DIR$/src/sample/utils/TimeUtils.java" />
         <option value="$PROJECT_DIR$/src/sample/SpringMain.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/config/config.xml" />
         <option value="$PROJECT_DIR$/src/sample/mapper/TableCreatorMapper.java" />
         <option value="$PROJECT_DIR$/src/sample/mapper/DiabloPublishMapper.java" />
@@ -289,7 +229,6 @@
         <option value="$PROJECT_DIR$/src/sample/fxml/componet/fxml/InputComponent.java" />
         <option value="$PROJECT_DIR$/src/sample/fxml/componet/fxml/FileSelector.java" />
         <option value="$PROJECT_DIR$/src/sample/ITab.java" />
-        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/GMProxyController.java" />
         <option value="$PROJECT_DIR$/src/sample/fxml/renders/PublishLogRender.java" />
         <option value="$PROJECT_DIR$/src/sample/config/AppConfig.java" />
         <option value="$PROJECT_DIR$/src/sample/Controller.java" />
@@ -297,6 +236,8 @@
         <option value="$PROJECT_DIR$/src/sample/fxml/controllers/client/HandlerHub.java" />
         <option value="$PROJECT_DIR$/src/sample/fxml/controllers/client/config/NoticeDatas.java" />
         <option value="$PROJECT_DIR$/src/sample/fxml/controllers/RobotController.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/sample/fxml/controllers/GMProxyController.java" />
       </list>
     </option>
   </component>
@@ -584,10 +525,10 @@
       <window_info anchor="right" id="Maven Projects" order="3" sideWeight="0.49625936" visible="true" weight="0.10607676" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info id="Structure" order="1" sideWeight="0.10296412" side_tool="true" visible="true" weight="0.19616205" />
+      <window_info id="Structure" order="1" sideWeight="0.10184182" side_tool="true" visible="true" weight="0.19616205" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.81556505" visible="true" weight="0.30552545" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.81556505" weight="0.6283857" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32936078" />
       <window_info id="DB Browser" order="2" />
       <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.5405117" weight="0.3846154" />
@@ -598,7 +539,7 @@
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49946696" weight="0.32936078" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32936078" />
       <window_info anchor="bottom" id="Run with VisualVM" order="8" sideWeight="0.6242004" weight="0.3575298" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.8970359" visible="true" weight="0.19616205" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.8981582" visible="true" weight="0.19616205" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.48560768" weight="0.3997833" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -1071,23 +1012,6 @@
       <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/DiabloPublishController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="37" column="71" selection-start-line="37" selection-start-column="54" selection-end-line="37" selection-end-column="71" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/GMProxyController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="93" column="14" selection-start-line="93" selection-start-column="14" selection-end-line="93" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/RobotController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="364">
@@ -1135,13 +1059,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="387">
-          <caret line="70" column="39" selection-start-line="70" selection-start-column="39" selection-end-line="70" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/utils/FieldMergerEnum.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="98">
@@ -1151,8 +1068,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="110" column="30" lean-forward="true" selection-start-line="110" selection-start-column="24" selection-end-line="110" selection-end-column="35" />
+        <state relative-caret-position="290">
+          <caret line="118" column="21" lean-forward="true" selection-start-line="118" selection-start-column="21" selection-end-line="118" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="233">
+          <caret line="92" column="48" lean-forward="true" selection-start-line="92" selection-start-column="48" selection-end-line="92" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/DiabloPublishController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="59" column="16" selection-start-line="59" selection-start-column="16" selection-end-line="59" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/fxml/controllers/GMProxyController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="123">
+          <caret line="323" column="11" lean-forward="true" selection-start-line="323" selection-start-column="11" selection-end-line="323" selection-end-column="11" />
         </state>
       </provider>
     </entry>

@@ -311,8 +311,6 @@ public class GMProxyController implements ITab {
         splitPane.setDividerPositions(0.6d, 0.6d + fixedHeight / splitPane.getHeight());
         ObservableList<Divider> dividers = splitPane.getDividers();
 
-        double inter = dividers.get(1).getPosition() - dividers.get(0).getPosition();
-        logger.debug("onSelect inter:{}", inter);
 
         dividers.get(0).positionProperty().addListener((observable, oldValue, newValue) -> {
             double value = newValue.floatValue() + fixedHeight / splitPane.getHeight();
