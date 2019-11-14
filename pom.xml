@@ -41,7 +41,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.1.2.RELEASE</version>
                 <configuration>
-                    <outputDirectory>D:\workspace\project\misc</outputDirectory>
+                    <outputDirectory>misc</outputDirectory>
                     <finalName>javaTools-1.0-SNAPSHOT-jar-with-dependencies</finalName>
                     <mainClass>sample.Main</mainClass>
                 </configuration>
