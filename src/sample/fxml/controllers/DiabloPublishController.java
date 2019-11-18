@@ -257,4 +257,8 @@ public class DiabloPublishController implements ITab, AutowireInterface {
     }
 
 
+    public void resolve(PublishLog item) {
+        serverFolderSelector.setPath(item.getServerFolder());
+        versionNameInput.setInputText(item.getVersionName());
+    }
 }

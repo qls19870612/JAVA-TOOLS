@@ -70,34 +70,22 @@ public class StringFormatterController implements ITab {
 
     @Override
     public void onAppClose() {
-        if (!inited) {
-            return;
-        }
+
     }
 
     private void addListener(TextInputControl textField, Label afterTf, Method formatMethod) {
-        textField.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                textField.setText("");
+        textField.setOnMouseClicked(event -> textField.setText(""));
+        textField.textProperty().addListener((observable, oldValue, newValue) -> {
+            //                String string = StringUtils.toUpLowerString(newValue);
+            String string = null;
+            try {
+                string = (String) formatMethod.invoke(null, newValue);
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
             }
-        });
-        textField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                //                String string = StringUtils.toUpLowerString(newValue);
-                String string = null;
-                try {
-                    string = (String) formatMethod.invoke(null, newValue);
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();
-                }
-                afterTf.setText(string);
-                if (StringUtils.isNotEmpty(string)) {
-                    copyTxt(afterTf);
-                }
+            afterTf.setText(string);
+            if (StringUtils.isNotEmpty(string)) {
+                copyTxt(afterTf);
             }
         });
 

@@ -53,6 +53,10 @@ public class InputComponent extends AbstractInputComponent implements AutowireIn
         return textField.getText();
     }
 
+    public void setInputText(String value) {
+        textField.setText(value);
+    }
+
     @Override
     protected void onBtnClick(MouseEvent mouseEvent) {
 

@@ -1,7 +1,5 @@
 package sample.datas.vo.raw;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
-
 import java.util.ArrayList;
 
 /**

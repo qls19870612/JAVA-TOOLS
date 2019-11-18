@@ -74,6 +74,10 @@ public class FileSelector extends AbstractInputComponent implements AutowireInte
         return textField.getText();
     }
 
+    public void setPath(String path) {
+        textField.setText(path);
+    }
+
     @Override
     protected void onBtnClick(MouseEvent mouseEvent) {
         if (mouseEvent.getSource() == button) {

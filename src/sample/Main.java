@@ -30,7 +30,7 @@ public class Main extends Application {
 
         Parent root = loader.getRoot();
         primaryStage.setTitle("XLS文件转java配置类");
-        primaryStage.setScene(new Scene(root, 700, 600));
+        primaryStage.setScene(new Scene(root, 820, 600));
         primaryStage.show();
         root.getScene().getStylesheets().add(this.getClass().getResource("listview.css").toExternalForm());
         controller.init();

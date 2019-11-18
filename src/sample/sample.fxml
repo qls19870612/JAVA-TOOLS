@@ -5,9 +5,9 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane prefHeight="600" prefWidth="660" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <children>
-        <TabPane fx:id="tabPanel" prefHeight="538.0" prefWidth="639.0" tabClosingPolicy="UNAVAILABLE" tabMinWidth="70" AnchorPane.bottomAnchor="40.0"
+        <TabPane fx:id="tabPanel" tabClosingPolicy="UNAVAILABLE" tabMinWidth="70" AnchorPane.bottomAnchor="40.0"
                  AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
             <tabs>
 

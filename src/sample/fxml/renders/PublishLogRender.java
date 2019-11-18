@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.util.ArrayList;
 
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -48,6 +47,7 @@ public class PublishLogRender extends ListCell<PublishLog> {
         serverLabel.setPrefWidth(270);
         versionLabel = new Label();
         rect = new Region();
+        rect.setMinWidth(-10);
         deleteBtn = new Button("删除");
         deleteBtn.setMinWidth(50);
         deleteBtn.setMaxWidth(50);
@@ -60,7 +60,7 @@ public class PublishLogRender extends ListCell<PublishLog> {
         box.setVisible(false);
 
         HBox.setHgrow(rect, Priority.ALWAYS);
-        box.setAlignment(Pos.BASELINE_CENTER);
+
         deleteBtn.setOnMouseClicked(event -> {
             try {
                 PublishLogRender.this.onClickDelete();
@@ -71,6 +71,16 @@ public class PublishLogRender extends ListCell<PublishLog> {
         openBtn.setOnMouseClicked(event -> {
             PublishLogRender.this.onClickOpen();
         });
+        this.setOnMouseClicked(event -> PublishLogRender.this.onClick());
+    }
+
+    private void onClick() {
+        PublishLog item = getItem();
+        if (item != null) {
+
+            DiabloPublishController.THIS.resolve(item);
+
+        }
     }
 
     private void onClickOpen() {

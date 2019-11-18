@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <configs>
+        <templates>
+            <field><![CDATA[@InitReq(cfgKeys = $0, desc = $1$4)
+    public final $5 $3 = $2();]]></field>
+
+            <class><![CDATA[package $package;
+
+import app.game.config.GuiceInitializer;
+import game.initializer.Config;
+import game.initializer.InitReq;
+
+$imports
+import static game.initializer.utils.Defaults.*;
+
+/**
+ * create by javaTools 你可以修改，但是，修改过的，工具重新生成时，不会覆盖你修改的
+ * $date
+ */
+public class $className1 {
+    $fields
+
+    public $className2(Config config, GuiceInitializer initializer) {$super
+        initializer.initialize(this, $className2.class, config);
+    }
+}]]></class>
+        </templates>
+        <selectTab>5</selectTab>
+        <readLuaUpdateCfg>1</readLuaUpdateCfg>
+        <!--selectTab  0-2 -->
+        <xlsPath>D:\workspace\svn\program\server\server\config\data</xlsPath>
+        <luaPath>D:\workspace\svn\client\sg\src\config</luaPath>
+        <genMsgPath>C:\Program Files\Git\git-bash.exe D:\workspace\project\bin\gen-msg.sh</genMsgPath>
+        <gmMsgPath>D:\workspace\project\config\data\GM命令.txt</gmMsgPath>
+        <gm_ip>192.168.1.116</gm_ip>
+        <gm_port>9999</gm_port>
+        <noticePath>D:\workspace\project\config\data\X-消息提示.xls</noticePath>
+    </configs>
+    /
+</root>

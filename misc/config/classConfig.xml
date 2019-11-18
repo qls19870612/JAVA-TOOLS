@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <configs>
+        <configitem>
+            <codePath>app.game.config.shop</codePath>
+            <className>ShopTableData</className>
+            <xlsPath>..\config\data\S-商城-分类表.xls</xlsPath>
+        </configitem>
+
+        <configitem>
+            <codePath>app\game\config\rein</codePath>
+            <className>SpellSlotData</className>
+            <xlsPath>D:\workspace\project\config\data\J-技能槽.xls</xlsPath>
+        </configitem>
+        <baseCodePath>D:\workspace\project\src\main\java\</baseCodePath>
+        <configitem>
+            <codePath>app\game\config\goods</codePath>
+            <className>GoodsData</className>
+            <xlsPath>D:\workspace\project\config\data\物品\D-道具表.xls</xlsPath>
+        </configitem>
+        <configitem>
+            <codePath>app\game\config\goods\normal</codePath>
+            <extClassName>GoodsData</extClassName>
+            <className>EquipGoodsData</className>
+            <xlsPath>D:\workspace\project\config\data\物品\Z-装备道具表.xls</xlsPath>
+        </configitem>
+        <configitem>
+            <codePath>app\game\config\goods\usable</codePath>
+            <extClassName>GoodsData</extClassName>
+            <className>UsableGoodsData</className>
+            <xlsPath>D:\workspace\project\config\data\物品\可使用物品基础表.xls</xlsPath>
+        </configitem>
+    </configs>
+</root>
