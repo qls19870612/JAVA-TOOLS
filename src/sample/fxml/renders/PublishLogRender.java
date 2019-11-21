@@ -12,7 +12,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
-import sample.datas.db_entry.PublishLog;
+import sample.entitys.PublishLogEntity;
 import sample.file.FileOperator;
 import sample.fxml.controllers.DiabloPublishController;
 import sample.services.TableMangerService;
@@ -25,7 +25,7 @@ import sample.utils.TimeUtils;
  * 创建人  liangsong
  * 创建时间 2019/10/24 20:30
  */
-public class PublishLogRender extends ListCell<PublishLog> {
+public class PublishLogRender extends ListCell<PublishLogEntity> {
     private static final Logger logger = LoggerFactory.getLogger(PublishLogRender.class);
 
     private final Label dateLabel;
@@ -75,7 +75,7 @@ public class PublishLogRender extends ListCell<PublishLog> {
     }
 
     private void onClick() {
-        PublishLog item = getItem();
+        PublishLogEntity item = getItem();
         if (item != null) {
 
             DiabloPublishController.THIS.resolve(item);
@@ -84,7 +84,7 @@ public class PublishLogRender extends ListCell<PublishLog> {
     }
 
     private void onClickOpen() {
-        PublishLog item = getItem();
+        PublishLogEntity item = getItem();
         if (item != null) {
             File serverFolder = new File(item.getServerFolder());
             if (!serverFolder.exists() || !serverFolder.isDirectory()) {
@@ -96,7 +96,7 @@ public class PublishLogRender extends ListCell<PublishLog> {
     }
 
     private void onClickDelete() throws Exception {
-        PublishLog item = getItem();
+        PublishLogEntity item = getItem();
         if (item != null) {
             TableMangerService bean = SpringUtil.getBean(TableMangerService.class);
             bean.diabloPublishMapper.deleteLog(item.getId());
@@ -131,7 +131,7 @@ public class PublishLogRender extends ListCell<PublishLog> {
     }
 
     @Override
-    protected void updateItem(PublishLog item, boolean empty) {
+    protected void updateItem(PublishLogEntity item, boolean empty) {
         super.updateItem(item, empty);
         if (item != null) {
             box.setVisible(true);

@@ -21,6 +21,7 @@ import javafx.scene.control.Tooltip;
 import sample.config.AppConfig;
 import sample.enums.ConfigType;
 import sample.fxml.controllers.CreateConfigController;
+import sample.fxml.controllers.DbEntityCreatorController;
 import sample.fxml.controllers.DiabloPublishController;
 import sample.fxml.controllers.GMProxyController;
 import sample.fxml.controllers.RobotController;
@@ -47,6 +48,9 @@ public class Controller implements AutowireInterface {
     public RobotController robotController;
     @FXML
     public DiabloPublishController diabloPublishController;
+
+    @FXML
+    public DbEntityCreatorController dbEntityCreatorController;
     @FXML
     public Label timeLabel;
     @FXML
@@ -60,6 +64,7 @@ public class Controller implements AutowireInterface {
     public Tab configTab;
     public Tab robotTab;
     public Tab diabloPublishTab;
+    public Tab dbEntityCreatorTab;
     private SimpleDateFormat timeDataFormat;
     private ArrayList<ITab> tabs;
 
@@ -100,6 +105,8 @@ public class Controller implements AutowireInterface {
                     robotController.onSelect();
                 } else if (newValue == diabloPublishTab) {
                     diabloPublishController.onSelect();
+                } else if (newValue == dbEntityCreatorTab) {
+                    dbEntityCreatorController.onSelect();
                 } else {
                     throw new RuntimeException("未处理的Tab:" + newValue.getText());
                 }
@@ -108,7 +115,6 @@ public class Controller implements AutowireInterface {
         tabPanel.getSelectionModel().select(AppConfig.selectTab);
         infoLabel.setText("");
         timeLabel.setText("");
-
     }
 
 

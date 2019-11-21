@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 
+import ch.qos.logback.core.db.dialect.SQLiteDialect;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -35,6 +36,7 @@ public class Main extends Application {
         root.getScene().getStylesheets().add(this.getClass().getResource("listview.css").toExternalForm());
         controller.init();
         primaryStage.addEventHandler(WINDOW_CLOSE_REQUEST, event -> controller.onAppClose());
+        SQLiteDialect dialect;
 
     }
 

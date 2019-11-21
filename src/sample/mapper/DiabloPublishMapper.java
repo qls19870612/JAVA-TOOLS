@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
-import sample.datas.db_entry.PublishLog;
+import sample.entitys.PublishLogEntity;
 
 /**
  *
@@ -18,7 +18,7 @@ public interface DiabloPublishMapper {
     public int updatePublishLog(@Param("versionName") String versionName, @Param("serverFolder") String serverFolder, @Param("updateDate") int date);
 
     @Select("select * from publish_log where isDelete=0 order by updateDate desc")
-    PublishLog[] getPublishLogs();
+    PublishLogEntity[] getPublishLogs();
 
     @Update("update publish_log set isDelete=1 where id=#{id}")
     void deleteLog(@Param("id") int id);

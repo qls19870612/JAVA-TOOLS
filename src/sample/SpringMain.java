@@ -4,6 +4,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  *
@@ -14,7 +15,7 @@ import org.springframework.context.annotation.PropertySource;
 @EnableAutoConfiguration
 @MapperScan(basePackages = {"sample.mapper"})
 @ComponentScan(basePackages = {"sample"})
-
+@EnableScheduling
 public class SpringMain {
     //    public static void main(String[] args) {
     //        SpringApplication.run(SpringMain.class);

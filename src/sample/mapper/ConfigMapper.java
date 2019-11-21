@@ -16,15 +16,18 @@ import sample.utils.Utils;
 
 
 public interface ConfigMapper {
+
     @ResultType(String.class)
     @Select("select value from config where key=#{key}")
     public String getConfig(@Param("key") String key);
+
 
     default String getConfig(ConfigType key) {
         String config = getConfig(key.name());
         if (config == null) {
             return "";
         }
+
         return config;
     }
 

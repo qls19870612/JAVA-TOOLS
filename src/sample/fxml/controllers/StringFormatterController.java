@@ -31,6 +31,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import sample.ITab;
 import sample.config.AppConfig;
+import sample.db.EntryCreator;
 import sample.file.FileOperator;
 import sample.utils.StringUtils;
 
@@ -128,6 +129,11 @@ public class StringFormatterController implements ITab {
 
     public void onCopyUpperCaseBtnClick(MouseEvent mouseEvent) {
         copyTxt(afterConvertUpperCaseTF);
+        try {
+            new EntryCreator();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void onOpenBtnClick(MouseEvent mouseEvent) {

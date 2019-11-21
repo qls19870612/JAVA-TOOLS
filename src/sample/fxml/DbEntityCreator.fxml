@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import sample.fxml.componet.fxml.FileSelector?>
+<?import sample.fxml.componet.fxml.InputComponent?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="sample.fxml.controllers.DbEntityCreatorController"
+            prefHeight="400.0" prefWidth="600.0">
+    <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="0"
+          AnchorPane.rightAnchor="0">
+
+        <FileSelector label="源文件路径" folder="true" fx:id="srcFolderSelector" configType="DB_JAVA_SOURCE_PATH"/>
+        <InputComponent label="包名" fx:id="packageNameInput" configType="DB_JAVA_PACKAGE"/>
+        <HBox spacing="50">
+            <InputComponent label="前辍" fx:id="packageNamePrefixInput" configType="DB_JAVA_CLASS_PREFIX"/>
+            <InputComponent label="后辍" fx:id="packageNameSuffixInput" configType="DB_JAVA_CLASS_SUFFIX" HBox.hgrow="ALWAYS"/>
+        </HBox>
+        <InputComponent label="数据库地址" fx:id="dbUrlInput" configType="DB_DB_URL"/>
+        <HBox spacing="10">
+            <InputComponent label="数据库名字" fx:id="dbNameInput" configType="DB_DB_NAME" HBox.hgrow="ALWAYS"/>
+
+            <ComboBox fx:id="dbComboBox">
+
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Mysql"/>
+                        <String fx:value="Sqlite"/>
+                    </FXCollections>
+                </items>
+                <value>
+                    <String fx:value="Mysql"/>
+                </value>
+            </ComboBox>
+
+        </HBox>
+
+        <HBox spacing="50">
+            <InputComponent label="用户名" fx:id="dbUserNameInput" configType="DB_DB_USER_NAME"/>
+            <InputComponent label="密码" fx:id="dbPasswordInput" configType="DB_DB_PASSWORD" HBox.hgrow="ALWAYS"/>
+        </HBox>
+        <Button fx:id="createBtn" text="生成" prefWidth="Infinity" onMouseClicked="#onCreateBtnClick"/>
+
+    </VBox>
+</AnchorPane>

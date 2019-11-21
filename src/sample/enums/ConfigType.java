@@ -32,6 +32,22 @@ public enum ConfigType {
 
     TAB_SELECT_INDEX,
 
+    DB_JAVA_SOURCE_PATH,
+
+    DB_JAVA_PACKAGE,
+
+    DB_JAVA_CLASS_PREFIX,
+
+    DB_JAVA_CLASS_SUFFIX,
+
+    DB_DB_URL,
+
+    DB_DB_NAME,
+
+    DB_DB_USER_NAME,
+
+    DB_DB_PASSWORD,
+
     //
     ;
 }

@@ -43,6 +43,11 @@
                         <fx:include fx:id="diabloPublish" source="fxml/DiabloPublish.fxml"/>
                     </content>
                 </Tab>
+                <Tab text="数据库实体" fx:id="dbEntityCreatorTab">
+                    <content>
+                        <fx:include fx:id="dbEntityCreator" source="fxml/DbEntityCreator.fxml"/>
+                    </content>
+                </Tab>
 
             </tabs>
         </TabPane>

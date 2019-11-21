@@ -16,7 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import sample.ITab;
-import sample.datas.db_entry.PublishLog;
+import sample.entitys.PublishLogEntity;
 import sample.file.FileOperator;
 import sample.fxml.componet.AlertBox;
 import sample.fxml.componet.fxml.FileSelector;
@@ -44,7 +44,7 @@ public class DiabloPublishController implements ITab, AutowireInterface {
     public FileSelector serverFolderSelector;
     public InputComponent versionNameInput;
     public Button publishBtn;
-    public ListView<PublishLog> publishHistoryList;
+    public ListView<PublishLogEntity> publishHistoryList;
     public FileSelector svnFileSelector;
     public MaskPanel maskPanel;
     public Button logBtn;
@@ -69,7 +69,7 @@ public class DiabloPublishController implements ITab, AutowireInterface {
     }
 
     private void updateList() {
-        PublishLog[] publishLogs = tableMangerService.diabloPublishMapper.getPublishLogs();
+        PublishLogEntity[] publishLogs = tableMangerService.diabloPublishMapper.getPublishLogs();
         publishHistoryList.getItems().setAll(publishLogs);
     }
 
@@ -257,7 +257,7 @@ public class DiabloPublishController implements ITab, AutowireInterface {
     }
 
 
-    public void resolve(PublishLog item) {
+    public void resolve(PublishLogEntity item) {
         serverFolderSelector.setPath(item.getServerFolder());
         versionNameInput.setInputText(item.getVersionName());
     }

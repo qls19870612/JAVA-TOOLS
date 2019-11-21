@@ -16,7 +16,8 @@ public class StringUtils {
     private static Pattern pattern = Pattern.compile("\\$(\\d+)");
     private static Pattern number = Pattern.compile("\\d+");
     private static Pattern unicode = Pattern.compile("\"((?:\\\\\\d+)+)\"");
-    private static Pattern worldPattern = Pattern.compile("[a-zA-Z0-9]+");
+    //    private static Pattern worldPattern = Pattern.compile("[a-zA-Z0-9]+");
+    private static Pattern worldPattern = Pattern.compile("[A-Z]{1,1}[a-z]{0,100}");
     private static Pattern UPPERCASE = Pattern.compile("[A-Z]+");
     private static final Logger logger = LoggerFactory.getLogger(StringUtils.class);
 
@@ -111,19 +112,51 @@ public class StringUtils {
     }
 
     public static String toUpLowerString(String newValue) {
-        Matcher matcher = worldPattern.matcher(newValue);
-        StringBuffer stringBuffer = new StringBuffer();
-        while (matcher.find()) {
-            String worlds = matcher.group();
-            if (stringBuffer.length() == 0) {
-                stringBuffer.append(Character.toLowerCase(worlds.charAt(0)));
-            } else {
-                stringBuffer.append(Character.toUpperCase(worlds.charAt(0)));
-            }
-            stringBuffer.append(worlds.substring(1).toLowerCase());
-        }
+        return toUpLowerString(newValue, false);
+    }
 
-        return stringBuffer.toString();
+    public static String toUpLowerString(String newValue, boolean firstUpper) {
+        StringBuilder ret = new StringBuilder();
+        boolean hasBig = false;
+        for (char c : newValue.toCharArray()) {
+            if (isSmall(c)) {
+
+                if (ret.length() == 0) {
+                    hasBig = true;
+                    if (firstUpper) {
+                        ret.append(Character.toUpperCase(c));
+                        continue;
+                    }
+                } else if (!hasBig) {
+                    ret.append(Character.toUpperCase(c));
+                    hasBig = true;
+                    continue;
+                }
+                ret.append(c);
+
+            } else if (isBig(c)) {
+                ret.append(c);
+                hasBig = true;
+            } else {
+                hasBig = false;
+                if (isNumber(c)) {
+                    ret.append(c);
+                }
+            }
+        }
+        return ret.toString();
+    }
+
+    private static boolean isNumber(char c) {
+        return c >= '0' && c <= '9';
+    }
+
+    private static boolean isSmall(char c) {
+        return c >= 'a' && c <= 'z';
+    }
+
+    private static boolean isBig(char c) {
+        return c >= 'A' && c <= 'Z';
     }
 
     private static byte[] getBytes(String s1) {
