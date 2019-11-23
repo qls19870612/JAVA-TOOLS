@@ -40,5 +40,8 @@ public class TableStruct {
         return fieldMap;
     }
 
-
+    @Override
+    public String toString() {
+        return tableName + "(" + upLowerTableName + ")";
+    }
 }

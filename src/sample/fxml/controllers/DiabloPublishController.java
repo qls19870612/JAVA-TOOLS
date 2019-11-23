@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
+import sample.Controller;
 import sample.ITab;
 import sample.entitys.PublishLogEntity;
 import sample.file.FileOperator;
@@ -24,7 +25,7 @@ import sample.fxml.componet.fxml.InputComponent;
 import sample.fxml.componet.fxml.MaskPanel;
 import sample.fxml.renders.PublishLogRender;
 import sample.interfaces.AutowireInterface;
-import sample.services.TableMangerService;
+import sample.mapper.DiabloPublishMapper;
 import sample.utils.Empty;
 import sample.utils.StringUtils;
 import sample.utils.TimeUtils;
@@ -50,8 +51,10 @@ public class DiabloPublishController implements ITab, AutowireInterface {
     public Button logBtn;
     public Button kfPublishBtn;
     private boolean inited;
+    //    @Autowired
+    //    TableMangerService tableMangerService;
     @Autowired
-    TableMangerService tableMangerService;
+    DiabloPublishMapper diabloPublishMapper;
 
     public static DiabloPublishController THIS;
 
@@ -69,7 +72,7 @@ public class DiabloPublishController implements ITab, AutowireInterface {
     }
 
     private void updateList() {
-        PublishLogEntity[] publishLogs = tableMangerService.diabloPublishMapper.getPublishLogs();
+        PublishLogEntity[] publishLogs = diabloPublishMapper.getPublishLogs();
         publishHistoryList.getItems().setAll(publishLogs);
     }
 
@@ -145,12 +148,13 @@ public class DiabloPublishController implements ITab, AutowireInterface {
             files.add(combatBatFile);
         }
 
-        tableMangerService.diabloPublishMapper.updatePublishLog(versionName, serverFolder.getPath(), systemSecond);
+        diabloPublishMapper.updatePublishLog(versionName, serverFolder.getPath(), systemSecond);
 
         updateList();
 
 
         addFileAndCommit(serverFolder, versionName, files.toArray(Empty.FILES));
+        Controller.log("发布成功" + versionName + " " + TimeUtils.printTime2(System.currentTimeMillis()));
     }
 
     private String getBatFileContent(String newFileName, String suffix) {
@@ -201,6 +205,7 @@ public class DiabloPublishController implements ITab, AutowireInterface {
         String s = FileOperator.runBat(add);
         maskPanel.append(s);
         commitServer(serverFolder, comment);
+        Controller.log(comment + " " + TimeUtils.printTime2(System.currentTimeMillis()));
     }
 
     private void commitServer(File serverFolder, String comment) throws Exception {

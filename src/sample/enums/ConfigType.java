@@ -48,6 +48,8 @@ public enum ConfigType {
 
     DB_DB_PASSWORD,
 
+    DB_CONFIG_SELECT_INDEX,
+
     //
     ;
 }

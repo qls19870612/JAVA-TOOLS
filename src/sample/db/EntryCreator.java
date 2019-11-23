@@ -8,9 +8,11 @@ import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import sample.Controller;
 import sample.db.mysql.MysqlDialectProvider;
 import sample.db.sqlite.SqlLiteDialectProvider;
 import sample.file.FileOperator;
+import sample.utils.TimeUtils;
 
 /**
  *
@@ -39,7 +41,7 @@ public class EntryCreator {
                 provider = new SqlLiteDialectProvider();
                 break;
             default:
-                return;
+                throw new Exception("未实现的数据库");
         }
         Connection connection = provider.getConnection(dbUrl, userName, password);
         HashMap<String, TableStruct> structHashMap = DbUtils.getTableField(connection, dbName);
@@ -74,5 +76,26 @@ public class EntryCreator {
 
             FileOperator.writeFile(new File(sourceFolder + "/" + className + ".java"), entityContent);
         }
+        Controller.log("生成成功" + TimeUtils.printTime2(System.currentTimeMillis()));
+    }
+
+    public HashMap<String, TableStruct> getDbStruct(String dbUrl, String dbName, String userName, String password, String dbType) throws Exception {
+
+        AbstractDialectProvider provider;
+        switch (dbType) {
+            case "Mysql":
+                provider = new MysqlDialectProvider();
+                break;
+            case "Sqlite":
+
+                provider = new SqlLiteDialectProvider();
+                break;
+            default:
+                throw new Exception("未实现的数据库");
+        }
+        Connection connection = provider.getConnection(dbUrl, userName, password);
+        HashMap<String, TableStruct> structHashMap = DbUtils.getTableField(connection, dbName);
+
+        return structHashMap;
     }
 }

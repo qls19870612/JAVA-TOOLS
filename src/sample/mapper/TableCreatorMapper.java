@@ -31,9 +31,37 @@ public interface TableCreatorMapper {
     })
     public void createDiabloPublish();
 
+    @Update({
+
+            "create table if not exists db_config ",
+
+            "(id INTEGER PRIMARY KEY AUTOINCREMENT,",
+
+            "path VARCHAR(150) NOT NULL,",
+
+            "dbUrl VARCHAR(150) NULL,",
+
+            "dbName VARCHAR(150) NULL,",
+
+            "dbUserName VARCHAR(150) NULL,",
+
+            "dbPassword VARCHAR(150) NULL,",
+
+            "dbType VARCHAR(150) NULL,",
+
+            "packageName VARCHAR(150) NULL,",
+
+            "classNamePrefix VARCHAR(150) NULL,",
+
+            "classNameSuffix VARCHAR(150) NULL", ")"
+
+    })
+    public void createDbConfig();
+
     public default void createTables() {
         createConfig();
         createDiabloPublish();
+        createDbConfig();
     }
 }
 

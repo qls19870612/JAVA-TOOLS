@@ -3,7 +3,6 @@ package sample.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import sample.mapper.ConfigMapper;
 import sample.mapper.DiabloPublishMapper;
 import sample.mapper.TableCreatorMapper;
 
@@ -15,8 +14,6 @@ import sample.mapper.TableCreatorMapper;
 
 @Service
 public class TableMangerService {
-    @Autowired
-    public ConfigMapper configMapper;
 
     @Autowired
     public DiabloPublishMapper diabloPublishMapper;
