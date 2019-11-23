@@ -2,21 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aed95fc1-e526-4bd3-b844-fa4ae712b8ad" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/sample/fxml/config/DbConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/fxml/renders/DbConfigRender.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/fxml/renders/TableFieldRender.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/fxml/renders/TableRender.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/mapper/DbConfigMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/db/EntryCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/db/EntryCreator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/db/TableStruct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/db/TableStruct.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/enums/ConfigType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/enums/ConfigType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/fxml/DbEntityCreator.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/DbEntityCreator.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/fxml/controllers/DbEntityCreatorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/DbEntityCreatorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/fxml/controllers/DiabloPublishController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/fxml/controllers/DiabloPublishController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/mapper/TableCreatorMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/mapper/TableCreatorMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/services/TableMangerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/services/TableMangerService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../pinyin4j/src/test/java/net/sourceforge/pinyin4j/test/PinyinHelperTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../pinyin4j/src/test/java/net/sourceforge/pinyin4j/test/PinyinHelperTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../pinyin4j/src/test/java/net/sourceforge/pinyin4j/test/Q.java" beforeDir="false" afterPath="$PROJECT_DIR$/../pinyin4j/src/test/java/net/sourceforge/pinyin4j/test/Q.java" afterDir="false" />
     </list>
@@ -62,52 +47,6 @@
   </component>
   <component name="FindBugs-IDEA-Workspace">
     <toolWindowScrollToSource>false</toolWindowScrollToSource>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>state.accepted</find>
-      <find>STDOUT</find>
-      <find>echo start</find>
-      <find>FXMLLoader</find>
-      <find>boss</find>
-      <find>exceptionCaught</find>
-      <find>filePath:</find>
-      <find>fl</find>
-      <find>init flag:</find>
-      <find>onSelect</find>
-      <find>onSelect inter</find>
-      <find>log</find>
-      <find>sqlite</find>
-      <find>3.28.0</find>
-      <find>&lt;?</find>
-      <find>sqlit</find>
-      <find>http</find>
-      <find>repository</find>
-      <find>jdbc</find>
-      <find>diabloPublishController</find>
-      <find>boss表</find>
-      <find>C2S_ENTER_ELEMENT_DUNGEON</find>
-      <find>-assembly</find>
-      <find>resources</find>
-      <find>setItems</find>
-      <find>moduleListView</find>
-      <find>main&quot;</find>
-      <find>db_config</find>
-      <find>dbConfig.</find>
-      <find>67</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>static final</replace>
-      <replace>%n&quot;</replace>
-      <replace>moduleComboBox</replace>
-      <replace>DateTime</replace>
-    </replaceStrings>
-    <dirStrings>
-      <dir>D:\workspace\JavaTools\src\app\protobuf\client</dir>
-      <dir>D:\workspace\JavaTools\src</dir>
-      <dir>D:\workspace\JavaTools\src\app</dir>
-      <dir>D:\workspace\JavaTools\src\sample</dir>
-    </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -328,7 +267,7 @@
       <updated>1552961714961</updated>
       <workItem from="1574239002965" duration="276000" />
       <workItem from="1574239305764" duration="4392000" />
-      <workItem from="1574474119158" duration="277000" />
+      <workItem from="1574474119158" duration="429000" />
     </task>
     <servers />
   </component>
@@ -508,81 +447,5 @@
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
     </expressions>
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ArtifactsStructureConfigurable.UI">
-        <settings>
-          <artifact-editor />
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="FacetStructureConfigurable.UI">
-        <settings>
-          <last-edited>Invalid</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="GlobalLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
-        <settings>
-          <last-edited>1.8</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <last-edited>javaTools</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.38374487" />
-                <option value="0.6" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <last-edited>Maven: antlr:antlr:2.7.7</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
   </component>
 </project>
