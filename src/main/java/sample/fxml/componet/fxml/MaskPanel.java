@@ -21,7 +21,7 @@ public class MaskPanel extends AnchorPane implements Initializable {
 
     public MaskPanel() {
         super();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MaskPanel.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/component/MaskPanel.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         try {

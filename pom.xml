@@ -10,21 +10,13 @@
 
     <build>
 
-        <!--<sourceDirectory>src</sourceDirectory>-->
-        <!--<outputDirectory>target</outputDirectory>-->
+
         <resources>
             <resource>
-                <directory>
-                    src
-                </directory>
-                <includes>
-                    <include>**/*.fxml</include>
-                    <include>**/*.xml</include>
-                    <include>**/*.css</include>
-                </includes>
-                <filtering>true</filtering>
+                <directory>src/main/resource</directory>
             </resource>
         </resources>
+
         <plugins>
             <plugin>
                 <groupId>org.projectlombok</groupId>
@@ -59,13 +51,55 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.1.2.RELEASE</version>
                 <configuration>
-                    <outputDirectory>D:\workspace\project\misc</outputDirectory>
-                    <!--<outputDirectory>misc</outputDirectory>-->
+                    <!--<outputDirectory>D:\workspace\project\misc</outputDirectory>-->
+                    <outputDirectory>${project.build.directory}</outputDirectory>
                     <finalName>javaTools-1.0-SNAPSHOT-jar-with-dependencies</finalName>
                     <mainClass>sample.Main</mainClass>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>com.akathist.maven.plugins.launch4j</groupId>
+                <artifactId>launch4j-maven-plugin</artifactId>
+                <version>1.7.25</version>
+                <executions>
+                    <execution>
+                        <id>l4j-clui</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>launch4j</goal>
+                        </goals>
+                        <configuration>
+                            <headerType>gui</headerType>
+                            <!--<jar>${project.build.directory}/javaTools-1.0-SNAPSHOT-jar-with-dependencies.jar</jar>-->
+                            <jar>D:\workspace\project\misc/javaTools-1.0-SNAPSHOT-jar-with-dependencies.jar</jar>
+                            <outfile>javaTools-1.0-SNAPSHOT-jar-with-dependencies.exe</outfile>
+                            <downloadUrl>http://java.com/download</downloadUrl>
+                            <classpath>
+                                <mainclass>org.springframework.boot.loader.WarLauncher</mainclass>
+                                <precp>anything</precp>
+                            </classpath>
 
+                            <icon>config/0.ico</icon>
+                            <jre>
+                                <minVersion>1.7.0</minVersion>
+                                <jdkPreference>preferJre</jdkPreference>
+                            </jre>
+                            <versionInfo>
+                                <fileVersion>1.0.0.0</fileVersion>
+                                <txtFileVersion>${project.version}</txtFileVersion>
+                                <fileDescription>${project.name}</fileDescription>
+                                <copyright>2019 javaTool.com</copyright>
+                                <productVersion>1.0.0.0</productVersion>
+                                <txtProductVersion>1.0.0.0</txtProductVersion>
+                                <productName>${project.name}</productName>
+                                <companyName>javaTool.com</companyName>
+                                <internalName>javaTool</internalName>
+                                <originalFilename>javaTools-1.0-SNAPSHOT-jar-with-dependencies.exe</originalFilename>
+                            </versionInfo>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
 
     </build>

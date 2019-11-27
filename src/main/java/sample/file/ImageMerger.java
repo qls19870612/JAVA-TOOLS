@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
 
@@ -38,7 +39,8 @@ public class ImageMerger {
             int h = b.getHeight();
             Graphics2D g = a.createGraphics();
             g.rotate(0.5);
-            g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, 0.5F));
+
+            g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, 0.2F));
             g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 
 
@@ -82,15 +84,24 @@ public class ImageMerger {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
+        test();
+
+
+    }
+
+    private static void test() throws Exception {
+        long l = System.currentTimeMillis();
         ImageMerger tt = new ImageMerger();
         String baseUrl = "D:\\Desktop\\testImage\\";
         BufferedImage a = tt.loadImageLocal(baseUrl + "e.jpg");
-        BufferedImage b = tt.loadImageLocal(baseUrl + "b.png");
-
+        //        BufferedImage b = tt.loadImageLocal(baseUrl + "b.png");
+        BufferedImage b = ImageIO.read(new URL("https://img-blog.csdnimg.cn/20190927151101105.png"));
         tt.writeImageLocal(baseUrl + "c.jpg", tt.modifyImagetogeter(a, b));
         //将多张图片合在一起
         System.out.println("success");
+
+        logger.debug("test currentTimeMillis:{}", System.currentTimeMillis() - l);
     }
 }

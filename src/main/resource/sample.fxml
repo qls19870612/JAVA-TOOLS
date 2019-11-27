@@ -14,38 +14,38 @@
                 <Tab text="配置生成" fx:id="configTab">
                     <content>
                         <!--<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="297.0" prefWidth="432.0" />-->
-                        <fx:include fx:id="createConfig" source="fxml/CreateConfig.fxml"/>
+                        <fx:include fx:id="createConfig" source="/fxml/CreateConfig.fxml"/>
                     </content>
                 </Tab>
                 <Tab text="文本格式化" fx:id="txtTab">
                     <content>
-                        <fx:include fx:id="stringFormatter" source="fxml/StringFormatter.fxml"/>
+                        <fx:include fx:id="stringFormatter" source="/fxml/StringFormatter.fxml"/>
                     </content>
                 </Tab>
                 <Tab text="XLS转换" fx:id="xlsTab">
                     <content>
-                        <fx:include fx:id="xls" source="fxml/XLS2Txt.fxml"/>
+                        <fx:include fx:id="xls" source="/fxml/XLS2Txt.fxml"/>
                     </content>
                 </Tab>
                 <Tab text="GM" fx:id="gmTab">
                     <content>
-                        <fx:include fx:id="gmProxy" source="fxml/GMProxy.fxml"/>
+                        <fx:include fx:id="gmProxy" source="/fxml/GMProxy.fxml"/>
                     </content>
                 </Tab>
 
                 <Tab text="Robot" fx:id="robotTab">
                     <content>
-                        <fx:include fx:id="robot" source="fxml/Robot.fxml"/>
+                        <fx:include fx:id="robot" source="/fxml/Robot.fxml"/>
                     </content>
                 </Tab>
                 <Tab text="发布版本" fx:id="diabloPublishTab">
                     <content>
-                        <fx:include fx:id="diabloPublish" source="fxml/DiabloPublish.fxml"/>
+                        <fx:include fx:id="diabloPublish" source="/fxml/DiabloPublish.fxml"/>
                     </content>
                 </Tab>
                 <Tab text="数据库实体" fx:id="dbEntityCreatorTab">
                     <content>
-                        <fx:include fx:id="dbEntityCreator" source="fxml/DbEntityCreator.fxml"/>
+                        <fx:include fx:id="dbEntityCreator" source="/fxml/DbEntityCreator.fxml"/>
                     </content>
                 </Tab>
 

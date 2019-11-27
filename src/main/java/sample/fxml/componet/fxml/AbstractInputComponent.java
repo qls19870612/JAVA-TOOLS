@@ -44,7 +44,7 @@ public abstract class AbstractInputComponent extends HBox implements ChangeListe
 
     public AbstractInputComponent() {
         super();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("InputComponent.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/component/InputComponent.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         try {

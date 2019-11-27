@@ -1,2 +1,2 @@
-java -jar -Dfile.encoding=UTF-8 target/javaTools-1.0-SNAPSHOT.jar
+java -jar -Dfile.encoding=UTF-8 javaTools-1.0-SNAPSHOT-jar-with-dependencies.jar
 pause
