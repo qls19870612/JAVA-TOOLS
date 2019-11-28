@@ -149,24 +149,6 @@ public class TimeUtils {
         return retTimes;
     }
 
-    public static void main(String[] args) {
-        //        TimeData timedata = TimeData.parse("[*][*][w1,w3,w5,w7][20:00-20:30]");
-        //        long startTime = 1548590400000L - TimeUnit.MINUTES.toMillis(0);
-        //        String s = printTime(startTime);
-        //        logger.debug("main s1:{}", s);
-        //        s = printTime(1548604800000L);
-        //        logger.debug("main s2:{}", s);
-        //
-        //
-        //        int activityPastTimes = findActivityPastTimes(startTime, 1548604800000L, timedata, 2);
-        //        logger.debug("main activityPastTimes:{}", activityPastTimes);
-        //        logger.debug("main printDate(startTime):{}", printDate(startTime));
-        //        long startOfNextDay = getMillisOfDayStart(System.currentTimeMillis());
-        //        logger.debug("main printTimeDuration(startOfNextDay):{}", printTimeDuration(startOfNextDay));
-
-
-    }
-
     /**
      * 传入 23:00 格式数据返回 相对于零点的分钟数
      */

@@ -84,6 +84,54 @@ public class FileOperator {
         return ret;
     }
 
+    /**
+     * 从打包的资源中读取
+     * @param url
+     * @return
+     */
+    public static String getResourceAsText(String url) {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (!url.startsWith("/")) {
+            url = "/" + url;
+        }
+        try {
+
+            InputStream resourceAsStream = FileOperator.class.getResourceAsStream(url);
+            BufferedReader br = new BufferedReader(new InputStreamReader(resourceAsStream));
+
+            String s1 = "";
+            while ((s1 = br.readLine()) != null) {
+                if (stringBuilder.length() > 0) {
+                    stringBuilder.append(FileOperator.NEX_LINE);
+                }
+                stringBuilder.append(s1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return stringBuilder.toString();
+    }
+
+    /**
+     * 先从外部配置文件读取，如果读不到，再从打包的配置文件读取默认配置
+     * @param configUrl
+     * @param resourceUrl
+     * @return
+     */
+    public static String getConfig(String configUrl, String resourceUrl) {
+        String s = readFiles(new File(configUrl));
+        if (s == null) {
+            s = getResourceAsText(resourceUrl);
+        }
+        return s;
+    }
+
+    public static String getConfig(String url) {
+
+        return getConfig(url, url);
+    }
+
     public static interface Filter<T> {
         /**
          * Decides if the given directory entry should be accepted or filtered.

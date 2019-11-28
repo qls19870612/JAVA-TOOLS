@@ -109,7 +109,7 @@ public class ExcelWrite {
      * 往excel中写入(已存在的数据无法写入).
      * @param fileDir    文件路径
      * @param sheetName  表格索引
-     * @param object
+     * @param mapList
      * @throws Exception
      */
     public static void writeToExcel(String fileDir, String sheetName, List<Map> mapList) throws Exception {
@@ -152,34 +152,4 @@ public class ExcelWrite {
         }
     }
 
-    public static void main(String[] args) {
-        /*判断文件是否存在
-        System.out.println(ExcelWrite.fileExist("E:/test2.xls"));
-        //创建文件
-        String title[] = {"id","name","password"};
-        ExcelWrite.createExcel("E:/test2.xls","sheet1",title);
-        List<Map> list=new ArrayList<Map>();
-        Map<String,String> map=new HashMap<String,String>();
-        map.put("id", "111");
-        map.put("name", "张三");
-        map.put("password", "111！@#");
-
-        Map<String,String> map2=new HashMap<String,String>();
-        map2.put("id", "222");
-        map2.put("name", "李四");
-        map2.put("password", "222！@#");
-        list.add(map);
-        list.add(map2);
-        ExcelWrite.writeToExcel("E:/test2.xls","sheet1",list);
-
-        String sql="select aaa,bbb,ccc from dddd";
-        String sqlForSplit = sql.substring(sql.toLowerCase().indexOf("select")+6,sql.toLowerCase().indexOf("from")).trim();
-        String sqlRemoveFrom=sql.substring(sql.toLowerCase().indexOf("from")+5).trim();
-        System.out.println(sqlRemoveFrom);
-        String tableName=sqlRemoveFrom.indexOf(" ")==-1 ?  sqlRemoveFrom : sqlRemoveFrom.substring(0,sqlRemoveFrom.indexOf(" "));
-        System.out.println(tableName);
-        */
-
-
-    }
 }

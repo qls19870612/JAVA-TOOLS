@@ -8,7 +8,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
 import javax.imageio.ImageIO;
 
@@ -46,8 +45,8 @@ public class ImageMerger {
 
             int srcW = a.getWidth();
             int srcH = a.getHeight();
-            int xInter = srcW / 20;
-            int yInter = srcH / 20;
+            int xInter = w * 3;
+            int yInter = h * 3;
             int offsetX = xInter / 2;
             double maxLen = Math.sqrt(srcW * srcW + srcH * srcH);//对角线长
             int minInter = Math.min(xInter, yInter);
@@ -84,24 +83,5 @@ public class ImageMerger {
         }
     }
 
-    public static void main(String[] args) throws Exception {
 
-        test();
-
-
-    }
-
-    private static void test() throws Exception {
-        long l = System.currentTimeMillis();
-        ImageMerger tt = new ImageMerger();
-        String baseUrl = "D:\\Desktop\\testImage\\";
-        BufferedImage a = tt.loadImageLocal(baseUrl + "e.jpg");
-        //        BufferedImage b = tt.loadImageLocal(baseUrl + "b.png");
-        BufferedImage b = ImageIO.read(new URL("https://img-blog.csdnimg.cn/20190927151101105.png"));
-        tt.writeImageLocal(baseUrl + "c.jpg", tt.modifyImagetogeter(a, b));
-        //将多张图片合在一起
-        System.out.println("success");
-
-        logger.debug("test currentTimeMillis:{}", System.currentTimeMillis() - l);
-    }
 }

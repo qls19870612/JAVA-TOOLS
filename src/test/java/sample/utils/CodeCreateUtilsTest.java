@@ -11,14 +11,11 @@ import org.slf4j.LoggerFactory;
 import java.awt.geom.Point2D;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -221,33 +218,6 @@ public class CodeCreateUtilsTest {
         }
     }
 
-    @Test
-    public void nioTest() throws IOException {
-        RandomAccessFile aFile = new RandomAccessFile("config/config.xml", "rw");
-        FileChannel inChannel = aFile.getChannel();
-
-        ByteBuffer buf = ByteBuffer.allocate(1024);
-        ByteBuffer totalBuff = ByteBuffer.allocate((int) inChannel.size());
-        int bytesRead = inChannel.read(buf);
-        while (bytesRead != -1) {
-
-            System.out.println("Read " + bytesRead);
-            buf.flip();
-            while (buf.hasRemaining()) {
-                System.out.print((char) buf.get());
-            }
-            buf.flip();
-            totalBuff.put(buf);
-            buf.clear();
-            bytesRead = inChannel.read(buf);
-        }
-        aFile.close();
-        byte[] array = totalBuff.array();
-        //        String s = new String(array);
-        //        String string = array.toString();
-        //        logger.debug("string:\n{}", string);
-        //        logger.debug("s:\n{}", s);
-    }
 
     @Test
     public void testBytes() {

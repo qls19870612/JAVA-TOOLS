@@ -1,8 +1,13 @@
 package sample.fxml.renders;
 
+
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import sample.db.TableStruct;
+import sample.fxml.controllers.DbEntityCreatorController;
 
 /**
  *
@@ -12,10 +17,19 @@ import sample.db.TableStruct;
 public class TableRender extends ListCell<TableStruct> {
 
     private final Label lable;
+    public final CheckBox checkBox;
+    private final HBox hbox;
 
     public TableRender() {
         super();
+        hbox = new HBox();
+        checkBox = new CheckBox();
+
+        checkBox.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
+            DbEntityCreatorController.THIS.onTableSelect(this);
+        });
         lable = new Label();
+        hbox.getChildren().addAll(checkBox, lable);
     }
 
     @Override
@@ -25,8 +39,9 @@ public class TableRender extends ListCell<TableStruct> {
             setGraphic(null);
             return;
         }
-        lable.setText(item.toString());
-        setGraphic(lable);
+        lable.setText(item.getCompoundLabel());
+        checkBox.setSelected(item.isSelected());
+        setGraphic(hbox);
     }
 
     @Override

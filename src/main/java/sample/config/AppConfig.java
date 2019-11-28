@@ -12,8 +12,6 @@ import java.io.File;
 import java.io.StringReader;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -24,7 +22,6 @@ import sample.enums.ConfigType;
 import sample.file.FileOperator;
 import sample.mapper.ConfigMapper;
 import sample.services.TableMangerService;
-import sample.utils.ClassParserUtils;
 import sample.utils.SpringUtil;
 
 import static sample.datas.vo.CodeInfo.EMPTY_CODE_INFO;
@@ -34,7 +31,7 @@ public class AppConfig {
     private static DocumentBuilderFactory dbFactory = null;
     private static DocumentBuilder db = null;
     private static Document document = null;
-    private static HashMap<String, String> dateTypeMap;
+
     public static String fieldTemplate;
     public static String classTemplate;
     public static String baseCodePath;
@@ -43,9 +40,7 @@ public class AppConfig {
      * value:CodeInfo
      */
     public static HashMap<String, CodeInfo> codeInfos;
-    public static String defaultValuePackageName;
 
-    private static final Pattern functionPatter = Pattern.compile(" public\\s+static\\s+([\\w\\[\\]]+)\\s+(\\w+)\\s*\\(");
 
     private static long lastConfigModifyTime = 0;
     public static String xlsPath;
@@ -89,13 +84,10 @@ public class AppConfig {
 
     public static void parserTemplate() {
 
-        File configFile = new File("config/config.xml");
-        if (!configFile.exists()) {
-            return;
-        }
+
+        String content = FileOperator.getConfig("config/config.xml");
 
         try {
-            String content = FileOperator.readFiles(configFile);
             InputSource inputSource = new InputSource(new StringReader(content));
             document = db.parse(inputSource);
             Element templates = (Element) document.getElementsByTagName("templates").item(0);
@@ -161,25 +153,6 @@ public class AppConfig {
         return node.getChildNodes().item(0).getNodeValue();
     }
 
-    public static void parseDataTypeMap() {
-
-        String defaultJavaContent = FileOperator.readFiles(new File("config/Defaults.java"));
-        Matcher matcher = functionPatter.matcher(defaultJavaContent);
-        dateTypeMap = new HashMap<>();
-        while (matcher.find()) {
-            dateTypeMap.put(matcher.group(1).toLowerCase(), matcher.group(2));
-        }
-        String packageName = ClassParserUtils.getPackageName(defaultJavaContent);
-
-        String className = ClassParserUtils.getClassName(defaultJavaContent);
-        defaultValuePackageName = packageName + "." + className;
-    }
-
-
-    public static String getTypeMap(String type) {
-        return dateTypeMap.get(type.toLowerCase());
-    }
-
 
     public static CodeInfo[] getCodeInfos() {
         if (codeInfos != null) {
@@ -197,7 +170,7 @@ public class AppConfig {
         return null;
     }
 
-    public static void initSqlLite() throws Exception {
+    public static void initSqlLite() {
 
         TableMangerService tableMangerService = SpringUtil.getBean(TableMangerService.class);
         tableMangerService.init();

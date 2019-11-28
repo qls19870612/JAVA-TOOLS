@@ -71,14 +71,17 @@ public class Main extends Application {
         logger.debug("loadDefaultIcons getName:{}", aClass.getName());
         logger.debug("loadDefaultIcons classLoader:{}", classLoader);
 
-        String baseUrl = "/icons/";
+        String baseUrl = "icons/";
 
 
-        return Arrays.asList(new Image(classLoader.getResource(baseUrl + "gear_16x16.png").toExternalForm()),
-                new Image(classLoader.getResource(baseUrl + "gear_24x24.png").toExternalForm()),
-                new Image(classLoader.getResource(baseUrl + "gear_36x36.png").toExternalForm()),
-                new Image(classLoader.getResource(baseUrl + "gear_42x42.png").toExternalForm()),
-                new Image(classLoader.getResource(baseUrl + "gear_64x64.png").toExternalForm()));
+        Image image = getImage(classLoader, baseUrl, "gear_16x16.png");
+        return Arrays.asList(image, getImage(classLoader, baseUrl, "gear_24x24.png"), getImage(classLoader, baseUrl, "gear_36x36.png"),
+                getImage(classLoader, baseUrl, "gear_42x42.png"), getImage(classLoader, baseUrl, "gear_64x64.png"));
+    }
+
+    private Image getImage(ClassLoader classLoader, String baseUrl, String s) {
+        URL resource = classLoader.getResource(baseUrl + s);
+        return new Image(resource.toExternalForm());
     }
 
     /*
@@ -89,14 +92,16 @@ public class Main extends Application {
     @Override
     public void init() throws Exception {
         // Load in JavaFx Thread and reused by Completable Future, but should no be a big deal.
+        long startTime = System.currentTimeMillis();
         try {
             defaultIcons.addAll(loadDefaultIcons());
 
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         CompletableFuture.supplyAsync(() -> SpringApplication.run(SpringMain.class, savedArgs)).whenComplete((ctx, throwable) -> {
             applicationContext = ctx;
+            initConfig();
             if (throwable != null) {
                 logger.error("Failed to load spring application context: ", throwable);
                 Platform.runLater(() -> errorAction.accept(throwable));
@@ -105,11 +110,20 @@ public class Main extends Application {
                     applyEnvPropsToView(ctx);
                     loadIcons(ctx);
                     //                    launchApplicationView(ctx);
+
                 });
             }
+
         }).thenAcceptBothAsync(splashIsShowing, (ctx, closeSplash) -> {
             Platform.runLater(closeSplash);
         });
+    }
+
+    private void initConfig() {
+        AppConfig.initSqlLite();
+        AppConfig.initFactory();
+        AppConfig.parserTemplate();
+        AppConfig.parseClassConfig();
     }
 
     private void loadIcons(ConfigurableApplicationContext ctx) {
@@ -143,7 +157,8 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
+
         this.primaryStage = primaryStage;
         final Stage splashStage = new Stage(StageStyle.TRANSPARENT);
 
@@ -162,29 +177,27 @@ public class Main extends Application {
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
-                splashStage.hide();
-                splashStage.setScene(null);
-            }
 
+            }
+            splashStage.hide();
+            splashStage.setScene(null);
         });
 
 
     }
 
     private void initPrimaryStage(Stage primaryStage) throws Exception {
-        AppConfig.initSqlLite();
-        AppConfig.initFactory();
-        AppConfig.parseDataTypeMap();
-        AppConfig.parserTemplate();
-        AppConfig.parseClassConfig();
-        URL resource = getClass().getResource("/sample.fxml");
+        long startTime = System.currentTimeMillis();
+
+        URL resource = getClass().getResource("/config/sample.fxml");
         FXMLLoader loader = new FXMLLoader(resource);
         loader.load();
         Controller controller = loader.getController();
 
         Parent root = loader.getRoot();
-        primaryStage.setTitle("XLS文件转java配置类");
+        primaryStage.setTitle("工具箱");
         primaryStage.setScene(new Scene(root, 820, 600));
+        primaryStage.getIcons().addAll(icons);
         primaryStage.show();
         root.getScene().getStylesheets().add(this.getClass().getResource("/css/listview.css").toExternalForm());
         controller.init();

@@ -43,12 +43,16 @@ public class XlsController implements ITab {
     public static String luaTemplate;
     private boolean inited;
 
+
     public void onSelect() {
         if (inited) {
             return;
         }
         inited = true;
-        luaTemplate = FileOperator.readFiles(new File("config/luaTemplate.lua"));
+        CodeCreateUtils.parseDataTypeMap();
+
+        luaTemplate = FileOperator.getConfig("config/luaTemplate.lua");
+
         ThreadFactory threadFactor = new ThreadFactory() {
             @Override
             public Thread newThread(Runnable r) {

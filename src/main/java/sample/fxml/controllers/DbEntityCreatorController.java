@@ -5,14 +5,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collection;
-import java.util.HashMap;
 
+import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import sample.ITab;
 import sample.db.EntryCreator;
 import sample.db.TableField;
@@ -44,11 +45,12 @@ public class DbEntityCreatorController implements ITab {
     public InputComponent dbUrlInput;
     public Button createBtn;
     public ComboBox<String> dbComboBox;
-    public VBox settingPanel;
+    public AnchorPane settingPanel;
     public AnchorPane createPanel;
     public ListView<TableStruct> tableList;
     public ListView<TableField> fieldList;
     public ListView<DbConfig> dbConfigList;
+    public Label tableNameLabel;
 
     private EntryCreator entryCreator;
     private boolean inited;
@@ -59,6 +61,7 @@ public class DbEntityCreatorController implements ITab {
     public ConfigMapper configMapper;
     public static DbEntityCreatorController THIS;
     private int configSelectedIndex;
+    private TableStruct selectTableStruct;
 
     @Override
     public void onSelect() {
@@ -73,7 +76,10 @@ public class DbEntityCreatorController implements ITab {
     private void init() {
 
         tableList.setCellFactory(param -> new TableRender());
+        tableList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         fieldList.setCellFactory(param -> new TableFieldRender());
+        fieldList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
         dbConfigList.setCellFactory(param -> new DbConfigRender());
         entryCreator = new EntryCreator();
         dbComboBox.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
@@ -123,6 +129,11 @@ public class DbEntityCreatorController implements ITab {
     }
 
     private void updateField(TableStruct newValue) {
+        if (newValue == null) {
+            return;
+        }
+        tableNameLabel.setText(newValue.getCompoundLabel());
+        selectTableStruct = newValue;
         fieldList.getItems().setAll(newValue.fields);
     }
 
@@ -158,10 +169,9 @@ public class DbEntityCreatorController implements ITab {
         createPanel.setVisible(true);
         settingPanel.setVisible(false);
         try {
-            HashMap<String, TableStruct> dbStruct = entryCreator
-                    .getDbStruct(dbUrlInput.getInputText(), dbNameInput.getInputText(), dbUserNameInput.getInputText(),
-                            dbPasswordInput.getInputText(), getDbType());
-            Collection<TableStruct> values = dbStruct.values();
+            entryCreator.initDbStruct(dbUrlInput.getInputText(), dbNameInput.getInputText(), dbUserNameInput.getInputText(),
+                    dbPasswordInput.getInputText(), getDbType());
+            Collection<TableStruct> values = entryCreator.structHashMap.values();
             tableList.getItems().setAll(values);
 
         } catch (Exception e) {
@@ -173,5 +183,57 @@ public class DbEntityCreatorController implements ITab {
     public void deleteDbConfig(DbConfig item) {
         dbConfigMapper.deleteConfig(item.getId());
         updateDbList();
+    }
+
+    public void createAllTableEntity(MouseEvent mouseEvent) {
+
+        for (TableStruct tableStruct : tableList.getItems()) {
+            if (tableStruct.isSelected()) {
+                entryCreator
+                        .createEntity(tableStruct, srcFolderSelector.getPath(), packageNameInput.getInputText(), classNamePrefixInput.getInputText(),
+                                classNameSuffixInput.getInputText());
+            }
+        }
+    }
+
+    public void createSelectTableEntity(MouseEvent mouseEvent) {
+        if (selectTableStruct == null) {
+            return;
+        }
+        entryCreator
+                .createEntity(selectTableStruct, srcFolderSelector.getPath(), packageNameInput.getInputText(), classNamePrefixInput.getInputText(),
+                        classNameSuffixInput.getInputText(), true);
+    }
+
+    public void onTableSelect(TableRender tableRender) {
+
+        boolean selected = tableRender.checkBox.isSelected();
+        tableRender.getItem().setSelected(selected);
+        ObservableList<TableStruct> selectedItems = tableList.getSelectionModel().getSelectedItems();
+        if (selectedItems.size() > 1) {
+
+            for (TableStruct selectedItem : selectedItems) {
+                if (selectedItem != null) {
+                    selectedItem.setSelected(selected);
+                }
+            }
+        }
+        tableList.refresh();
+    }
+
+    public void onTableFieldSelect(TableFieldRender tableFieldRender) {
+        boolean selected = tableFieldRender.checkBox.isSelected();
+        tableFieldRender.getItem().setSelected(selected);
+        ObservableList<TableField> selectedItems = fieldList.getSelectionModel().getSelectedItems();
+        if (selectedItems.size() > 1) {
+
+            for (TableField selectedItem : selectedItems) {
+                if (selectedItem != null) {
+                    selectedItem.setSelected(selected);
+
+                }
+            }
+        }
+        fieldList.refresh();
     }
 }

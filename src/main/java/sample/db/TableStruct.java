@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.Map;
 
+import lombok.Getter;
+import lombok.Setter;
 import sample.utils.StringUtils;
 
 /**
@@ -15,19 +17,21 @@ import sample.utils.StringUtils;
  */
 public class TableStruct {
     private static final Logger logger = LoggerFactory.getLogger(TableStruct.class);
-    public final String prepareSql;
     public final String upLowerTableName;
+    @Getter
+    private final String compoundLabel;
     public String tableName;
     public final TableField[] fields;
-    private final char[] fieldStrBytes;
     private Map<String, TableField> fieldMap;
+    @Getter
+    @Setter
+    private boolean selected = false;
 
     public TableStruct(String tableName, TableField[] fields) {
         this.tableName = tableName;
         this.fields = fields;
-        this.prepareSql = null;
-        this.fieldStrBytes = null;
         upLowerTableName = StringUtils.toUpLowerString(tableName, true);
+        compoundLabel = tableName + "(" + upLowerTableName + ")";
     }
 
     public final Map<String, TableField> getFieldMap() {
@@ -42,6 +46,6 @@ public class TableStruct {
 
     @Override
     public String toString() {
-        return tableName + "(" + upLowerTableName + ")";
+        return compoundLabel;
     }
 }

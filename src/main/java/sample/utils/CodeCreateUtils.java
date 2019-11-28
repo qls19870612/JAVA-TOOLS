@@ -45,6 +45,29 @@ import static sample.utils.ProjectSrcParserUtils.findParserClassMap;
  * @创建时间 $date$
  */
 public class CodeCreateUtils {
+    private static HashMap<String, String> dateTypeMap;
+    private static final Pattern functionPatter = Pattern.compile(" public\\s+static\\s+([\\w\\[\\]]+)\\s+(\\w+)\\s*\\(");
+    public static String defaultValuePackageName;
+
+    public static void parseDataTypeMap() {
+
+        String defaultJavaContent = FileOperator.getConfig("config/Defaults.java");
+
+        Matcher matcher = functionPatter.matcher(defaultJavaContent);
+        dateTypeMap = new HashMap<>();
+        while (matcher.find()) {
+            dateTypeMap.put(matcher.group(1).toLowerCase(), matcher.group(2));
+        }
+        String packageName = ClassParserUtils.getPackageName(defaultJavaContent);
+
+        String className = ClassParserUtils.getClassName(defaultJavaContent);
+        defaultValuePackageName = packageName + "." + className;
+    }
+
+    public static String getTypeMap(String type) {
+        return dateTypeMap.get(type.toLowerCase());
+    }
+
     public static final ThreadLocal<SimpleDateFormat> dateTimeFormatter = new ThreadLocal<SimpleDateFormat>() {
         @Override
         protected SimpleDateFormat initialValue() {
@@ -376,15 +399,7 @@ public class CodeCreateUtils {
         FileOperator.writeFile(file, code);
     }
 
-    //    private static void appendDefaultValueImports(StringBuffer importStringBuffer, CreateFieldInfo createFieldInfo, Set<String> imports) {
-    //        if (imports.contains(createFieldInfo.defaultValue) == false)
-    //        {
-    //            imports.add(createFieldInfo.defaultValue);
-    //            importStringBuffer.append("import static ");
-    //            importStringBuffer.append(AppConfig.defaultValuePackageName + "." + createFieldInfo.defaultValue);
-    //            importStringBuffer.append(";\n");
-    //        }
-    //    }
+
     private static void appendDefaultValueImports(StringBuffer importStringBuffer, String value, Set<String> imports) {
         if (imports.contains("*")) {
             return;
@@ -392,7 +407,7 @@ public class CodeCreateUtils {
         if (imports.contains(value) == false) {
             imports.add(value);
             importStringBuffer.append("import static ");
-            importStringBuffer.append(AppConfig.defaultValuePackageName + "." + value);
+            importStringBuffer.append(defaultValuePackageName + "." + value);
             importStringBuffer.append(";\n");
         }
     }
@@ -495,8 +510,7 @@ public class CodeCreateUtils {
     }
 
     private static CreateFieldInfo filedInfoToCode(FieldInfo fieldInfo, String manaualParmaStr) {
-        String defaultValue = AppConfig.getTypeMap(fieldInfo.getFieldType());
-        //        fieldInfo.defautValue = defaultValue;
+        String defaultValue = getTypeMap(fieldInfo.getFieldType());
         CreateFieldInfo ret = new CreateFieldInfo();
         String classType = fieldInfo.getFieldType();
         if (defaultValue == null) {

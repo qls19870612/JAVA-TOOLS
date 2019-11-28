@@ -21,7 +21,7 @@ import javafx.scene.layout.VBox;
 public class SplashScreen {
     private static final Logger logger = LoggerFactory.getLogger(SplashScreen.class);
 
-    private static String DEFAULT_IMAGE = "/splash/javafx.png";
+    private static String DEFAULT_IMAGE = "/splash/Splash.jpg";
 
     /**
      * Override this to create your own splash pane parent node.
@@ -31,12 +31,8 @@ public class SplashScreen {
     public Parent getParent() {
 
         String imagePath = getImagePath();
-        logger.debug("getParent imagePath:{}", imagePath);
-        logger.debug("getParent getName:{}", getClass().getName());
         URL resource = getClass().getResource(imagePath);
-        logger.debug("getParent resource:{}", resource);
         String url = resource.toExternalForm();
-        logger.debug("getParent url:{}", url);
         final ImageView imageView = new ImageView(url);
         final ProgressBar splashProgressBar = new ProgressBar();
         splashProgressBar.setPrefWidth(imageView.getImage().getWidth());

@@ -7,7 +7,9 @@
     <groupId>javaTools</groupId>
     <artifactId>javaTools</artifactId>
     <version>1.0-SNAPSHOT</version>
-
+    <properties>
+        <fileName>javaTools</fileName>
+    </properties>
     <build>
 
 
@@ -53,7 +55,7 @@
                 <configuration>
                     <!--<outputDirectory>D:\workspace\project\misc</outputDirectory>-->
                     <outputDirectory>${project.build.directory}</outputDirectory>
-                    <finalName>javaTools-1.0-SNAPSHOT-jar-with-dependencies</finalName>
+                    <finalName>${fileName}</finalName>
                     <mainClass>sample.Main</mainClass>
                 </configuration>
             </plugin>
@@ -70,9 +72,8 @@
                         </goals>
                         <configuration>
                             <headerType>gui</headerType>
-                            <!--<jar>${project.build.directory}/javaTools-1.0-SNAPSHOT-jar-with-dependencies.jar</jar>-->
-                            <jar>D:\workspace\project\misc/javaTools-1.0-SNAPSHOT-jar-with-dependencies.jar</jar>
-                            <outfile>javaTools-1.0-SNAPSHOT-jar-with-dependencies.exe</outfile>
+                            <jar>${project.build.directory}/${fileName}.jar</jar>
+                            <outfile>${project.build.directory}/${fileName}.exe</outfile>
                             <downloadUrl>http://java.com/download</downloadUrl>
                             <classpath>
                                 <mainclass>org.springframework.boot.loader.WarLauncher</mainclass>
@@ -94,8 +95,34 @@
                                 <productName>${project.name}</productName>
                                 <companyName>javaTool.com</companyName>
                                 <internalName>javaTool</internalName>
-                                <originalFilename>javaTools-1.0-SNAPSHOT-jar-with-dependencies.exe</originalFilename>
+                                <originalFilename>original.exe</originalFilename>
                             </versionInfo>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <overwrite>true</overwrite>
+                            <outputDirectory>D:\workspace\project\misc</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.build.directory}</directory>
+                                    <includes>
+                                        <include>**/*.exe</include>
+                                    </includes>
+                                </resource>
+                            </resources>
                         </configuration>
                     </execution>
                 </executions>

@@ -58,10 +58,26 @@ public interface TableCreatorMapper {
     })
     public void createDbConfig();
 
+    @Update({
+
+            "create table if not exists lua_cache ",
+
+            "(id INTEGER PRIMARY KEY AUTOINCREMENT,",
+
+            "path VARCHAR(150) NOT NULL,",
+
+            "updateDate INTEGER default 0",
+
+            ")"
+
+    })
+    public void createLuaCache();
+
     public default void createTables() {
         createConfig();
         createDiabloPublish();
         createDbConfig();
+        createLuaCache();
     }
 }
 

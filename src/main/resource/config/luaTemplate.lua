@@ -1,4 +1,3 @@
---&date&
 --&fileName&
 local Items = {
 &item&

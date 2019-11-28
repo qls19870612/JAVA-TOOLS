@@ -1,7 +1,10 @@
 package sample.db;
 
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
+import lombok.Getter;
+import lombok.Setter;
 import sample.utils.StringUtils;
 
 /**
@@ -11,12 +14,20 @@ import sample.utils.StringUtils;
  */
 public class TableField {
     public static final TableField[] EMPTY = new TableField[0];
+    @Getter
+    private final String compoundLabel;
+
     public final String fieldName;
     public final String upLowerFieldName;
     public String type;
     public int size;
     public final String desc;
 
+    @Getter
+    @Setter
+    private boolean selected = false;
+    private static AtomicInteger counter = new AtomicInteger(0);
+    public final int id;
 
     public TableField(String fieldName, String type, int size, String desc) {
 
@@ -32,6 +43,8 @@ public class TableField {
         upLowerFieldName = StringUtils.toUpLowerString(fieldName);
         this.size = size;
         this.desc = desc;
+        id = counter.incrementAndGet();
+        compoundLabel = fieldName + "(" + upLowerFieldName + ")";
     }
 
 
