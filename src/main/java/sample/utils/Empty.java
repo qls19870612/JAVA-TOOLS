@@ -7,7 +7,8 @@ import java.util.HashMap;
 
 import game.collection.IntPair;
 import game.collection.LeftIntPair;
-import game.sink.util.ZkConfig.StrArrayValue;
+import game.sink.cluster.ZkConfig.StrArrayValue;
+
 
 public final class Empty {
 
