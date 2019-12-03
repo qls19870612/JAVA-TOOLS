@@ -40,7 +40,13 @@ public class TableField {
         } else {
             this.type = type.substring(0, index).toUpperCase();
         }
-        upLowerFieldName = StringUtils.toUpLowerString(fieldName);
+
+        if (fieldName.equals("default")) {
+            upLowerFieldName = "defaultValue";
+        } else {
+            upLowerFieldName = StringUtils.toUpLowerString(fieldName);
+
+        }
         this.size = size;
         this.desc = desc;
         id = counter.incrementAndGet();

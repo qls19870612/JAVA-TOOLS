@@ -37,6 +37,13 @@ public class MysqlDialectProvider extends AbstractDialectProvider {
         addTypeMap("SMALLINT", "int");
         addTypeMap("MEDIUMINT", "int");
         addTypeMap("INT", "int");
+        addTypeMap("INT UNSIGNED", "int");
+        addTypeMap("TINYINT UNSIGNED", "int");
+        addTypeMap("SMALLINT UNSIGNED", "int");
+        addTypeMap("MEDIUMINT UNSIGNED", "int");
+        addTypeMap("DECIMAL UNSIGNED", "int");
+
+
         addTypeMap("INTEGER", "int");
         addTypeMap("YEAR", "int");
 

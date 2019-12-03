@@ -32,9 +32,10 @@ public abstract class AbstractDialectProvider {
     public String getJavaClass(TableField tableField) {
         FieldTypeMap fieldTypeMap = typeMap.get(tableField.type);
         if (fieldTypeMap == null) {
-            logger.warn("getJavaClass tableField:{}", tableField);
+            logger.warn("getJavaClass tableField:{}", tableField.type);
             return "Object";
         }
+       
         return fieldTypeMap.javaType;
     }
 }

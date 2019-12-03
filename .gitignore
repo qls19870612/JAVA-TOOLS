@@ -7,3 +7,4 @@ target
 /javaTools.exe
 /javaTools.jar
 /log/*.log
+/config/application.properties

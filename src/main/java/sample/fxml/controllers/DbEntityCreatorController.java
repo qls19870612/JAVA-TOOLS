@@ -4,7 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
@@ -14,6 +16,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import sample.Controller;
 import sample.ITab;
 import sample.db.EntryCreator;
 import sample.db.TableField;
@@ -27,6 +30,7 @@ import sample.fxml.renders.TableFieldRender;
 import sample.fxml.renders.TableRender;
 import sample.mapper.ConfigMapper;
 import sample.mapper.DbConfigMapper;
+import sample.utils.TimeUtils;
 
 /**
  *
@@ -172,7 +176,14 @@ public class DbEntityCreatorController implements ITab {
             entryCreator.initDbStruct(dbUrlInput.getInputText(), dbNameInput.getInputText(), dbUserNameInput.getInputText(),
                     dbPasswordInput.getInputText(), getDbType());
             Collection<TableStruct> values = entryCreator.structHashMap.values();
-            tableList.getItems().setAll(values);
+            ArrayList<TableStruct> arrayList = new ArrayList<>(values);
+            arrayList.sort(new Comparator<TableStruct>() {
+                @Override
+                public int compare(TableStruct o1, TableStruct o2) {
+                    return o1.tableName.compareTo(o2.tableName);
+                }
+            });
+            tableList.getItems().setAll(arrayList);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -186,14 +197,17 @@ public class DbEntityCreatorController implements ITab {
     }
 
     public void createAllTableEntity(MouseEvent mouseEvent) {
-
+        int cout = 0;
         for (TableStruct tableStruct : tableList.getItems()) {
             if (tableStruct.isSelected()) {
                 entryCreator
                         .createEntity(tableStruct, srcFolderSelector.getPath(), packageNameInput.getInputText(), classNamePrefixInput.getInputText(),
                                 classNameSuffixInput.getInputText());
+                cout++;
             }
         }
+
+        Controller.log("生成成功" + cout + "个 " + TimeUtils.printTime2(System.currentTimeMillis()));
     }
 
     public void createSelectTableEntity(MouseEvent mouseEvent) {
@@ -203,6 +217,7 @@ public class DbEntityCreatorController implements ITab {
         entryCreator
                 .createEntity(selectTableStruct, srcFolderSelector.getPath(), packageNameInput.getInputText(), classNamePrefixInput.getInputText(),
                         classNameSuffixInput.getInputText(), true);
+        Controller.log("生成成功 1个 " + TimeUtils.printTime2(System.currentTimeMillis()));
     }
 
     public void onTableSelect(TableRender tableRender) {

@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.sql.Connection;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import javafx.collections.ObservableList;
 import sample.Controller;
@@ -63,7 +64,7 @@ public class EntryCreator {
 
         StringBuilder filedStr = new StringBuilder();
         String importStr = "";
-
+        HashSet<String> repeateNames = new HashSet<>();
         for (TableField field : fields) {
             if (justSelectField) {
                 if (!field.isSelected()) {
@@ -72,13 +73,28 @@ public class EntryCreator {
             }
             filedStr.append("   private ");
             String javaClass = provider.getJavaClass(field);
-            if (importStr.length() != 0 && "Date".equals(javaClass)) {
-                importStr = "import java.util.Date";
+            if (importStr.length() == 0 && "Date".equals(javaClass)) {
+                importStr = "import java.util.Date;";
             }
             filedStr.append(javaClass);
             filedStr.append(" ");
-            filedStr.append(field.upLowerFieldName);
-            filedStr.append(";");
+            if (repeateNames.contains(field.upLowerFieldName)) {
+                if (repeateNames.contains(field.fieldName)) {
+                    repeateNames.add(field.fieldName + "1");
+                    filedStr.append(field.fieldName).append("1");
+
+                } else {
+
+                    filedStr.append(field.fieldName);
+                    repeateNames.add(field.fieldName);
+                }
+            } else {
+
+                filedStr.append(field.upLowerFieldName);
+                repeateNames.add(field.upLowerFieldName);
+            }
+            filedStr.append(";//");
+            filedStr.append(field.desc);
             filedStr.append(FileOperator.NEX_LINE);
 
         }
@@ -88,7 +104,10 @@ public class EntryCreator {
         entityContent = entityContent.replaceAll("\\$import", importStr);
         entityContent = entityContent.replaceAll("\\$className", className);
         entityContent = entityContent.replaceAll("\\$filed", filedStr.toString());
-
+        File file = new File(sourceFolder);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
         FileOperator.writeFile(new File(sourceFolder + "/" + className + ".java"), entityContent);
     }
 

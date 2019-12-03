@@ -40,7 +40,6 @@ import game.collection.ByteArrayBuilder;
 import game.collection.IntArrayList;
 import game.collection.IntHashSet;
 import game.sink.util.CommonUtils;
-import game.sink.util.MD5;
 import game.sink.util.RandomNumber;
 import game.sink.util.StringEncoder;
 import game.tools.guice.GuiceFilter;
@@ -442,19 +441,6 @@ public class Utils extends CommonUtils {
 
     public static String[] split(String s, String separator) {
         return StringUtils.splitByWholeSeparatorPreserveAllTokens(s, separator);
-    }
-
-    public static String md5(String s) {
-        MD5 md5 = new MD5();
-        md5.Update(s);
-        return md5.asHex();
-    }
-
-    public static byte[] md5(byte[] input1, byte[] input2) {
-        MD5 md5 = new MD5();
-        md5.Update(input1);
-        md5.Update(input2);
-        return asHex(md5.Final());
     }
 
     private static final byte[] HEX_CHARS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f',};
