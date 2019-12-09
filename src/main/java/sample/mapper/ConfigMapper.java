@@ -16,7 +16,6 @@ import sample.utils.Utils;
 
 
 public interface ConfigMapper {
-
     @ResultType(String.class)
     @Select("select value from config where key=#{key}")
     public String getConfig(@Param("key") String key);

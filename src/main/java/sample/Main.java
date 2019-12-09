@@ -102,6 +102,7 @@ public class Main extends Application {
         CompletableFuture.supplyAsync(() -> SpringApplication.run(SpringMain.class, savedArgs)).whenComplete((ctx, throwable) -> {
             applicationContext = ctx;
             initConfig();
+            logger.debug("init currentTimeMillis:{}", System.currentTimeMillis() - startTime);
             if (throwable != null) {
                 logger.error("Failed to load spring application context: ", throwable);
                 Platform.runLater(() -> errorAction.accept(throwable));
@@ -199,7 +200,11 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 820, 600));
         primaryStage.getIcons().addAll(icons);
         primaryStage.show();
-        root.getScene().getStylesheets().add(this.getClass().getResource("/css/listview.css").toExternalForm());
+        //        root.getScene().getStylesheets().add(this.getClass().getResource("/css/listview.css").toExternalForm());
+        //        URL resource1 = this.getClass().getResource("/css/JMetroDarkTheme.css");
+        URL resource1 = this.getClass().getResource("/css/listview.css");
+        String e = resource1.toExternalForm();
+        root.getScene().getStylesheets().add(e);
         controller.init();
         primaryStage.addEventHandler(WINDOW_CLOSE_REQUEST, event -> controller.onAppClose());
     }

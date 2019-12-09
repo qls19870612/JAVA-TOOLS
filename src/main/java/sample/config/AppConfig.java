@@ -21,8 +21,8 @@ import sample.datas.vo.CodeInfo;
 import sample.enums.ConfigType;
 import sample.file.FileOperator;
 import sample.mapper.ConfigMapper;
-import sample.services.TableMangerService;
-import sample.utils.SpringUtil;
+import sample.spring.services.TableMangerService;
+import sample.spring.utils.SpringUtil;
 
 import static sample.datas.vo.CodeInfo.EMPTY_CODE_INFO;
 

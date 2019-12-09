@@ -21,7 +21,7 @@ public class RelationHandler extends HandlerBase {
     private static final Logger logger = LoggerFactory.getLogger(RelationHandler.class);
 
     @Override
-    public void handleRobot(RobotClient client, int sequence, ChannelBuffer buffer) throws InvalidProtocolBufferException {
+    public boolean handleRobot(RobotClient client, int sequence, ChannelBuffer buffer) throws InvalidProtocolBufferException {
         //        switch (sequence) {
         //            case RelationModuleWrittenMessages.S2C_BASIC_RELATION:
         //
@@ -61,5 +61,6 @@ public class RelationHandler extends HandlerBase {
         //                }
         //                break;
         //        }
+        return false;
     }
 }

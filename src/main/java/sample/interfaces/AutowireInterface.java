@@ -11,7 +11,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.fxml.Initializable;
-import sample.utils.SpringUtil;
+import sample.spring.utils.SpringUtil;
 
 /**
  *

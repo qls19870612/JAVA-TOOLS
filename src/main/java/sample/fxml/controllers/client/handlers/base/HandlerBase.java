@@ -17,15 +17,24 @@ import sample.fxml.controllers.client.robots.RobotClient;
 public abstract class HandlerBase {
     private static final Logger logger = LoggerFactory.getLogger(HandlerBase.class);
 
-    public void handle(IClient client, int sequence, ChannelBuffer buffer) throws InvalidProtocolBufferException {
+    /**
+     *
+     * @param client
+     * @param sequence
+     * @param buffer
+     * @return 有处理返回true, 反之
+     * @throws InvalidProtocolBufferException
+     */
+    public boolean handle(IClient client, int sequence, ChannelBuffer buffer) throws InvalidProtocolBufferException {
         if (client instanceof RobotClient) {
             RobotClient robotClient = (RobotClient) client;
-            handleRobot(robotClient, sequence, buffer);
+            return handleRobot(robotClient, sequence, buffer);
         }
+        return false;
     }
 
-    public void handleRobot(RobotClient client, int sequence, ChannelBuffer buffer) throws InvalidProtocolBufferException {
-
+    public boolean handleRobot(RobotClient client, int sequence, ChannelBuffer buffer) throws InvalidProtocolBufferException {
+        return false;
     }
 
 }

@@ -190,16 +190,20 @@ public abstract class ClientBase implements IClient {
         sendBuffer(channelBuffer, moduleId, sequence);
     }
 
-    public void onReciveMsg(int moduleId, int sequenceId, ChannelBuffer message) {
+    @Override
+    public void onReceiveMsg(int moduleId, int sequenceId, ChannelBuffer message) {
         HandlerBase handler = handlerHub.getHandler(moduleId);
         if (handler != null) {
             try {
-                handler.handle(this, sequenceId, message);
+                boolean handle = handler.handle(this, sequenceId, message);
+                if (!handle) {
+                    logger.debug("onReceiveMsg un handle moduleId:{},sequenceId:{}", moduleId, sequenceId);
+                }
             } catch (InvalidProtocolBufferException e) {
                 e.printStackTrace();
             }
         } else {
-            logger.debug("onReciveMsg un handle moduleId:{},sequenceId:{}", moduleId, sequenceId);
+            logger.debug("onReceiveMsg un handle moduleId:{},sequenceId:{}", moduleId, sequenceId);
         }
 
     }
@@ -221,7 +225,7 @@ public abstract class ClientBase implements IClient {
 
         logger.debug("onMessage moduleId-sequenceId:{}-{}", moduleId, sequenceId);
 
-        onReciveMsg(moduleId, sequenceId, message);
+        onReceiveMsg(moduleId, sequenceId, message);
     }
 
     @Override

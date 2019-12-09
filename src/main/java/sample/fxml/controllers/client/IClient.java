@@ -30,6 +30,8 @@ public interface IClient {
 
     void onMessage(ChannelBuffer message);
 
+    void onReceiveMsg(int moduleId, int sequenceId, ChannelBuffer message);
+
     void onDisconnect();//被动断开
 
     void onConnect();

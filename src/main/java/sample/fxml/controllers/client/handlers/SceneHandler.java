@@ -25,11 +25,11 @@ public class SceneHandler extends HandlerBase {
     private static final Logger logger = LoggerFactory.getLogger(SceneHandler.class);
 
     @Override
-    public void handle(IClient client, int sequence, ChannelBuffer buffer) {
-        onScene(client, sequence, buffer);
+    public boolean handle(IClient client, int sequence, ChannelBuffer buffer) {
+        return onScene(client, sequence, buffer);
     }
 
-    private void onScene(IClient client, int sequenceId, ChannelBuffer message) {
+    private boolean onScene(IClient client, int sequenceId, ChannelBuffer message) {
         switch (sequenceId) {
             case S2C_SCENE_LOAD_OK:
                 client.onEnterScene();
@@ -54,10 +54,11 @@ public class SceneHandler extends HandlerBase {
 
                 break;
             default:
-                //                logger.debug("onScene sequenceId:{}", sequenceId);
+                return false;
 
 
         }
+        return true;
     }
 
 

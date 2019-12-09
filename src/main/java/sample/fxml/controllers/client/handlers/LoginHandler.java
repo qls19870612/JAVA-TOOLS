@@ -29,11 +29,11 @@ public class LoginHandler extends HandlerBase {
     private static final Logger logger = LoggerFactory.getLogger(LoginHandler.class);
 
     @Override
-    public void handle(IClient client, int sequence, ChannelBuffer buffer) {
-        onLogin(client, sequence, buffer);
+    public boolean handle(IClient client, int sequence, ChannelBuffer buffer) {
+        return onLogin(client, sequence, buffer);
     }
 
-    private void onLogin(IClient client, int sequenceId, ChannelBuffer message) {
+    private boolean onLogin(IClient client, int sequenceId, ChannelBuffer message) {
 
         switch (sequenceId) {
             case S2C_ACCOUNT_LOGIN_OK:
@@ -60,8 +60,9 @@ public class LoginHandler extends HandlerBase {
                 break;
 
             default:
-                //                logger.warn("onLogin 未处理的 sequenceId:{}", sequenceId);
+                return false;
         }
+        return true;
     }
 
     public void login(IClient client, Hero hero) {

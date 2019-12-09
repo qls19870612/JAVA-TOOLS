@@ -23,7 +23,7 @@ public class MiscHandler extends HandlerBase {
     private static final Logger logger = LoggerFactory.getLogger(MiscHandler.class);
 
     @Override
-    public void handle(IClient client, int sequence, ChannelBuffer buffer) {
+    public boolean handle(IClient client, int sequence, ChannelBuffer buffer) {
         switch (sequence) {
             case S2C_GET_SERVER_TIME_OK:
                 long serverTime = BufferUtil.readVarInt64(buffer);
@@ -32,7 +32,8 @@ public class MiscHandler extends HandlerBase {
             case S2C_HEART_BEAT_OK:
                 break;
             default:
-                //                logger.debug("handle sequence:{}", sequence);
+                return false;
         }
+        return true;
     }
 }

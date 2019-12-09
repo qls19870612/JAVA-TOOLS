@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
@@ -68,10 +69,16 @@
             <Button minWidth="80" onMouseClicked="#onSettingBtnClick" text="设置"/>
         </HBox>
         <Label fx:id="tableNameLabel" AnchorPane.topAnchor="13" AnchorPane.leftAnchor="210"/>
-        <ListView fx:id="tableList" prefWidth="200" minHeight="200" AnchorPane.topAnchor="40" AnchorPane.leftAnchor="0"
-                  AnchorPane.bottomAnchor="0"/>
-        <ListView fx:id="fieldList" prefWidth="200" prefHeight="200" AnchorPane.topAnchor="40" AnchorPane.leftAnchor="210" AnchorPane.rightAnchor="0"
-                  AnchorPane.bottomAnchor="0"/>
+        <!--<ListView fx:id="tableList" prefWidth="200" minHeight="200" AnchorPane.topAnchor="40" AnchorPane.leftAnchor="0"-->
+        <!--AnchorPane.bottomAnchor="0"/>-->
+        <!--<ListView fx:id="fieldList" prefWidth="200" prefHeight="200" AnchorPane.topAnchor="40" AnchorPane.leftAnchor="210" AnchorPane.rightAnchor="0"-->
+        <!--AnchorPane.bottomAnchor="0"/>-->
+        <SplitPane dividerPositions="0.3" AnchorPane.topAnchor="40" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+                   AnchorPane.bottomAnchor="0">
+
+            <ListView fx:id="tableList" SplitPane.resizableWithParent="true"/>
+            <ListView fx:id="fieldList" SplitPane.resizableWithParent="true"/>
+        </SplitPane>
 
 
     </AnchorPane>

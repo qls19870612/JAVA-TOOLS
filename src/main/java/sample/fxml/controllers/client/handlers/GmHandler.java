@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 
-import sample.Controller;
 import sample.fxml.controllers.client.IClient;
 import sample.fxml.controllers.client.Modules;
 import sample.fxml.controllers.client.gm.GmClient;
@@ -30,32 +29,49 @@ public class GmHandler extends HandlerBase {
 
     private static final Logger logger = LoggerFactory.getLogger(GmHandler.class);
 
+    private String allGmMsg = "";
 
     @Override
-    public void handle(IClient iclient, int sequence, ChannelBuffer buffer) {
+    public boolean handle(IClient iclient, int sequence, ChannelBuffer buffer) {
         if (!(iclient instanceof GmClient)) {
-            return;
+            return false;
         }
         String gmMsg = BufferUtil.readUTF(buffer);
 
         GmClient client = (GmClient) iclient;
 
+
         if (gmMsg.startsWith("gmAll#")) {
-            String substring = gmMsg.substring(6);
-            ArrayList<GmModule> modules = parseAllGm(substring);
+            logger.debug("handle length:{}", gmMsg.length());
+            ArrayList<GmModule> modules = parseAllGm(gmMsg.substring(6));
             client.updateModules(modules);
+
+        } else if (gmMsg.startsWith("设置代理目标")) {
+            String[] split = gmMsg.split("：");
+            client.setProxy(split[1]);
+        } else if (gmMsg.startsWith("清空代理目标")) {
+            client.setProxy("");
         } else {
-            Controller.log(gmMsg);
-            if (gmMsg.startsWith("设置代理目标")) {
-                String[] split = gmMsg.split("：");
-                client.setProxy(split[1]);
-            } else if (gmMsg.startsWith("清空代理目标")) {
-                client.setProxy("");
-
-            }
+            return false;
         }
+        return true;
 
+    }
 
+    private void tryAppendGmAll(String gmMsg, int headLen, GmClient client) {
+
+        if (gmMsg.endsWith("gmAllEnd")) {
+            String substring1 = gmMsg.substring(headLen, gmMsg.length() - 9);
+            allGmMsg = allGmMsg + substring1;
+            logger.debug("tryAppendGmAll allGmMsg:{}", allGmMsg.length());
+            ArrayList<GmModule> modules = parseAllGm(allGmMsg);
+            client.updateModules(modules);
+            allGmMsg = "";
+        } else {
+
+            allGmMsg = allGmMsg + gmMsg.substring(headLen);
+
+        }
     }
 
     private ArrayList<GmModule> parseAllGm(String substring) {

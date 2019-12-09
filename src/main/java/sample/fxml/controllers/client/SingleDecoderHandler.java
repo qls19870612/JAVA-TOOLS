@@ -35,6 +35,7 @@ public class SingleDecoderHandler extends LengthFieldBasedFrameDecoder implement
 
 
             ChannelBuffer input = buffer.slice(index, length);
+            logger.debug("extractFrame index:{},length:{}", index, length);
             client.getDisruptorExecutor().execute(() -> client.onMessage(input));
 
 
@@ -42,7 +43,7 @@ public class SingleDecoderHandler extends LengthFieldBasedFrameDecoder implement
             logger.error("extractFrame ex:{}", ex);
         } catch (Throwable ex) {
             //            logger.error("extractFrame ex:{}", ex);
-            //            logger.error("extractFrame出错", ex);
+            logger.error("extractFrame出错", ex);
         }
         return null;
     }

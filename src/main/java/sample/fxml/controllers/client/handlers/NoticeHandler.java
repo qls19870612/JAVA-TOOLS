@@ -26,13 +26,13 @@ public class NoticeHandler extends HandlerBase {
     private static final Logger logger = LoggerFactory.getLogger(NoticeHandler.class);
 
     @Override
-    public void handle(IClient client, int sequence, ChannelBuffer buffer) throws InvalidProtocolBufferException {
+    public boolean handle(IClient client, int sequence, ChannelBuffer buffer) throws InvalidProtocolBufferException {
         int moduleId = BufferUtil.readVarInt32(buffer);
         int noticeId = BufferUtil.readVarInt32(buffer);
         NoticeData data = Controller.getClientDepends().noticeDatas.getData(moduleId, noticeId);
         if (data == null) {
-            logger.debug("未配置的消息 moduleId:{},sequence:{}", moduleId, sequence);
-            return;
+            logger.info("未配置的消息 moduleId:{},sequence:{}", moduleId, sequence);
+            return false;
         }
         String notice = data.msg;
         for (String argType : data.argTypes) {
@@ -79,12 +79,13 @@ public class NoticeHandler extends HandlerBase {
                     break;
                 default:
                     logger.debug("未处理的协议参数 argType:{}", argType);
+                    return false;
 
             }
         }
         //        logger.debug("handle StringEncoder.encode.client.getRoleName:{},notice:{}", StringEncoder.encode(client.getRoleName()), notice);
         Controller.log2Robot(notice);
-
+        return true;
     }
 
     private String replace(String notice, String argType, String arg) {

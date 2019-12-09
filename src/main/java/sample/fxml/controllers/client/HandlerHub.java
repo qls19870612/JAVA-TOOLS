@@ -7,7 +7,7 @@ import java.util.Map;
 
 import sample.fxml.controllers.client.handlers.base.Handler;
 import sample.fxml.controllers.client.handlers.base.HandlerBase;
-import sample.utils.SpringUtil;
+import sample.spring.utils.SpringUtil;
 
 /**
  *
