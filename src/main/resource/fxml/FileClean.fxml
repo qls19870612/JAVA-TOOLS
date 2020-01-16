@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import sample.fxml.componet.fxml.FileSelector?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="sample.fxml.controllers.FileCleanController"
+            prefHeight="600.0" prefWidth="600.0">
+    <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0"
+          AnchorPane.rightAnchor="0">
+        <FileSelector label="源目录" folder="true" fx:id="srcFolderSelector" configType="FOLDER_CLEAN_SOURCE_PATH"/>
+        <FileSelector label="目标目录" folder="true" fx:id="targetFolderSelector" configType="FOLDER_CLEAN_TARGET_PATH"/>
+        <HBox spacing="10">
+            <Button prefWidth="1000" HBox.hgrow="ALWAYS" text="开始整理" onMouseClicked="#onCleanBtnClick"/>
+            <Button prefWidth="1000" HBox.hgrow="ALWAYS" text="移动到目标目录未有文件" onMouseClicked="#onMoveBtnClick"/>
+        </HBox>
+        <TextArea VBox.vgrow="ALWAYS" fx:id="infoTA" prefHeight="2000"/>
+    </VBox>
+
+</AnchorPane>

@@ -366,7 +366,7 @@ public class FileOperator {
             bis.close();
         } catch (Exception e) {
             //            e.printStackTrace();
-            System.out.println("get_charset:" + e.getMessage());
+            //            System.out.println("get_charset:" + e.getMessage());
         }
 
         return charset;

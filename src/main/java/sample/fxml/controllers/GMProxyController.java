@@ -623,6 +623,7 @@ public class GMProxyController implements ITab {
 
 
     public void customModuleBtnClick(MouseEvent mouseEvent) {
+
         InputBox.showAlert("请输入模块名", text -> {
             if (StringUtils.isNotEmpty(text)) {
                 CustomGmModule customGmModule = new CustomGmModule("[" + text + "]");

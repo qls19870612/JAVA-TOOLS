@@ -23,6 +23,7 @@ import sample.enums.ConfigType;
 import sample.fxml.controllers.CreateConfigController;
 import sample.fxml.controllers.DbEntityCreatorController;
 import sample.fxml.controllers.DiabloPublishController;
+import sample.fxml.controllers.FileCleanController;
 import sample.fxml.controllers.GMProxyController;
 import sample.fxml.controllers.RobotController;
 import sample.fxml.controllers.StringFormatterController;
@@ -52,6 +53,8 @@ public class Controller implements AutowireInterface {
     @FXML
     public DbEntityCreatorController dbEntityCreatorController;
     @FXML
+    public FileCleanController fileCleanController;
+    @FXML
     public Label timeLabel;
     @FXML
     public Label infoLabel;
@@ -65,6 +68,7 @@ public class Controller implements AutowireInterface {
     public Tab robotTab;
     public Tab diabloPublishTab;
     public Tab dbEntityCreatorTab;
+    public Tab fileCleanTab;
     private SimpleDateFormat timeDataFormat;
     private ArrayList<ITab> tabs;
 
@@ -107,6 +111,8 @@ public class Controller implements AutowireInterface {
                     diabloPublishController.onSelect();
                 } else if (newValue == dbEntityCreatorTab) {
                     dbEntityCreatorController.onSelect();
+                } else if (newValue == fileCleanTab) {
+                    fileCleanController.onSelect();
                 } else {
                     throw new RuntimeException("未处理的Tab:" + newValue.getText());
                 }

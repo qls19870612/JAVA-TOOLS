@@ -17,7 +17,7 @@ public class TestService {
     private AtomicInteger count = new AtomicInteger(0);
 
 
-    //    @Scheduled(cron = "10-20 0/1 * * * *")
+    //    @Scheduled(cron = "*/5 * * * * *")
     public void test() {
         int i = count.incrementAndGet();
         logger.debug("test count:{}", i);

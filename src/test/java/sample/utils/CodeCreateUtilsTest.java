@@ -1,6 +1,8 @@
 package sample.utils;
 
 
+import com.alibaba.fastjson.JSONObject;
+
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
@@ -22,6 +24,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Random;
@@ -32,6 +35,7 @@ import java.util.regex.Pattern;
 import game.collection.IntArrayList;
 import game.sink.util.RandomNumber;
 import sample.datas.vo.FieldInfo;
+import sample.entitys.AuctionBuyEntity;
 
 /**
  * @描述
@@ -619,6 +623,47 @@ public class CodeCreateUtilsTest {
             logger.debug("getBytes2 i:{}", bytes2[count - 1]);
         }
         return bytes2;
+    }
+
+    @Test
+    public void testJson() {
+        AuctionBuyEntity auctionBuyEntity = new AuctionBuyEntity();
+        auctionBuyEntity.setBuyerName("dfsf");
+        auctionBuyEntity.setId(1L);
+        auctionBuyEntity.setCount(0);
+        auctionBuyEntity.setFlag(false);
+        Object o = JSONObject.toJSON(auctionBuyEntity);
+        logger.debug("testJson o:{}", o);
+        String string = JSONObject.toJSONString(auctionBuyEntity);
+        logger.debug("testJson string:{}", string);
+    }
+
+    @Test
+    public void testArrayRemove1() {
+        List<String> a = new ArrayList<String>();
+        a.add("1");
+        a.add("2");
+        a.add("3");
+        for (String temp : a) {
+            if ("1".equals(temp)) {
+                a.remove(temp); //不要这么做
+            }
+        }
+        logger.debug("testArrayRemove a:{}", a);
+    }
+
+    @Test
+    public void testArrayRemove2() {
+        List<String> a = new ArrayList<String>();
+        a.add("1");
+        a.add("2");
+        a.add("3");
+        for (String temp : a) {
+            if ("2".equals(temp)) {
+                a.remove(temp); //不要这么做
+            }
+        }
+        logger.debug("testArrayRemove a:{}", a);
     }
 }
 

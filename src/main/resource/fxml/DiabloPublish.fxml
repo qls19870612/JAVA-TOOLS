@@ -14,10 +14,11 @@
             prefHeight="600.0" prefWidth="600.0">
 
     <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="0"
-          AnchorPane.rightAnchor="0">
+          AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0">
 
         <FileSelector label="SVN执行文件" fx:id="svnFileSelector" configType="PUBLISH_SVN_DIRECTOR"/>
         <FileSelector label="发布版本文件" fx:id="projectFileSelector" configType="PUBLISH_PROJECT_DIRECTOR"/>
+        <FileSelector label="项目目录" folder="true" fx:id="projectFolderSelector" configType="PUBLISH_PROJECT_FOLDER_DIRECTOR"/>
         <FileSelector label="服务器目录" folder="true" fx:id="serverFolderSelector" configType="PUBLISH_SERVER_DIRECTOR"/>
         <InputComponent label="版本名字" fx:id="versionNameInput" configType="PUBLISH_VERSION_NAME"/>
         <HBox spacing="10">
@@ -25,8 +26,13 @@
             <Button fx:id="kfPublishBtn" text="发布跨服" prefWidth="1000" HBox.hgrow="ALWAYS" onMouseClicked="#onKfPublishBtnClick"/>
             <Button fx:id="logBtn" text="日志" prefWidth="1000" HBox.hgrow="ALWAYS" onMouseClicked="#onLogBtnClick"/>
         </HBox>
-        <ListView fx:id="publishHistoryList"/>
+        <AnchorPane VBox.vgrow="ALWAYS" prefHeight="2000">
+            <ListView fx:id="publishHistoryList" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0"
+                      AnchorPane.bottomAnchor="0"/>
+            <MaskPanel fx:id="maskPanel" visible="false" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0"
+                       AnchorPane.bottomAnchor="0"/>
+        </AnchorPane>
+
     </VBox>
-    <MaskPanel fx:id="maskPanel" visible="false" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="176"
-               AnchorPane.bottomAnchor="40"/>
+
 </AnchorPane>

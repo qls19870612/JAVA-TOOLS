@@ -17,13 +17,13 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="sample.fxml.controllers.DbEntityCreatorController"
             prefHeight="600.0" prefWidth="600.0">
-    <AnchorPane fx:id="settingPanel" minWidth="100" minHeight="100" prefWidth="100" prefHeight="100" AnchorPane.topAnchor="0"
+    <AnchorPane fx:id="settingPanel" AnchorPane.topAnchor="10"
                 AnchorPane.bottomAnchor="0"
                 AnchorPane.rightAnchor="0"
-                AnchorPane.leftAnchor="0" style="-fx-background-color:ALICEBLUE">
-        <Button onMouseClicked="#returnBtnClick" text="返回" prefWidth="50" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="10"/>
-        <VBox spacing="10" AnchorPane.topAnchor="40" AnchorPane.leftAnchor="0"
-              AnchorPane.rightAnchor="0">
+                AnchorPane.leftAnchor="0">
+        <Button onMouseClicked="#returnBtnClick" text="返回" prefWidth="50" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0"/>
+        <VBox spacing="10" AnchorPane.topAnchor="30" AnchorPane.leftAnchor="0"
+              AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0">
 
             <FileSelector label="源文件路径" folder="true" fx:id="srcFolderSelector" configType="DB_JAVA_SOURCE_PATH"/>
             <InputComponent label="包名" fx:id="packageNameInput" configType="DB_JAVA_PACKAGE"/>
@@ -55,30 +55,29 @@
                 <InputComponent label="密码" fx:id="dbPasswordInput" configType="DB_DB_PASSWORD" HBox.hgrow="ALWAYS"/>
             </HBox>
             <Button fx:id="createBtn" text="保存配置" prefWidth="Infinity" onMouseClicked="#onCreateBtnClick"/>
-            <ListView fx:id="dbConfigList" minWidth="100" minHeight="100" prefWidth="100" prefHeight="100" VBox.vgrow="ALWAYS"/>
+            <ListView fx:id="dbConfigList" minWidth="100" minHeight="100" prefWidth="100" prefHeight="2000" VBox.vgrow="ALWAYS"/>
         </VBox>
     </AnchorPane>
 
-    <AnchorPane minWidth="100" minHeight="100" prefWidth="100" prefHeight="100" fx:id="createPanel" visible="false" AnchorPane.topAnchor="0"
+    <AnchorPane fx:id="createPanel" visible="false" AnchorPane.topAnchor="10"
                 AnchorPane.bottomAnchor="0" AnchorPane.rightAnchor="0"
                 AnchorPane.leftAnchor="0">
-        <HBox AnchorPane.topAnchor="10" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" spacing="10">
-            <Button minWidth="80" onMouseClicked="#createAllTableEntity" text="生成选中表"/>
-            <Button minWidth="80" onMouseClicked="#createSelectTableEntity" text="生成选中字段"/>
-            <Region prefWidth="10000" HBox.hgrow="ALWAYS"/>
-            <Button minWidth="80" onMouseClicked="#onSettingBtnClick" text="设置"/>
-        </HBox>
-        <Label fx:id="tableNameLabel" AnchorPane.topAnchor="13" AnchorPane.leftAnchor="210"/>
-        <!--<ListView fx:id="tableList" prefWidth="200" minHeight="200" AnchorPane.topAnchor="40" AnchorPane.leftAnchor="0"-->
-        <!--AnchorPane.bottomAnchor="0"/>-->
-        <!--<ListView fx:id="fieldList" prefWidth="200" prefHeight="200" AnchorPane.topAnchor="40" AnchorPane.leftAnchor="210" AnchorPane.rightAnchor="0"-->
-        <!--AnchorPane.bottomAnchor="0"/>-->
-        <SplitPane dividerPositions="0.3" AnchorPane.topAnchor="40" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
-                   AnchorPane.bottomAnchor="0">
+        <VBox spacing="10" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
+              AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0">
+            <HBox spacing="10">
+                <Button minWidth="80" onMouseClicked="#createAllTableEntity" text="生成选中表"/>
+                <Button minWidth="80" onMouseClicked="#createSelectTableEntity" text="生成选中字段"/>
+                <Region prefWidth="10000" prefHeight="20" HBox.hgrow="ALWAYS"/>
+                <Button minWidth="50" onMouseClicked="#onSettingBtnClick" text="设置"/>
+            </HBox>
+            <Label fx:id="tableNameLabel" text="...."/>
 
-            <ListView fx:id="tableList" SplitPane.resizableWithParent="true"/>
-            <ListView fx:id="fieldList" SplitPane.resizableWithParent="true"/>
-        </SplitPane>
+            <SplitPane dividerPositions="0.3" VBox.vgrow="ALWAYS">
+
+                <ListView fx:id="tableList" SplitPane.resizableWithParent="true"/>
+                <ListView fx:id="fieldList" SplitPane.resizableWithParent="true"/>
+            </SplitPane>
+        </VBox>
 
 
     </AnchorPane>

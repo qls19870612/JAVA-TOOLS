@@ -50,6 +50,7 @@ public class DiabloPublishController implements ITab, AutowireInterface {
     public MaskPanel maskPanel;
     public Button logBtn;
     public Button kfPublishBtn;
+    public FileSelector projectFolderSelector;
     private boolean inited;
     //    @Autowired
     //    TableMangerService tableMangerService;
@@ -114,8 +115,21 @@ public class DiabloPublishController implements ITab, AutowireInterface {
             AlertBox.showAlert("请选择正确的服务器目录");
             return;
         }
-
+        ArrayList<File> addConfigFiles = FileCleanController.srcToTargetIfNotExistsFile(projectFolderSelector, serverFolderSelector, "config");
+        if (addConfigFiles == null) {
+            return;
+        }
         maskPanel.clear();
+        if (addConfigFiles.isEmpty()) {
+
+            maskPanel.append("未发现新增配置文件");
+        } else {
+            maskPanel.append("新增配置文件[");
+            for (File addConfigFile : addConfigFiles) {
+                maskPanel.append(addConfigFile.getAbsolutePath());
+            }
+            maskPanel.append("]");
+        }
         updateServerFolder(serverFolder);
         String versionName = versionNameInput.getInputText();
 
@@ -132,7 +146,7 @@ public class DiabloPublishController implements ITab, AutowireInterface {
 
         File batFile = getBatFile(serverFolder, versionName);
         FileOperator.writeFile(batFile, batFileContent);
-        ArrayList<File> files = new ArrayList<>();
+        ArrayList<File> files = new ArrayList<>(addConfigFiles);
         files.add(newProjectFile);
         files.add(batFile);
 

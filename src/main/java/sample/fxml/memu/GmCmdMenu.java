@@ -61,7 +61,7 @@ public class GmCmdMenu extends ContextMenu {
                 if (customModule != currShowParent) {
                     if (!customModule.container(gmCmd)) {
                         addItem("添加到 " + customModule.moduleName, event -> {
-                            customModule.addGm(gmCmd);
+                            customModule.menuAddGm(gmCmd);
                             GMProxyController.THIS.saveSelectList();
                         });
                     }

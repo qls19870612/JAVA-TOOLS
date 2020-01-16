@@ -6,3 +6,4 @@ target
 /misc/javaTools-1.0-SNAPSHOT-jar-with-dependencies.exe
 /javaTools.exe
 /javaTools.jar
+/log/*.log

@@ -28,6 +28,7 @@ import sample.config.AppConfig;
 import sample.startLoader.Constant;
 import sample.startLoader.PropertyReaderHelper;
 import sample.startLoader.SplashScreen;
+import sample.utils.LogCustom;
 
 import static javafx.stage.WindowEvent.WINDOW_CLOSE_REQUEST;
 
@@ -61,9 +62,12 @@ public class Main extends Application {
 
     public Main() {
         splashIsShowing = new CompletableFuture<>();
+
     }
 
     public Collection<Image> loadDefaultIcons() {
+        LogCustom logCustom = new LogCustom();
+        logCustom.detach();
         String property = System.getProperty("java.ext.dirs");
         logger.debug("loadDefaultIcons property:{}", property);
         Class<? extends Main> aClass = getClass();
@@ -91,6 +95,8 @@ public class Main extends Application {
      */
     @Override
     public void init() throws Exception {
+
+
         // Load in JavaFx Thread and reused by Completable Future, but should no be a big deal.
         long startTime = System.currentTimeMillis();
         try {
@@ -100,6 +106,7 @@ public class Main extends Application {
             e.printStackTrace();
         }
         CompletableFuture.supplyAsync(() -> SpringApplication.run(SpringMain.class, savedArgs)).whenComplete((ctx, throwable) -> {
+
             applicationContext = ctx;
             initConfig();
             logger.debug("init currentTimeMillis:{}", System.currentTimeMillis() - startTime);
@@ -159,7 +166,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-
         this.primaryStage = primaryStage;
         final Stage splashStage = new Stage(StageStyle.TRANSPARENT);
 
@@ -187,10 +193,10 @@ public class Main extends Application {
 
     }
 
-    private void initPrimaryStage(Stage primaryStage) throws Exception {
-        long startTime = System.currentTimeMillis();
 
-        URL resource = getClass().getResource("/config/sample.fxml");
+    private void initPrimaryStage(Stage primaryStage) throws Exception {
+
+        URL resource = getClass().getResource("/sample.fxml");
         FXMLLoader loader = new FXMLLoader(resource);
         loader.load();
         Controller controller = loader.getController();
@@ -219,12 +225,12 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-
         splashScreen = new SplashScreen();
         savedArgs = args;
 
 
         launch(args);
+
 
     }
 

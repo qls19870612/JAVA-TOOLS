@@ -78,6 +78,16 @@ public class FileSelector extends AbstractInputComponent implements AutowireInte
         textField.setText(path);
     }
 
+    public boolean isExistsDirectory() {
+        File file = new File(getPath());
+        return file.exists() && file.isDirectory();
+    }
+
+    public boolean isExistsFile() {
+        File file = new File(getPath());
+        return file.exists() && !file.isDirectory();
+    }
+
     @Override
     protected void onBtnClick(MouseEvent mouseEvent) {
         if (mouseEvent.getSource() == button) {
@@ -137,5 +147,9 @@ public class FileSelector extends AbstractInputComponent implements AutowireInte
             return "";
         }
         return new File(getPath()).getName();
+    }
+
+    public String getDirectoryAbsolutePath() {
+        return new File(getPath()).getAbsolutePath();
     }
 }

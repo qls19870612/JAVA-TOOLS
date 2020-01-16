@@ -1,5 +1,6 @@
 package sample.fxml.controllers.client.handlers.gm;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -34,6 +35,12 @@ public class CustomGmModule extends GmModule {
 
     public void setCmds(String[] cmds) {
         this.cmds = cmds;
+    }
+
+    public void menuAddGm(GmCmd cmd) {
+        super.addGm(cmd);
+        this.cmds = Arrays.copyOf(this.cmds, this.cmds.length + 1);
+        this.cmds[this.cmds.length - 1] = cmd.lowerCmdName;
     }
 
     public void remove(GmCmd gmCmd) {

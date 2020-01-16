@@ -9,51 +9,37 @@
     <children>
         <TabPane fx:id="tabPanel" tabClosingPolicy="UNAVAILABLE" tabMinWidth="70" AnchorPane.bottomAnchor="40.0"
                  AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-            <tabs>
 
                 <Tab text="配置生成" fx:id="configTab">
-                    <content>
-                        <!--<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="297.0" prefWidth="432.0" />-->
-                        <fx:include fx:id="createConfig" source="/fxml/CreateConfig.fxml"/>
-                    </content>
+                    <fx:include fx:id="createConfig" source="/fxml/CreateConfig.fxml"/>
                 </Tab>
                 <Tab text="文本格式化" fx:id="txtTab">
-                    <content>
-                        <fx:include fx:id="stringFormatter" source="/fxml/StringFormatter.fxml"/>
-                    </content>
+                    <fx:include fx:id="stringFormatter" source="/fxml/StringFormatter.fxml"/>
                 </Tab>
                 <Tab text="XLS转换" fx:id="xlsTab">
-                    <content>
-                        <fx:include fx:id="xls" source="/fxml/XLS2Txt.fxml"/>
-                    </content>
+                    <fx:include fx:id="xls" source="/fxml/XLS2Txt.fxml"/>
                 </Tab>
                 <Tab text="GM" fx:id="gmTab">
-                    <content>
-                        <fx:include fx:id="gmProxy" source="/fxml/GMProxy.fxml"/>
-                    </content>
+                    <fx:include fx:id="gmProxy" source="/fxml/GMProxy.fxml"/>
                 </Tab>
 
                 <Tab text="Robot" fx:id="robotTab">
-                    <content>
-                        <fx:include fx:id="robot" source="/fxml/Robot.fxml"/>
-                    </content>
+                    <fx:include fx:id="robot" source="/fxml/Robot.fxml"/>
                 </Tab>
                 <Tab text="发布版本" fx:id="diabloPublishTab">
-                    <content>
-                        <fx:include fx:id="diabloPublish" source="/fxml/DiabloPublish.fxml"/>
-                    </content>
+                    <fx:include fx:id="diabloPublish" source="/fxml/DiabloPublish.fxml"/>
                 </Tab>
                 <Tab text="数据库实体" fx:id="dbEntityCreatorTab">
-                    <content>
-                        <fx:include fx:id="dbEntityCreator" source="/fxml/DbEntityCreator.fxml"/>
-                    </content>
+                    <fx:include fx:id="dbEntityCreator" source="/fxml/DbEntityCreator.fxml"/>
+                </Tab>
+                <Tab text="目录整理" fx:id="fileCleanTab">
+                    <fx:include fx:id="fileClean" source="/fxml/FileClean.fxml"/>
                 </Tab>
 
-            </tabs>
-        </TabPane>
+            </TabPane>
         <Label fx:id="infoLabel" prefHeight="20.0" prefWidth="534.0" text="info" AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="10"
                AnchorPane.rightAnchor="120"/>
-        <Label fx:id="timeLabel" prefHeight="20" prefWidth="100" text="time" textAlignment="LEFT" AnchorPane.bottomAnchor="10"
+        <Label fx:id="timeLabel" prefHeight="20" prefWidth="100" text="time" AnchorPane.bottomAnchor="10"
                AnchorPane.rightAnchor="10"/>
         <Separator style="-fx-background-color: LIGHTSKYBLUE;" AnchorPane.bottomAnchor="33" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10"/>
     </children>
