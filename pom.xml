@@ -142,7 +142,7 @@
             <version>2.5.1</version>
         </dependency>
         <dependency>
-            <groupId>fang</groupId>
+            <groupId>song</groupId>
             <artifactId>all-utils</artifactId>
             <version>1.0.16</version>
         </dependency>
@@ -193,7 +193,16 @@
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>2.0.0</version>
         </dependency>
-
+        <dependency>
+            <groupId>velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.googlejavaformat</groupId>
+            <artifactId>google-java-format</artifactId>
+            <version>1.5</version>
+        </dependency>
     </dependencies>
 
 </project>

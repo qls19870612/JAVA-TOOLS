@@ -2,6 +2,7 @@ package sample.fxml.controllers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -18,31 +19,42 @@ import java.util.concurrent.TimeUnit;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import sample.ITab;
-import sample.config.AppConfig;
 import sample.file.FileOperator;
+import sample.fxml.componet.fxml.FileSelector;
+import sample.mapper.ConfigMapper;
 import sample.utils.CodeCreateUtils;
+import sample.utils.StringUtils;
 
 import static sample.utils.Xls2TxtUtils.createTxt;
 
 /**
-
  *@描述
  *@创建人 liangsong
-
  *@创建时间 2018/7/21/021 14:34
  */
 public class XlsController implements ITab {
     private static final Logger logger = LoggerFactory.getLogger(XlsController.class);
     public ListView xlsList;
     public CheckBox updateTimeSortCb;
+    public FileSelector xlsFolderSelector;
+    public FileSelector luaFolderSelector;
+    public FileSelector tsFolderSelector;
+    public FileSelector tsJsonFolderSelector;
+    public AnchorPane settingPanel;
     private ThreadPoolExecutor threadPoolExecutor;
     private int threadCount = Runtime.getRuntime().availableProcessors() * 2;
     public final static int EMPTY_LINE = 99999999;
     private XLS2LUAController xls2LUAController;
     public static String luaTemplate;
     private boolean inited;
-
+    @Autowired
+    private ConfigMapper configMapper;
+    public static String tsJsonPath;
+    public static String tsPath;
+    public static String xlsPath;
+    public static String luaPath;
 
     public void onSelect() {
         if (inited) {
@@ -63,6 +75,14 @@ public class XlsController implements ITab {
         threadPoolExecutor = new ThreadPoolExecutor(threadCount, threadCount, 60L, TimeUnit.MINUTES, queue, threadFactor);
         xls2LUAController = new XLS2LUAController(this);
         xls2LUAController.onSelect();
+        refreshPaths();
+    }
+
+    private void refreshPaths() {
+        tsPath = tsFolderSelector.getPath();
+        tsJsonPath = tsJsonFolderSelector.getPath();
+        xlsPath = xlsFolderSelector.getPath();
+        luaPath = luaFolderSelector.getPath();
     }
 
     @Override
@@ -75,14 +95,12 @@ public class XlsController implements ITab {
     }
 
     public void onCreateBtnClick(MouseEvent mouseEvent) {
-        //        Platform.runLater(new Runnable() {
-        //            @Override
-        //            public void run() {
-        //
-        //            }
-        //        });
-        logger.debug("AppConfig.xlsPath:" + AppConfig.xlsPath);
-        File root = new File(AppConfig.xlsPath);
+        if (StringUtils.isEmpty(xlsPath)) {
+            settingPanel.setVisible(true);
+            return;
+        }
+        logger.debug("AppConfig.xlsPath:" + xlsPath);
+        File root = new File(xlsPath);
         convertAllFiles(root);
     }
 
@@ -127,11 +145,25 @@ public class XlsController implements ITab {
     }
 
     public void onOpenLuaBtnClick(MouseEvent mouseEvent) {
-        FileOperator.openFile(AppConfig.luaPath);
+        FileOperator.openFile(luaPath);
 
     }
 
     public void onOpenXlsBtnClick(MouseEvent mouseEvent) {
-        FileOperator.openFile(AppConfig.xlsPath);
+        FileOperator.openFile(xlsPath);
+    }
+
+    public void onCreateTsBtnClick(MouseEvent mouseEvent) {
+        xls2LUAController.onCreateTsBtnClick(mouseEvent);
+    }
+
+    public void onOpenTsBtnClick(MouseEvent mouseEvent) {
+        FileOperator.openFile(tsPath);
+    }
+
+    public void settingCloseBtnClick(MouseEvent mouseEvent) {
+
+        refreshPaths();
+        settingPanel.setVisible(false);
     }
 }

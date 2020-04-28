@@ -237,7 +237,7 @@ public class CodeCreateUtils {
             while (paramsMather.find()) {
                 String paramName = paramsMather.group(1);
                 //                System.out.println("paramName:"  + paramName + " value:" + paramsMather.group(2) + ">" + paramsMather.group());
-                if (exceptParamsHashmap.contains(paramName) == false) {
+                if (!exceptParamsHashmap.contains(paramName)) {
                     String paramValue = paramsMather.group(2);
                     RawManaualParam rawManaualParam = new RawManaualParam();
                     rawManaualParam.paramName = paramName;

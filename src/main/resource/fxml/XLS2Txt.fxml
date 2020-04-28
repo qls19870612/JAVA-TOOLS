@@ -5,6 +5,9 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import sample.fxml.componet.fxml.FileSelector?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.BorderPane?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="sample.fxml.controllers.XlsController"
@@ -14,10 +17,25 @@
         <Button fx:id="createBtn" text="XLS转TXT" onMouseClicked="#onCreateBtnClick"></Button>
         <Button fx:id="createLuaBtn" text="XLS转Lua" onMouseClicked="#onCreateLuaBtnClick"></Button>
         <Button fx:id="openLuaDir" text="Lua dir" onMouseClicked="#onOpenLuaBtnClick"></Button>
+        <Button fx:id="createTsBtn" text="XLS转TS" onMouseClicked="#onCreateTsBtnClick"></Button>
+        <Button fx:id="openTsDir" text="Ts dir" onMouseClicked="#onOpenTsBtnClick"></Button>
         <Button fx:id="openXlsDir" text="XLS dir" onMouseClicked="#onOpenXlsBtnClick"></Button>
         <CheckBox fx:id="updateTimeSortCb" text="按更新时间排序" onMouseClicked="#onUpdateTimeSortCb"></CheckBox>
 
+
     </HBox>
+
     <ListView fx:id="xlsList" AnchorPane.topAnchor="36" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
               AnchorPane.bottomAnchor="0"/>
+    <AnchorPane fx:id="settingPanel" visible="false" AnchorPane.topAnchor="36" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+                AnchorPane.bottomAnchor="0" style="-fx-border-color: black;-fx-background-color: white">
+        <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0"
+              AnchorPane.rightAnchor="0" alignment="TOP_RIGHT" >
+            <Button style="-fx-border-color: #FFB346;-fx-end-margin: 10" text="关闭设置" onMouseClicked="#settingCloseBtnClick" />
+            <FileSelector label="Xls目录" folder="true" fx:id="xlsFolderSelector" configType="XLS_PATH"/>
+            <FileSelector label="Lua目录" folder="true" fx:id="luaFolderSelector" configType="XLS_LUA_PATH"/>
+            <FileSelector label="TS目录" folder="true" fx:id="tsFolderSelector" configType="XLS_TS_PATH"/>
+            <FileSelector label="TS_JSON目录" folder="true" fx:id="tsJsonFolderSelector" configType="XLS_TS_JSON_PATH"/>
+        </VBox>
+    </AnchorPane>
 </AnchorPane>

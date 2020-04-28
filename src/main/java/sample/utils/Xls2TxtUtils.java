@@ -102,7 +102,7 @@ public class Xls2TxtUtils {
                 if (j > 0) {
                     stringBuffer.append("\t");
                 }
-                String value = getCellValue(cell);
+                String value = getStringFromCellValue(cell);
 
                 stringBuffer.append(value);
             }
@@ -114,7 +114,7 @@ public class Xls2TxtUtils {
         return stringBuffer.toString();
     }
 
-    public static String getCellValue(Cell cell) {
+    public static String getStringFromCellValue(Cell cell) {
         if (cell == null) {
             return "";
         }
@@ -168,6 +168,63 @@ public class Xls2TxtUtils {
 
         if (value.length() > 0) {
             value = value.replaceAll("\\n", " ");
+        }
+        return value;
+    }
+    public static Object getCellValue(Cell cell) {
+        if (cell == null) {
+            return "";
+        }
+        int cellType = cell.getCellType();
+        Object value;
+        switch (cellType) {
+            case Cell.CELL_TYPE_NUMERIC:
+                MathContext mc = MathContext.DECIMAL64;
+                double numericCellValue = ((HSSFCell) cell).getNumericCellValue();
+                //double v = new BigDecimal(numericCellValue).round(mc).floatValue();
+//                double v = numericCellValue;
+//                long intv = (long) v;
+//                if (intv < v) {
+//                    NumberFormat instance = NumberFormat.getInstance();
+//                    instance.setGroupingUsed(false);
+//                    instance.setMaximumFractionDigits(10);
+//                    value = instance.format(v);
+//                } else {
+//                    value = String.valueOf(intv);
+//                }
+                value = numericCellValue;
+                //                logger.debug("getCellValue value:{}", value);
+                break;
+            case Cell.CELL_TYPE_STRING:
+                value = cell.getStringCellValue();
+                break;
+            case Cell.CELL_TYPE_FORMULA:
+                try {
+                    value = ((long) cell.getNumericCellValue())  ;
+                } catch (Exception e) {
+                    value = cell.getStringCellValue();
+                    logger.warn("cell.getCellFormula():{}" + cell.getCellFormula());
+                }
+                break;
+            case Cell.CELL_TYPE_BLANK:
+                value = "";
+                break;
+            case Cell.CELL_TYPE_BOOLEAN:
+                value = cell.getBooleanCellValue() ? 1 : 0;
+                logger.debug("value:{}", value);
+                break;
+            case Cell.CELL_TYPE_ERROR:
+                value = "";
+                logger.warn("cell.getStringCellValue():{}" , cell.getErrorCellValue());
+                break;
+            default:
+                logger.debug("default cellType:{}", cellType);
+                value = cell.getStringCellValue();
+        }
+
+
+        if (value instanceof String) {
+            value = ((String) value).replaceAll("\\n", " ");
         }
         return value;
     }

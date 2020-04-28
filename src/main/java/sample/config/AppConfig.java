@@ -43,10 +43,8 @@ public class AppConfig {
 
 
     private static long lastConfigModifyTime = 0;
-    public static String xlsPath;
     public static String genMsgPath;
     private static final Logger logger = LoggerFactory.getLogger(AppConfig.class);
-    public static String luaPath;
     public static int selectTab = 0;
     public static boolean readLuaUpdateCfg;
     public static int gmPort;
@@ -94,8 +92,7 @@ public class AppConfig {
 
             fieldTemplate = getCDATA(templates, "field");
             classTemplate = getCDATA(templates, "class");
-            xlsPath = document.getElementsByTagName("xlsPath").item(0).getChildNodes().item(0).getNodeValue();
-            luaPath = document.getElementsByTagName("luaPath").item(0).getChildNodes().item(0).getNodeValue();
+
             genMsgPath = document.getElementsByTagName("genMsgPath").item(0).getChildNodes().item(0).getNodeValue();
             gmIp = document.getElementsByTagName("gm_ip").item(0).getChildNodes().item(0).getNodeValue();
             noticePath = document.getElementsByTagName("noticePath").item(0).getChildNodes().item(0).getNodeValue();

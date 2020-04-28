@@ -23,10 +23,9 @@ import sample.file.FileOperator;
 import sample.fxml.controllers.XlsController;
 
 import static sample.Controller.log;
-import static sample.config.AppConfig.luaPath;
 import static sample.utils.CodeCreateUtils.dateTimeFormatter;
 import static sample.utils.CodeCreateUtils.getEncodePath;
-import static sample.utils.Xls2TxtUtils.getCellValue;
+import static sample.utils.Xls2TxtUtils.getStringFromCellValue;
 import static sample.utils.Xls2TxtUtils.getSheetNum;
 
 /**
@@ -79,7 +78,7 @@ public class Xls2LuaUtils {
         String content = XlsController.luaTemplate.replace("&date&", date);
         content = content.replace("&fileName&", file.getName());
         content = content.replace("&item&", item);
-        String txtPath = luaPath + "/" + sheetName + ".lua";
+        String txtPath = XlsController.luaPath + "/" + sheetName + ".lua";
         FileOperator.writeFile(new File(txtPath), content);
 
     }
@@ -109,7 +108,7 @@ public class Xls2LuaUtils {
             boolean isAdd = false;
             for (int j = 0; j < colCount; j++) {
                 Cell cell = row.getCell(j);
-                String value = getCellValue(cell);
+                String value = getStringFromCellValue(cell);
                 if (i == 0) {
                     header[j] = StringUtils.trim(value);
                     continue;

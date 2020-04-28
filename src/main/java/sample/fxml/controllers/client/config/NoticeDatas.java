@@ -25,7 +25,7 @@ import game.initializer.io.loader.FileLoaderOS;
 import static sample.Controller.log;
 import static sample.config.AppConfig.noticePath;
 import static sample.utils.CodeCreateUtils.getEncodePath;
-import static sample.utils.Xls2TxtUtils.getCellValue;
+import static sample.utils.Xls2TxtUtils.getStringFromCellValue;
 
 /**
  *
@@ -97,7 +97,7 @@ public class NoticeDatas {
             boolean isAdd = false;
             for (int j = 0; j < colCount; j++) {
                 Cell cell = row.getCell(j);
-                String value = getCellValue(cell);
+                String value = getStringFromCellValue(cell);
                 if (i == 0) {
                     header[j] = StringUtils.trim(value);
                     continue;

@@ -27,15 +27,16 @@ public class $className1 {
 }]]></class>
         </templates>
         <selectTab>5</selectTab>
-        <readLuaUpdateCfg>1</readLuaUpdateCfg>
+        <readLuaUpdateCfg>0</readLuaUpdateCfg>
         <!--selectTab  0-2 -->
-        <xlsPath>D:\workspace\svn\program\server\server\config\data</xlsPath>
+        <xlsPath>D:\workspace\Card\config\data</xlsPath>
         <luaPath>D:\workspace\svn\client\sg\src\config</luaPath>
+        <tsPath>D:\SVN\server\card_client_proto</tsPath>
         <genMsgPath>C:\Program Files\Git\git-bash.exe D:\workspace\project\bin\gen-msg.sh</genMsgPath>
-        <gmMsgPath>D:\workspace\project\config\data\GM命令.txt</gmMsgPath>
-        <gm_ip>192.168.1.116</gm_ip>
+        <gmMsgPath>D:\workspace\Card\config\data\GM命令.txt</gmMsgPath>
+        <gm_ip>192.168.1.186</gm_ip>
         <gm_port>9999</gm_port>
-        <noticePath>D:\workspace\project\config\data\X-消息提示.xls</noticePath>
+        <noticePath>D:\workspace\Card\config\data\X-消息提示.xls</noticePath>
     </configs>
     /
 </root>

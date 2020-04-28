@@ -56,6 +56,14 @@ public enum ConfigType {
 
     FOLDER_CLEAN_TARGET_PATH,
 
+    XLS_PATH,
+
+    XLS_LUA_PATH,
+
+    XLS_TS_PATH,
+
+    XLS_TS_JSON_PATH,
+
     //
     ;
 }

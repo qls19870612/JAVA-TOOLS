@@ -19,9 +19,11 @@ import sample.fxml.componet.AlertBox;
 import sample.fxml.renders.XlsItemRender;
 import sample.utils.StringUtils;
 import sample.utils.Xls2LuaUtils;
+import sample.utils.Xls2TsUtils;
 
 import static sample.config.AppConfig.readLuaUpdateCfg;
 import static sample.file.FileOperator.NEX_LINE;
+import static sample.fxml.controllers.XlsController.xlsPath;
 
 /**
  *
@@ -101,10 +103,32 @@ public class XLS2LUAController implements ITab {
     }
 
     public void onCreateLuaBtnClick(MouseEvent mouseEvent) {
+        createAllFiles(CODE_TYPE.LUA);
+
+    }
+
+    private void createAllFiles(CODE_TYPE type) {
+        if (type == CODE_TYPE.TS) {
+            if (StringUtils.isEmpty( XlsController.tsPath)) {
+                xlsController.settingPanel.setVisible(true);
+                return;
+            }
+        }
+        else if (type == CODE_TYPE.LUA) {
+            if (StringUtils.isEmpty(XlsController.luaPath)) {
+                xlsController.settingPanel.setVisible(true);
+                return;
+            }
+        }
         boolean isUpdated = false;
         for (XlsInfo info : allXmlInfoArr) {
             if (info.isNeedUpdate()) {
-                Xls2LuaUtils.createLua(info);
+                if (type == CODE_TYPE.LUA) {
+                    Xls2LuaUtils.createLua(info);
+                }
+                else {
+                    Xls2TsUtils.createTs(info);
+                }
                 isUpdated = true;
             }
         }
@@ -115,6 +139,11 @@ public class XLS2LUAController implements ITab {
         } else {
             AlertBox.showAlert("没有需要更新的文件!");
         }
+    }
+
+    public void onCreateTsBtnClick(MouseEvent mouseEvent) {
+
+        createAllFiles(CODE_TYPE.TS);
 
     }
 
@@ -135,7 +164,10 @@ public class XLS2LUAController implements ITab {
     }
 
     private boolean checkUpdateDp() {
-        File file = new File(AppConfig.xlsPath);
+        if (StringUtils.isEmpty(xlsPath)) {
+            return false;
+        }
+        File file = new File(xlsPath);
 
         ArrayList<File> allFiles = FileOperator.getAllFiles(file, entry -> {
             String name = entry.getName();

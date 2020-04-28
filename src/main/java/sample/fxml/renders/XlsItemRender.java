@@ -14,6 +14,7 @@ import sample.datas.vo.XlsInfo;
 import sample.fxml.controllers.XLS2LUAController;
 import sample.fxml.componet.AlertBox;
 import sample.utils.Xls2LuaUtils;
+import sample.utils.Xls2TsUtils;
 
 import static sample.utils.Xls2TxtUtils.createTxt;
 
@@ -61,6 +62,23 @@ public class XlsItemRender extends ListCell<XlsInfo> {
                         }
                     }
                 });
+                Button tsBtn = new Button("生成Ts");
+                tsBtn.setPrefSize(100, 26);
+                tsBtn.setAlignment(Pos.CENTER);
+                final XlsItemRender tsCell = this;
+                tsBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    XlsItemRender c = tsCell;
+
+                    public void handle(MouseEvent event) {
+                        boolean isUpdated = Xls2TsUtils.createTs(c.item);
+                        if (!isUpdated) {
+                            AlertBox.showAlert("此文件不需要更新!");
+                        } else {
+                            c.updateItem(c.item, false);
+                            XLS2LUAController.instance.updateLuaCfg();
+                        }
+                    }
+                });
                 Button txtBtn = new Button("生成Txt");
                 txtBtn.setPrefSize(100, 26);
                 txtBtn.setAlignment(Pos.CENTER);
@@ -76,7 +94,9 @@ public class XlsItemRender extends ListCell<XlsInfo> {
                 HBox.setHgrow(reg, Priority.ALWAYS);
                 Region reg1 = new Region();
                 HBox.setHgrow(reg1, Priority.ALWAYS);
-                hbox.getChildren().addAll(label, reg, btn, reg1, txtBtn);
+                Region reg2 = new Region();
+                HBox.setHgrow(reg2, Priority.ALWAYS);
+                hbox.getChildren().addAll(label, reg, btn,reg1,tsBtn, reg2, txtBtn);
             }
             if (item.isNeedUpdate()) {
                 label.setText(item.fileName);

@@ -1,0 +1,26 @@
+// $fileName
+export default class $ClassName {
+    public mDataList: ${ClassName}Data[]};
+
+    public constructor(list: Object[]) {
+        this.mDataList = [];
+        for (let i in list) {
+            this.mDataList.push(new ${ClassName}Data(list[i]));
+        }
+    }
+}
+
+export class ${ClassName}Data {
+    #foreach($filedNameInfo in $list)
+/**
+    ${filedNameInfo.comment}
+    **/
+    public ${filedNameInfo.name}: ${filedNameInfo.type};
+    #end
+
+    public constructor(data: Object) {
+        for (let i in data) {
+            this[i] = data[i];
+        }
+    }
+}
