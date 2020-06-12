@@ -24,12 +24,13 @@ public class XlsInfo {
     }
 
     private int compareTo(XlsInfo o2) {
-        return this.fileName.compareTo(o2.fileName);
+        return this.url.compareTo(o2.url);
     }
 
     public final File file;
     public final String fileName;
     private long modifiedTime;
+    public final String url;
 
     public boolean isNeedUpdate() {
         return needUpdate;
@@ -45,6 +46,7 @@ public class XlsInfo {
         this.file = file;
         modifiedTime = file.lastModified();
         fileName = file.getName();
+        url = file.getAbsolutePath();
     }
 
     public long lastModified() {

@@ -49,5 +49,6 @@ public interface IClient {
 
     DisruptorExecutor getDisruptorExecutor();
 
-    ;
+    boolean isUseWebSocket();
+
 }

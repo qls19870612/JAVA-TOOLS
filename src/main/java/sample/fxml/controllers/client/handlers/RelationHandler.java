@@ -16,7 +16,7 @@ import sample.fxml.controllers.client.robots.RobotClient;
  * 创建人  liangsong
  * 创建时间 2019/04/01 17:38
  */
-@Handler(moduleId = Modules.RELATION_MODULE_ID)
+//@Handler(moduleId = Modules.RELATION_MODULE_ID)
 public class RelationHandler extends HandlerBase {
     private static final Logger logger = LoggerFactory.getLogger(RelationHandler.class);
 

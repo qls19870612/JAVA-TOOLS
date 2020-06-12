@@ -1,6 +1,5 @@
 package sample.utils;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -12,7 +11,6 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.MathContext;
 import java.text.NumberFormat;
 import java.util.Iterator;
 
@@ -80,7 +78,7 @@ public class Xls2TxtUtils {
         int rowCount = sheet.getLastRowNum() + 1;
         int firstEmptyLine = EMPTY_LINE;
         int emptyLineCharIndex = 0;
-        StringBuffer stringBuffer = new StringBuffer();
+        StringBuilder stringBuffer = new StringBuilder();
         for (int i = 0; i < rowCount; i++) {
             Row row = sheet.getRow(i);
             if (row == null) {
@@ -108,7 +106,7 @@ public class Xls2TxtUtils {
             }
         }
         if (firstEmptyLine != EMPTY_LINE) {
-            logger.warn("{} 文件末尾有空行:{}", firstEmptyLine);
+            logger.warn("{} 文件末尾有空行:{}",filePath, firstEmptyLine);
             return stringBuffer.substring(0, emptyLineCharIndex);
         }
         return stringBuffer.toString();
@@ -122,10 +120,7 @@ public class Xls2TxtUtils {
         String value;
         switch (cellType) {
             case Cell.CELL_TYPE_NUMERIC:
-                MathContext mc = MathContext.DECIMAL64;
-                double numericCellValue = ((HSSFCell) cell).getNumericCellValue();
-                //double v = new BigDecimal(numericCellValue).round(mc).floatValue();
-                double v = numericCellValue;
+                double v = cell.getNumericCellValue();
                 long intv = (long) v;
                 if (intv < v) {
                     NumberFormat instance = NumberFormat.getInstance();
@@ -158,7 +153,7 @@ public class Xls2TxtUtils {
                 break;
             case Cell.CELL_TYPE_ERROR:
                 value = "";
-                logger.warn("cell.getStringCellValue():{}" + cell.getErrorCellValue());
+                logger.warn("cell.getStringCellValue():{}" ,cell.getErrorCellValue());
                 break;
             default:
                 logger.debug("default cellType:{}", cellType);
@@ -179,8 +174,6 @@ public class Xls2TxtUtils {
         Object value;
         switch (cellType) {
             case Cell.CELL_TYPE_NUMERIC:
-                MathContext mc = MathContext.DECIMAL64;
-                double numericCellValue = ((HSSFCell) cell).getNumericCellValue();
                 //double v = new BigDecimal(numericCellValue).round(mc).floatValue();
 //                double v = numericCellValue;
 //                long intv = (long) v;
@@ -192,7 +185,7 @@ public class Xls2TxtUtils {
 //                } else {
 //                    value = String.valueOf(intv);
 //                }
-                value = numericCellValue;
+                value = cell.getNumericCellValue();
                 //                logger.debug("getCellValue value:{}", value);
                 break;
             case Cell.CELL_TYPE_STRING:

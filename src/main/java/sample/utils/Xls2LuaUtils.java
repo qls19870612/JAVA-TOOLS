@@ -38,9 +38,7 @@ public class Xls2LuaUtils {
     public static final char TABLE = '\t';
 
     public static boolean createLua(XlsInfo item) {
-        if (!item.isNeedUpdate()) {
-            return false;
-        }
+
         try {
             File file = item.file;
             FileLoader fileLoader = FileLoaderOS.of(file.getPath().replace(file.getName(), ""));

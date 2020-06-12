@@ -4,17 +4,17 @@ package sample.fxml.controllers.client;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 import org.jboss.netty.bootstrap.ClientBootstrap;
+import org.jboss.netty.buffer.BigEndianHeapChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.HeapChannelBufferFactory;
-import org.jboss.netty.buffer.LittleEndianHeapChannelBuffer;
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelFuture;
-import org.jboss.netty.channel.Channels;
 import org.jboss.netty.channel.socket.nio.NioClientSocketChannelFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.InetSocketAddress;
+import java.net.URI;
 import java.nio.ByteOrder;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledFuture;
@@ -26,9 +26,12 @@ import game.sink.server.CheckSumStream;
 import game.sink.server.SingleHandlerChannelPipeline;
 import game.sink.util.StringEncoder;
 import game.sink.util.concurrent.DisruptorExecutor;
+import lombok.Getter;
+import lombok.Setter;
 import sample.Controller;
 import sample.config.AppConfig;
 import sample.fxml.componet.AlertBox;
+import sample.fxml.controllers.CustomWebSocket;
 import sample.fxml.controllers.client.handlers.base.HandlerBase;
 import sample.fxml.controllers.client.msgs.MiscModuleMessages;
 import sample.utils.BufferUtil;
@@ -44,20 +47,23 @@ import static sample.fxml.controllers.client.msgs.GMModuleMessages.C2S_G_M;
  * 创建时间 2019/03/25 20:06
  */
 public abstract class ClientBase implements IClient {
-    private static final ChannelBuffer EMPTY_BUFF = new LittleEndianHeapChannelBuffer(0);
+    private static final ChannelBuffer EMPTY_BUFF = BufferUtil.newFixedSizeMessage(0);
     private final CheckSumStream stream;
     protected boolean isLogined;
     private ClientBootstrap socket;
 
 
     private Channel channel;
+    @Getter
+    @Setter
+    private CustomWebSocket webSocket;
     private int serverId;
+    @Getter
+    private boolean useWebSocket = true;
 
-    public boolean isLogining() {
-        return isLogining;
-    }
-
-    private boolean isLogining;
+    @Getter
+    @Setter
+    private boolean logining;
 
     public TimeService getTimeService() {
         return timeService;
@@ -109,7 +115,7 @@ public abstract class ClientBase implements IClient {
             return;
         }
         this.serverId = serverId;
-        isLogining = true;
+        logining = true;
         this.account = account;
         accountId = Utils.safeParseInt(this.account, 0);
         if (accountId == 0) {
@@ -117,31 +123,44 @@ public abstract class ClientBase implements IClient {
         }
         roleName = StringEncoder.encode(account);
 
+        if (!useWebSocket) {
+            socket = new ClientBootstrap(new NioClientSocketChannelFactory(Executors.newCachedThreadPool(), Executors.newCachedThreadPool()));
+            socket.setOption("bufferFactory", HeapChannelBufferFactory.getInstance(ByteOrder.LITTLE_ENDIAN));
+            socket.setOption("tcpNoDelay", true);
+            socket.setOption("keepAlive", false);
+            socket.setOption("sendBufferSize", 8192 * 4);
+            socket.setOption("receiveBufferSize", 8192 * 4);
 
-        socket = new ClientBootstrap(new NioClientSocketChannelFactory(Executors.newCachedThreadPool(), Executors.newCachedThreadPool()));
-        socket.setOption("bufferFactory", HeapChannelBufferFactory.getInstance(ByteOrder.LITTLE_ENDIAN));
-        socket.setOption("tcpNoDelay", true);
-        socket.setOption("keepAlive", false);
-        socket.setOption("sendBufferSize", 8192 * 4);
-        socket.setOption("receiveBufferSize", 8192 * 4);
+            socket.setPipelineFactory(() -> {
+                return new SingleHandlerChannelPipeline(new SingleDecoderHandler(this));
 
-        socket.setPipelineFactory(() -> {
-            return new SingleHandlerChannelPipeline(new SingleDecoderHandler(this));
-        });
-        ChannelFuture connect = socket.connect(new InetSocketAddress(ip, port));
-        connect.addListener(future -> {
-            isLogining = false;
-            if (!future.isSuccess()) {
-                if (conTimeOut != null) {
-                    conTimeOut.onTimeOut(this);
+            });
+            ChannelFuture connect = socket.connect(new InetSocketAddress(ip, port));
+            connect.addListener(future -> {
+                logining = false;
+                if (!future.isSuccess()) {
+                    if (conTimeOut != null) {
+                        conTimeOut.onTimeOut(this);
+                    }
+                    AlertBox.showAlert("无法连接服务器:" + ip + ":" + port);
+                    Controller.log("无法连接服务器:" + ip + ":" + port);
+                } else {
+                    Controller.log("成功连接服务器:" + ip + ":" + port);
                 }
-                AlertBox.showAlert("无法连接服务器:" + ip + ":" + port);
-                Controller.log("无法连接服务器:" + ip + ":" + port);
-            } else {
-                Controller.log("成功连接服务器:" + ip + ":" + port);
+            });
+        } else {
+            try {
+                this.webSocket = new CustomWebSocket(new URI("ws://" + ip + ":" + port), this);
+                this.webSocket.connectBlocking(3, TimeUnit.SECONDS);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        });
+
+
+        }
+
     }
+
 
     private static int getMsgId(int moduleId, int sequence) {
         return moduleId * 1000 + sequence;
@@ -152,14 +171,19 @@ public abstract class ClientBase implements IClient {
 
         byte[] array = buffer.toByteBuffer().array();
         int msgLen = 8 + array.length;
-        ChannelBuffer sendBuffer = new LittleEndianHeapChannelBuffer(msgLen);
+        ChannelBuffer sendBuffer;
+        sendBuffer = BufferUtil.newFixedSizeMessage(msgLen);
+
         sendBuffer.writeShort(msgLen);
+        //        BufferUtil.writeVarInt32(sendBuffer, msgLen);
         int writeIndex = sendBuffer.writerIndex();
         sendBuffer.writeByte(0);//检查字节
         ++msgCount;
         int calculateOffset = calculateOffset(msgCount);
         sendBuffer.writeByte(calculateOffset);//检验消息序列
-        sendBuffer.writeInt(getMsgId(moduleId, sequence));//模块ID
+        int msgId = getMsgId(moduleId, sequence);
+        sendBuffer.writeInt(msgId);//模块ID
+        //        BufferUtil.writeVarInt32(sendBuffer, msgId);
         if (array.length > 0) {
             sendBuffer.writeBytes(array);
         }
@@ -168,7 +192,15 @@ public abstract class ClientBase implements IClient {
         stream.write(array, 3, array.length - 3);
         int checkSum = stream.getCheckSum();
         sendBuffer.setByte(writeIndex, checkSum);
-        Channels.write(channel, sendBuffer);
+
+        logger.debug("sendBuffer moduleId:{},sequence:{}", moduleId, sequence);
+
+
+        if (this.channel != null) {
+            channel.write(sendBuffer);
+        } else {
+            webSocket.send(array);
+        }
         //        if (moduleId != 2 && sequence != 2) {
         //            logger.debug("sendBuffer moduleId:{},sequence:{}", moduleId, sequence);
         //        }
@@ -185,7 +217,7 @@ public abstract class ClientBase implements IClient {
 
     public void sendBuffer(int moduleId, int sequence, String s) {
         byte[] bytes = StringEncoder.encode(s);
-        ChannelBuffer channelBuffer = new LittleEndianHeapChannelBuffer(bytes.length + 2);
+        ChannelBuffer channelBuffer = BufferUtil.newFixedSizeMessage(bytes.length + 2);
         BufferUtil.writeUTF(channelBuffer, bytes);
         sendBuffer(channelBuffer, moduleId, sequence);
     }
@@ -217,7 +249,6 @@ public abstract class ClientBase implements IClient {
     @Override
     public void onMessage(ChannelBuffer message) {
 
-        short len = message.readShort();
 
         int msgId = message.readInt();
         int moduleId = msgId / 1000;
@@ -247,7 +278,7 @@ public abstract class ClientBase implements IClient {
         logger.debug("loginAccount account:{}", account);
         int msgLen = userId.length + 2 + BufferUtil.computeVarInt32Size(operatorID) + BufferUtil.computeVarInt32Size(serverId) + deviceid.length + 2;
 
-        ChannelBuffer channelBuffer = new LittleEndianHeapChannelBuffer(msgLen);
+        ChannelBuffer channelBuffer = new BigEndianHeapChannelBuffer(msgLen);
         BufferUtil.writeUTF(channelBuffer, userId);
         BufferUtil.writeVarInt32(channelBuffer, operatorID);
         BufferUtil.writeVarInt32(channelBuffer, serverId);
@@ -275,7 +306,7 @@ public abstract class ClientBase implements IClient {
             @Override
             public void doRun() throws Throwable {
                 int currServerSec = TimeUtils.millsToSecond(getServerTime());
-                ChannelBuffer buffer = new LittleEndianHeapChannelBuffer(BufferUtil.computeVarInt32Size(currServerSec));
+                ChannelBuffer buffer = BufferUtil.newFixedSizeMessage(BufferUtil.computeVarInt32Size(currServerSec));
                 BufferUtil.writeVarInt32(buffer, currServerSec);
                 sendBuffer(buffer, Modules.MISC_MODULE_ID, MiscModuleMessages.C2S_HEART_BEAT);
             }
@@ -300,12 +331,19 @@ public abstract class ClientBase implements IClient {
         msgCount = -1;
         if (this.socket != null) {
             this.socket.releaseExternalResources();
+        } else if (webSocket != null) {
+            this.webSocket.close();
         }
     }
 
     @Override
     public void disconnect() {
-        this.channel.close();
+        if (this.channel != null) {
+
+            this.channel.close();
+        } else if (webSocket != null) {
+            webSocket.close();
+        }
     }
 
     @Override
@@ -322,4 +360,5 @@ public abstract class ClientBase implements IClient {
     public DisruptorExecutor getDisruptorExecutor() {
         return threadService.getExecutor(accountId);
     }
+
 }

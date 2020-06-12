@@ -1,5 +1,8 @@
 package sample.fxml.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,6 +34,7 @@ import static sample.fxml.controllers.XlsController.xlsPath;
  * 创建时间 2018/10/26 9:54
  */
 public class XLS2LUAController implements ITab {
+    private static final Logger logger = LoggerFactory.getLogger(XLS2LUAController.class);
     private final XlsController xlsController;
     private final ListView list;
     private HashMap<String, XlsInfo> allXlsInfoMap = new HashMap<>();
@@ -109,12 +113,11 @@ public class XLS2LUAController implements ITab {
 
     private void createAllFiles(CODE_TYPE type) {
         if (type == CODE_TYPE.TS) {
-            if (StringUtils.isEmpty( XlsController.tsPath)) {
+            if (StringUtils.isEmpty(XlsController.tsPath)) {
                 xlsController.settingPanel.setVisible(true);
                 return;
             }
-        }
-        else if (type == CODE_TYPE.LUA) {
+        } else if (type == CODE_TYPE.LUA) {
             if (StringUtils.isEmpty(XlsController.luaPath)) {
                 xlsController.settingPanel.setVisible(true);
                 return;
@@ -122,14 +125,15 @@ public class XLS2LUAController implements ITab {
         }
         boolean isUpdated = false;
         for (XlsInfo info : allXmlInfoArr) {
-            if (info.isNeedUpdate()) {
+            if (info.isNeedUpdate() || !readLuaUpdateCfg) {
                 if (type == CODE_TYPE.LUA) {
                     Xls2LuaUtils.createLua(info);
-                }
-                else {
+                } else {
                     Xls2TsUtils.createTs(info);
                 }
                 isUpdated = true;
+            } else {
+                logger.info("createAllFiles 不需要更新文件 getAbsolutePath:{}", info.file.getAbsolutePath());
             }
         }
         if (isUpdated) {
@@ -148,6 +152,9 @@ public class XLS2LUAController implements ITab {
     }
 
     public void updateLuaCfg() {
+        if (!readLuaUpdateCfg) {
+            return;
+        }
         StringBuilder stringBuilder = new StringBuilder();
         for (XlsInfo info : allXmlInfoArr) {
             if (!info.isNeedUpdate()) {
@@ -190,7 +197,7 @@ public class XLS2LUAController implements ITab {
                     isUpdate = true;
                 }
             }
-            xlsInfos.put(xlsInfo.fileName, xlsInfo);
+            xlsInfos.put(xlsInfo.url, xlsInfo);
         }
         if (!isUpdate) {
             if (xlsInfos.size() != this.allXlsInfoMap.size()) {
@@ -206,7 +213,7 @@ public class XLS2LUAController implements ITab {
     }
 
     private XlsInfo getXlsInfo(File entry) {
-        return allXlsInfoMap.get(entry.getName());
+        return allXlsInfoMap.get(entry.getAbsolutePath());
     }
 
     public void onUpdateTimeSortCb(MouseEvent mouseEvent) {

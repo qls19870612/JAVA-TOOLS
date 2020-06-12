@@ -30,5 +30,10 @@
             <className>UsableGoodsData</className>
             <xlsPath>D:\workspace\project\config\data\物品\可使用物品基础表.xls</xlsPath>
         </configitem>
+        <configitem>
+            <codePath>app.game.config.common</codePath>
+            <className>HotSwapConfigData</className>
+            <xlsPath>123</xlsPath>
+        </configitem>
     </configs>
 </root>

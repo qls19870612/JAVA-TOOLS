@@ -63,8 +63,8 @@ public class NoticeDatas {
             return createShellFile(file, sheetIterator.next());
 
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+//            e.printStackTrace();
             log("警告", "配置文件解析失败:" + e.getMessage());
         }
         return null;

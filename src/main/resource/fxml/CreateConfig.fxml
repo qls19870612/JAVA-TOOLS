@@ -3,7 +3,27 @@
 
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<?import sample.fxml.componet.fxml.FileSelector?>
+<?import javafx.scene.layout.VBox?>
 <AnchorPane prefHeight="600" prefWidth="600" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="sample.fxml.controllers.CreateConfigController">
-    <ListView fx:id="list" AnchorPane.leftAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="10"/>
+    <HBox>
+        <Button text="设置" onMouseClicked="#onSettingBtnClick"/>
+        <Button text="显示批量列表" onMouseClicked="#onBatchListBtnClick"/>
+        <Button text="批量转换" onMouseClicked="#onBatchBtnClick"/>
+    </HBox>
+    <ListView fx:id="list" AnchorPane.leftAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="40"/>
+    <AnchorPane fx:id="settingPanel" visible="false"  AnchorPane.leftAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.rightAnchor="0"
+                AnchorPane.topAnchor="40"  style="-fx-border-color: black;-fx-background-color: white">
+
+        <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0"
+              AnchorPane.rightAnchor="0" alignment="TOP_RIGHT" >
+            <Button style="-fx-border-color: #FFB346;-fx-end-margin: 10" text="关闭设置" onMouseClicked="#settingCloseBtnClick" />
+            <FileSelector labelWidth="140" label="Xls目录" folder="true" fx:id="xlsFolderSelector" configType="TO_JAVA_XLS_PATH"/>
+            <FileSelector labelWidth="140" label="Java目录" folder="true" fx:id="javaFolderSelector" configType="TO_JAVA_PATH"/>
+
+        </VBox>
+    </AnchorPane>
 </AnchorPane>

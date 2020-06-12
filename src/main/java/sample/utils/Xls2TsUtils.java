@@ -1,7 +1,9 @@
 package sample.utils;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -14,13 +16,8 @@ import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStreamWriter;
 import java.io.StringWriter;
-import java.io.Writer;
-import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.regex.Pattern;
@@ -32,14 +29,13 @@ import sample.file.FileOperator;
 import sample.fxml.controllers.XlsController;
 import sample.fxml.controllers.ts.JavaAndTsDialectProvider;
 import sample.fxml.controllers.ts.TsClassTemplate;
-import sample.fxml.controllers.ts.TsClassTemplate.FiledInfo;
+import sample.fxml.controllers.ts.TsClassTemplate.FieldInfo;
 
 import static sample.Controller.log;
-import static sample.fxml.controllers.XlsController.tsJsonPath;
 import static sample.utils.CodeCreateUtils.getEncodePath;
 import static sample.utils.Xls2TxtUtils.getCellValue;
-import static sample.utils.Xls2TxtUtils.getStringFromCellValue;
 import static sample.utils.Xls2TxtUtils.getSheetNum;
+import static sample.utils.Xls2TxtUtils.getStringFromCellValue;
 
 /**
  *
@@ -53,15 +49,12 @@ public class Xls2TsUtils {
     private static JavaAndTsDialectProvider dialectProvider;
 
 
-
     public static boolean createTs(XlsInfo item) {
-        if (!item.isNeedUpdate()) {
-            return false;
-        }
+
 
         try {
             if (velocityEngine == null) {
-                Properties properties=new Properties();
+                Properties properties = new Properties();
                 //设置velocity资源加载方式为class
                 properties.setProperty("resource.loader", "class");
                 //设置velocity资源加载方式为file时的处理类
@@ -73,8 +66,7 @@ public class Xls2TsUtils {
             }
             File file = item.file;
             FileLoader fileLoader = FileLoaderOS.of(file.getPath().replace(file.getName(), ""));
-            String filePath = file.getPath();
-            System.out.println("filePath:" + filePath);
+
             String fileName = getEncodePath(file.getName());
             byte[] fileContent = fileLoader.fileToBytes(fileName, true);
 
@@ -84,18 +76,20 @@ public class Xls2TsUtils {
             int sheetNum = getSheetNum(workbook);
             while (sheetIterator.hasNext()) {
                 Sheet sheet = sheetIterator.next();
-                createShellFile(file, sheetNum, sheet);
+                createTsFile(file, sheetNum, sheet);
             }
             item.updateLuaCreateTime();
             return true;
 
         } catch (Exception e) {
             e.printStackTrace();
+            logger.error("createTs getMessage:{}", e.getMessage());
             log("警告", "配置文件解析失败:" + e.getMessage());
         }
         return false;
     }
-    private static void createShellFile(File file, int sheetNum, Sheet sheet) {
+
+    private static void createTsFile(File file, int sheetNum, Sheet sheet) {
         String sheetName = sheet.getSheetName();
         if (sheetName.startsWith("Sheet") || Pattern.compile("[\u4e00-\u9fa5]").matcher(sheetName).find()) {
             return;
@@ -107,35 +101,52 @@ public class Xls2TsUtils {
             logger.error("createShellFile 不能读取表头结构 getName:{}", file.getName());
             return;
         }
+        if (tsClassTemplate.isKeyValueFormat()) {
+            createKvJson(tsClassTemplate, file);
+            return;
+        }
+
         VelocityContext context = new VelocityContext();
         context.put("ClassName", tsClassTemplate.ClassName);
         context.put("fileName", tsClassTemplate.fileName);
         context.put("list", tsClassTemplate.list);
+        context.put("subClasses", tsClassTemplate.subClasses);
         StringWriter readWriter = new StringWriter();
         try {
 
-            velocityEngine.mergeTemplate( "./config/tsTemplate.vm", "UTF-8", context, readWriter);
+            velocityEngine.mergeTemplate("config/tsTemplate.vm", "UTF-8", context, readWriter);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
-        File srcDist = new File( XlsController.tsPath);
-        if ((!srcDist.exists()) && (!srcDist.mkdirs())) {
-            throw new RuntimeException("Can't create dir " + srcDist);
+
+        String baseShortPath = file.getParentFile().getAbsolutePath().replace(XlsController.xlsPath, "");
+        String tsPath = baseShortPath + "/ts/" + sheetName + ".ts";
+        FileOperator.writeFile(new File(XlsController.tsPath + tsPath), readWriter.toString());
+        String pretty = JSON.toJSONString(tsClassTemplate.datas, SerializerFeature.PrettyFormat, SerializerFeature.WriteMapNullValue,
+                SerializerFeature.WriteDateUseDateFormat);
+        String jsonPath = baseShortPath + "/json/" + sheetName + ".json";
+        FileOperator.writeFile(new File(XlsController.tsPath + jsonPath), pretty);
+
+
+    }
+
+    /**
+     * 只有key,value字符的，只创建json
+     * @param tsClassTemplate
+     * @param file
+     */
+    private static void createKvJson(TsClassTemplate tsClassTemplate, File file) {
+        JSONObject kvJson = new JSONObject();
+        for (Object o : tsClassTemplate.datas.getJSONArray(tsClassTemplate.ClassName)) {
+            JSONObject object = (JSONObject) o;
+            kvJson.put(object.getString("key"), object.get("value"));
         }
-        try {
-            String txtPath = "/" + sheetName + ".ts";
-            Writer fileWriter = new OutputStreamWriter(new FileOutputStream(new File(srcDist, txtPath)), StandardCharsets.UTF_8);
-
-            //            fileWriter.write(new Formatter().formatSource(readWriter.toString()));
-            fileWriter.write(readWriter.toString());
-            fileWriter.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        FileOperator.writeFile(new File(tsJsonPath + "/" + sheetName +".json"),tsClassTemplate.datas.toJSONString());
-
-
+        String pretty = JSON.toJSONString(kvJson, SerializerFeature.PrettyFormat, SerializerFeature.WriteMapNullValue,
+                SerializerFeature.WriteDateUseDateFormat);
+        String baseShortPath = file.getParentFile().getAbsolutePath().replace(XlsController.xlsPath, "");
+        String jsonPath = baseShortPath + "/json/" + tsClassTemplate.ClassName + ".json";
+        FileOperator.writeFile(new File(XlsController.tsPath + jsonPath), pretty);
     }
 
     private static TsClassTemplate createTemplateInfo(String sheetName, Sheet sheet, String filePath, String fileName) {
@@ -165,36 +176,66 @@ public class Xls2TsUtils {
             JSONObject rowObj = new JSONObject();
 
             for (int j = 0; j < template.getColMax(); j++) {
-                FiledInfo filedInfo = template.getFiledInfo(j);
-                if (filedInfo == null) {
+                FieldInfo fieldInfo = template.getFiledInfo(j);
+                if (fieldInfo == null) {
                     continue;
                 }
                 Cell cell = row.getCell(j);
                 Object value = getCellValue(cell);
-                if (value == null) {
-                    if (filedInfo.isNumber()) {
-                        value = 0;
+                if (fieldInfo.isArray()) {
+                    //处理数组类型字段（数组内又是一个实体类)
+                    Object o = rowObj.get(fieldInfo.getArrayFieldName());
+                    JSONArray arr;
+                    if (o instanceof JSONArray) {
+                        arr = (JSONArray) o;
+                    } else {
+                        arr = new JSONArray();
+                        rowObj.put(fieldInfo.getArrayFieldName(),arr);
                     }
-                }else if (value instanceof String) {
-
-                    if (filedInfo.isNumber()) {
-
-                        String value1 = (String) value;
-                        if (StringUtils.isEmpty(value1)) {
-                            value = 0;
-                        }
-                        else {
-
-                            value = Double.valueOf(value1);
-                        }
+                    while (arr.size() <= fieldInfo.getArrayIndex()) {
+                        arr.add(new JSONObject());
                     }
+                    JSONObject object = arr.getJSONObject(fieldInfo.getArrayIndex());
+                    value = convertValue(fieldInfo, value);
+                    object.put(fieldInfo.getSubFieldName(),value);
+//                    logger.debug("createTemplateInfo getArrayIndex:{},size:{},getSubFieldName:{},value:{}", fieldInfo.getArrayIndex(),arr.size(),fieldInfo.getSubFieldName(),value);
+                } else {
+
+                    value = convertValue(fieldInfo, value);
+                    rowObj.put(fieldInfo.name, value);
                 }
-                rowObj.put(filedInfo.name, value);
+
             }
             rows.add(rowObj);
         }
         template.datas = jsonObject;
         return template;
+    }
+
+    private static Object convertValue(FieldInfo fieldInfo, Object value) {
+        if (value == null) {
+            if (fieldInfo.isNumber()) {
+                value = 0;
+            }
+        } else if (value instanceof String) {
+
+            if (fieldInfo.isNumber()) {
+
+                String value1 = (String) value;
+
+                if (StringUtils.isEmpty(value1)) {
+                    value = 0;
+                } else {
+                    value1 = value1.replaceAll(" ", "");
+                    if (StringUtils.isEmpty(value1)) {
+                        value = 0;
+                    } else {
+                        value = Double.valueOf(value1);
+                    }
+                }
+            }
+        }
+        return value;
     }
 
     private static void setupFiledInfo(TsClassTemplate template, Row fileds, Row types, Row comments) {
@@ -238,7 +279,6 @@ public class Xls2TsUtils {
 
         return dialectProvider.getTsClass(typeCol);
     }
-
 
 
 }

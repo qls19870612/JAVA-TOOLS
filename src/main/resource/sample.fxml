@@ -35,6 +35,9 @@
                 <Tab text="目录整理" fx:id="fileCleanTab">
                     <fx:include fx:id="fileClean" source="/fxml/FileClean.fxml"/>
                 </Tab>
+                <Tab text="Xls列比较" fx:id="xlsDoubleColCompareTab">
+                    <fx:include fx:id="xlsDoubleColCompare" source="/fxml/XlsDobuleColCompare.fxml"/>
+                </Tab>
 
             </TabPane>
         <Label fx:id="infoLabel" prefHeight="20.0" prefWidth="534.0" text="info" AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="10"

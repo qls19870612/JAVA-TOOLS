@@ -28,6 +28,7 @@ import sample.fxml.controllers.GMProxyController;
 import sample.fxml.controllers.RobotController;
 import sample.fxml.controllers.StringFormatterController;
 import sample.fxml.controllers.XlsController;
+import sample.fxml.controllers.XlsDoubleColCompareController;
 import sample.fxml.controllers.client.ClientDepends;
 import sample.interfaces.AutowireInterface;
 import sample.mapper.ConfigMapper;
@@ -55,6 +56,8 @@ public class Controller implements AutowireInterface {
     @FXML
     public FileCleanController fileCleanController;
     @FXML
+    public XlsDoubleColCompareController xlsDoubleColCompareController;
+    @FXML
     public Label timeLabel;
     @FXML
     public Label infoLabel;
@@ -69,6 +72,7 @@ public class Controller implements AutowireInterface {
     public Tab diabloPublishTab;
     public Tab dbEntityCreatorTab;
     public Tab fileCleanTab;
+    public Tab xlsDoubleColCompareTab;
     private SimpleDateFormat timeDataFormat;
     private ArrayList<ITab> tabs;
 
@@ -85,18 +89,22 @@ public class Controller implements AutowireInterface {
 
     public void init() {
         tabs = new ArrayList<>();
-        tabs.add(stringFormatterController);
         tabs.add(createConfigController);
+        tabs.add(stringFormatterController);
         tabs.add(xlsController);
         tabs.add(gmProxyController);
         tabs.add(robotController);
         tabs.add(diabloPublishController);
+        tabs.add(dbEntityCreatorController);
+        tabs.add(fileCleanController);
+        tabs.add(xlsDoubleColCompareController);
         timeDataFormat = new SimpleDateFormat("HH:mm:ss");
         instance = this;
-
+        tabPanel.getSelectionModel().select(-1);
         tabPanel.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
             @Override
             public void changed(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
+
                 if (newValue == gmTab) {
                     gmProxyController.onSelect();
                 } else if (newValue == xlsTab) {
@@ -113,12 +121,18 @@ public class Controller implements AutowireInterface {
                     dbEntityCreatorController.onSelect();
                 } else if (newValue == fileCleanTab) {
                     fileCleanController.onSelect();
-                } else {
+                }else if(newValue==xlsDoubleColCompareTab){
+                    xlsDoubleColCompareController.onSelect();
+                }
+                else {
                     throw new RuntimeException("未处理的Tab:" + newValue.getText());
                 }
             }
         });
         tabPanel.getSelectionModel().select(AppConfig.selectTab);
+        if (AppConfig.selectTab == 0) {
+            createConfigController.onSelect();
+        }
         infoLabel.setText("");
         timeLabel.setText("");
     }

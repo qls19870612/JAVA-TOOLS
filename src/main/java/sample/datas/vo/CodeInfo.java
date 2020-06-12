@@ -21,6 +21,7 @@ public class CodeInfo {
     public final String extClassName;
     public final String packageName;
     public final int index;
+    public final int sheetIndex;
 
     public CodeInfo(Node element, int index) {
         this.index = index;
@@ -29,10 +30,24 @@ public class CodeInfo {
             path = path.substring(1);
         }
         path = path.replaceAll("\\.", "\\\\");
-        codePath = path;
+
         className = AppConfig.getNodeValue(element, "className");
         xlsPath = AppConfig.getNodeValue(element, "xlsPath");
         extClassName = AppConfig.getNodeValue(element, "extClassName");
-        packageName = codePath.replaceAll("\\\\", ".");
+        packageName = path.replaceAll("\\\\", ".");
+        codePath = AppConfig.baseCodePath + path;
+        sheetIndex = 0;
+    }
+
+    public CodeInfo(int index,String className,String xlsPath,String codePath,int sheetIndex) {
+        this.index = index;
+        this.className = className;
+        this.xlsPath = xlsPath;
+        this.sheetIndex = sheetIndex;
+        packageName = "app.game.config.autoCreate";
+        this.codePath = codePath;
+        extClassName="HotSwapConfigData";
+
+
     }
 }
