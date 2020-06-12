@@ -1,6 +1,6 @@
 // $fileName
 export default class $ClassName {
-    public mDataList: ${ClassName}Data[]};
+    public mDataList: ${ClassName}Data[];
 
     public constructor(list: Object[]) {
         this.mDataList = [];
@@ -11,16 +11,54 @@ export default class $ClassName {
 }
 
 export class ${ClassName}Data {
-    #foreach($filedNameInfo in $list)
-/**
-    ${filedNameInfo.comment}
+#foreach($filedNameInfo in $list)
+#if(!$filedNameInfo.isArray())
+#if((${filedNameInfo.comment}!="null")&&(${filedNameInfo.comment}!=""))
+    /**
+        ${filedNameInfo.comment}
     **/
+#end
     public ${filedNameInfo.name}: ${filedNameInfo.type};
-    #end
 
+#end
+#end
+#foreach($SubClass in $subClasses)
+    public ${SubClass.arrayFieldName}:Array<${SubClass.className}Data> = [];
+#end
     public constructor(data: Object) {
         for (let i in data) {
-            this[i] = data[i];
+            if(this[i] instanceof Array)
+            {
+                let className = i.charAt(0).toUpperCase() + i.substring(1) + "Data";
+                let ci=eval(className);
+                let arr = data[i];
+                for (let obj of arr)
+                {
+                    this[i].push(new ci(obj));
+                }
+            }else{
+                this[i] = data[i];
+            }
+
         }
     }
 }
+//////////////////SubClass//////////////////
+#foreach($SubClass in $subClasses)
+export class ${SubClass.className}Data {
+#foreach($filedNameInfo in ${SubClass.list})
+#if((${filedNameInfo.comment}!="null")&&(${filedNameInfo.comment}!=""))
+    /**
+        ${filedNameInfo.comment}
+    **/
+#end
+    public ${filedNameInfo.subFieldName}: ${filedNameInfo.subFieldType};
+#end
+
+    public constructor(data: Object) {
+        for (let i in data) {
+        this[i] = data[i];
+        }
+    }
+}
+#end

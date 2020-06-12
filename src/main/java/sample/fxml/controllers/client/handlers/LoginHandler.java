@@ -1,23 +1,22 @@
 package sample.fxml.controllers.client.handlers;
 
+import com.google.protobuf.InvalidProtocolBufferException;
+
+import org.apache.commons.lang3.RandomUtils;
 import org.jboss.netty.buffer.ChannelBuffer;
-import org.jboss.netty.buffer.LittleEndianHeapChannelBuffer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import sample.Controller;
-import sample.fxml.controllers.client.Hero;
+import app.game.module.login.LoginModuleNotice;
+import app.protobuf.client.HeroContent.HeroProto;
 import sample.fxml.controllers.client.IClient;
 import sample.fxml.controllers.client.Modules;
 import sample.fxml.controllers.client.handlers.base.Handler;
 import sample.fxml.controllers.client.handlers.base.HandlerBase;
 import sample.fxml.controllers.client.msgs.LoginModuleMessages;
-import sample.fxml.controllers.client.msgs.SceneModuleMessages;
 import sample.utils.BufferUtil;
 
 import static sample.fxml.controllers.client.msgs.LoginModuleMessages.S2C_ACCOUNT_LOGIN_OK;
-import static sample.fxml.controllers.client.msgs.LoginModuleMessages.S2C_CREATE_ROLE_OK;
-import static sample.fxml.controllers.client.msgs.LoginModuleMessages.S2C_ROLE_LOGIN_OK;
 
 /**
  *
@@ -37,26 +36,15 @@ public class LoginHandler extends HandlerBase {
 
         switch (sequenceId) {
             case S2C_ACCOUNT_LOGIN_OK:
-            case S2C_CREATE_ROLE_OK:
-                int roleCount = message.readByte();
-                if (roleCount == 0) {
-                    logger.debug("onLogin client:{}", client);
-                    createRole(client);
-
-                } else {
-                    Hero[] heros = new Hero[roleCount];
-                    for (int i = 0; i < roleCount; i++) {
-                        Hero hero = new Hero(message);
-                        heros[i] = hero;
-                    }
-                    client.setHeros(heros);
-                    login(client, heros[0]);
+                try {
+                    byte[] bytes = BufferUtil.readUTFBytes(message);
+                    HeroProto heroProto = HeroProto.parseFrom(bytes);
+                    logger.debug("onLogin heroProto:{}", heroProto);
+                } catch (InvalidProtocolBufferException e) {
+                    e.printStackTrace();
                 }
-                break;
-            case S2C_ROLE_LOGIN_OK:
-
-                sendEnterScene(client);
-
+                client.onEnterScene();
+                client.sendGmMsg("all");
                 break;
 
             default:
@@ -65,30 +53,23 @@ public class LoginHandler extends HandlerBase {
         return true;
     }
 
-    public void login(IClient client, Hero hero) {
-        LittleEndianHeapChannelBuffer buffer = new LittleEndianHeapChannelBuffer(hero.heroIdBytes.length + 2);
-        BufferUtil.writeUTF(buffer, hero.heroIdBytes);
-        client.sendBuffer(buffer, Modules.LOGIN_MODULE_ID, LoginModuleMessages.C2S_ROLE_LOGIN);
-        Controller.log2Robot("登录:" + hero.toString());
+    @Override
+    public void onNotice(int noticeId, IClient client) {
+        if (LoginModuleNotice.ACCOUNT_NOT_EXIT.isNotice(noticeId)) {
+            createRole(client);
+        }
+
     }
 
     public void createRole(IClient client) {
-        int race = 1;
-        boolean isMan = true;
+        int sex = RandomUtils.nextInt(1, 2);
+        ChannelBuffer buffer = BufferUtil.newFixedSizeMessage(1 + client.getRoleName().length + 2);
 
-        LittleEndianHeapChannelBuffer buffer = new LittleEndianHeapChannelBuffer(1 + 1 + client.getRoleName().length + 2);
-        buffer.writeByte(race);
-        BufferUtil.writeBoolean(buffer, isMan);
+        BufferUtil.writeVarInt32(buffer, sex);
         BufferUtil.writeUTF(buffer, client.getRoleName());
         logger.debug("createRole client.getRoleName:{}", client.getRoleName());
-        client.sendBuffer(buffer, Modules.LOGIN_MODULE_ID, LoginModuleMessages.C2S_CREATE_ROLE);
+        client.sendBuffer(buffer, Modules.LOGIN_MODULE_ID, LoginModuleMessages.C2S_ACCOUNT_CREATE);
     }
 
-    public void sendEnterScene(IClient client) {
-        int range = 5;
-        LittleEndianHeapChannelBuffer buffer = new LittleEndianHeapChannelBuffer(BufferUtil.computeVarInt32Size(range));
-        BufferUtil.writeVarInt32(buffer, range);
-        client.sendBuffer(buffer, Modules.SCENE_MODULE_ID, SceneModuleMessages.C2S_SCENE_LOAD);
 
-    }
 }

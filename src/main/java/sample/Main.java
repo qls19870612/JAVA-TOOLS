@@ -5,11 +5,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.StringBufferInputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
@@ -25,6 +29,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import sample.config.AppConfig;
+import sample.file.FileOperator;
 import sample.startLoader.Constant;
 import sample.startLoader.PropertyReaderHelper;
 import sample.startLoader.SplashScreen;
@@ -131,7 +136,7 @@ public class Main extends Application {
         AppConfig.initSqlLite();
         AppConfig.initFactory();
         AppConfig.parserTemplate();
-        AppConfig.parseClassConfig();
+
     }
 
     private void loadIcons(ConfigurableApplicationContext ctx) {
@@ -166,6 +171,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        checkDbFolder();
         this.primaryStage = primaryStage;
         final Stage splashStage = new Stage(StageStyle.TRANSPARENT);
 
@@ -190,6 +196,25 @@ public class Main extends Application {
             splashStage.setScene(null);
         });
 
+
+    }
+
+    private void checkDbFolder() {
+        String config = FileOperator.getConfig("config/application.properties");
+        Properties properties = new Properties();
+        try {
+            properties.load(new StringBufferInputStream(config));
+            String property = properties.getProperty("spring.datasource.url");
+            String[] split = property.split(":");
+            String dbUrl = split[2];
+            File file = new File(dbUrl);
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            logger.error("checkDbFolder getMessage:{}", e.getMessage());
+        }
 
     }
 

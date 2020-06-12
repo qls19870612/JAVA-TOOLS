@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 import sample.utils.StringUtils;
@@ -216,13 +217,17 @@ public class FileOperator {
     }
 
     public static Boolean writeFile(File file, String contenxt) {
+        File parentFile = file.getParentFile();
+        if (!parentFile.exists()) {
+            parentFile.mkdirs();
+        }
         Boolean ret = false;
         BufferedWriter bufferedWriter = null;
         FileOutputStream writerStream = null;
         OutputStreamWriter outputStream = null;
         try {
             writerStream = new FileOutputStream(file);
-            outputStream = new OutputStreamWriter(writerStream, "utf-8");
+            outputStream = new OutputStreamWriter(writerStream, StandardCharsets.UTF_8);
             bufferedWriter = new BufferedWriter(outputStream);
             bufferedWriter.write(contenxt);
             bufferedWriter.flush();
@@ -372,5 +377,29 @@ public class FileOperator {
         return charset;
     }
 
+    public static void turnUTF8withoutBOM(File file, File targetFile) throws IOException {
+        if (!targetFile.exists()) {
+            targetFile.createNewFile();
+        }
+        BufferedReader br = null;
+        BufferedWriter bw = null;
+        br = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
+        bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(targetFile), StandardCharsets.UTF_8));
+        int i = 0;
+        String str = "";
+        while ((str = br.readLine()) != null) {
+            if (i == 0)//读取第一行，将前三个字节去掉，重新new个String对象
+            {
+                byte[] bytes = str.getBytes(StandardCharsets.UTF_8);
+                str = new String(bytes, 3, bytes.length - 3);
+                bw.write(str + NEX_LINE);
+                i++;
+            } else {
+                bw.write(str + NEX_LINE);
+            }
+        }
+        br.close();
+        bw.close();
+    }
 
 }

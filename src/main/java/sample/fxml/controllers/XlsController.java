@@ -24,8 +24,10 @@ import sample.ITab;
 import sample.file.FileOperator;
 import sample.fxml.componet.fxml.FileSelector;
 import sample.mapper.ConfigMapper;
+import sample.utils.AttrXml2XlsUtils;
 import sample.utils.CodeCreateUtils;
 import sample.utils.StringUtils;
+import sample.utils.Xml2XlsUtils;
 
 import static sample.utils.Xls2TxtUtils.createTxt;
 
@@ -41,8 +43,12 @@ public class XlsController implements ITab {
     public FileSelector xlsFolderSelector;
     public FileSelector luaFolderSelector;
     public FileSelector tsFolderSelector;
-    public FileSelector tsJsonFolderSelector;
+
     public AnchorPane settingPanel;
+    public FileSelector xmlFolderSelector;
+    public FileSelector xml2XlsFolderSelector;
+    public FileSelector attrXmlFolderSelector;
+    public FileSelector attrXml2XlsFolderSelector;
     private ThreadPoolExecutor threadPoolExecutor;
     private int threadCount = Runtime.getRuntime().availableProcessors() * 2;
     public final static int EMPTY_LINE = 99999999;
@@ -51,10 +57,14 @@ public class XlsController implements ITab {
     private boolean inited;
     @Autowired
     private ConfigMapper configMapper;
-    public static String tsJsonPath;
+
     public static String tsPath;
     public static String xlsPath;
     public static String luaPath;
+    public static String xmlPath;
+    public static String xml2XlsPath;
+    public static String attrXmlPath;
+    public static String attrXml2XlsPath;
 
     public void onSelect() {
         if (inited) {
@@ -80,9 +90,12 @@ public class XlsController implements ITab {
 
     private void refreshPaths() {
         tsPath = tsFolderSelector.getPath();
-        tsJsonPath = tsJsonFolderSelector.getPath();
         xlsPath = xlsFolderSelector.getPath();
         luaPath = luaFolderSelector.getPath();
+        xmlPath = xmlFolderSelector.getPath();
+        xml2XlsPath = xml2XlsFolderSelector.getPath();
+        attrXmlPath = attrXmlFolderSelector.getPath();
+        attrXml2XlsPath = attrXml2XlsFolderSelector.getPath();
     }
 
     @Override
@@ -165,5 +178,29 @@ public class XlsController implements ITab {
 
         refreshPaths();
         settingPanel.setVisible(false);
+    }
+
+    public void onCreateXLSBtnClick(MouseEvent mouseEvent) {
+        if (StringUtils.isEmpty(xmlPath) || StringUtils.isEmpty(xml2XlsPath)) {
+            settingPanel.setVisible(true);
+            return;
+        }
+        Xml2XlsUtils.convert(xmlPath);
+    }
+
+    public void onOpenSettingBtnClick(MouseEvent mouseEvent) {
+        settingPanel.setVisible(!settingPanel.isVisible());
+        if (!settingPanel.isVisible()) {
+            refreshPaths();
+        }
+    }
+
+    public void onCreateAttrXmlXLSBtnClick(MouseEvent mouseEvent) {
+
+        if (StringUtils.isEmpty(attrXmlPath) || StringUtils.isEmpty(attrXml2XlsPath)) {
+            settingPanel.setVisible(true);
+            return;
+        }
+        AttrXml2XlsUtils.convert(attrXmlPath);
     }
 }

@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import app.protobuf.client.GoodsContent.GoodsProto;
 import app.protobuf.client.GoodsContent.PrizeProto;
 import sample.Controller;
+import sample.fxml.controllers.client.HandlerHub;
 import sample.fxml.controllers.client.IClient;
 import sample.fxml.controllers.client.Modules;
 import sample.fxml.controllers.client.config.NoticeData;
@@ -24,11 +25,13 @@ import sample.utils.BufferUtil;
 @Handler(moduleId = Modules.NOTICE_MODULE_ID)
 public class NoticeHandler extends HandlerBase {
     private static final Logger logger = LoggerFactory.getLogger(NoticeHandler.class);
+    private HandlerHub handlerHub;
 
     @Override
     public boolean handle(IClient client, int sequence, ChannelBuffer buffer) throws InvalidProtocolBufferException {
         int moduleId = BufferUtil.readVarInt32(buffer);
         int noticeId = BufferUtil.readVarInt32(buffer);
+        onModuleNotice(moduleId, noticeId,client);
         NoticeData data = Controller.getClientDepends().noticeDatas.getData(moduleId, noticeId);
         if (data == null) {
             logger.info("未配置的消息 moduleId:{},sequence:{}", moduleId, sequence);
@@ -88,7 +91,19 @@ public class NoticeHandler extends HandlerBase {
         return true;
     }
 
+    private void onModuleNotice(int moduleId, int noticeId,IClient client) {
+        HandlerBase handler = handlerHub.getHandler(moduleId);
+        if (handler != null) {
+            handler.onNotice( noticeId, client);
+        }
+
+    }
+
     private String replace(String notice, String argType, String arg) {
         return notice.replace("{" + argType + "}", arg);
+    }
+
+    public void setHandlerHub(HandlerHub handlerHub) {
+        this.handlerHub = handlerHub;
     }
 }

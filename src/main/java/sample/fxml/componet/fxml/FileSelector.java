@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import sample.enums.ConfigType;
 import sample.file.FileOperator;
 import sample.interfaces.AutowireInterface;
@@ -31,6 +32,16 @@ public class FileSelector extends AbstractInputComponent implements AutowireInte
 
 
     private boolean isFolder = false;
+
+    public String getExtendStr() {
+        return extendStr;
+    }
+    @FXML
+    public void setExtendStr(String extendStr) {
+        this.extendStr = extendStr;
+    }
+
+    private String extendStr;
 
     public FileSelector() {
         super();
@@ -120,6 +131,9 @@ public class FileSelector extends AbstractInputComponent implements AutowireInte
             file = directoryChooser.showDialog(textField.getScene().getWindow());
         } else {
             FileChooser fileChooser = new FileChooser();
+            if (StringUtils.isNotEmpty(extendStr)) {
+                fileChooser.setSelectedExtensionFilter(new ExtensionFilter("请选择(" +extendStr + ")",extendStr.split(",")));
+            }
             File oldFile = new File(getPath());
             if (oldFile.exists()) {
                 if (!oldFile.isDirectory()) {

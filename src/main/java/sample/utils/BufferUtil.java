@@ -3,10 +3,10 @@ package sample.utils;
 import com.google.protobuf.CodedOutputStream;
 import com.google.protobuf.MessageLite;
 
+import org.jboss.netty.buffer.BigEndianHeapChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBufferInputStream;
 import org.jboss.netty.buffer.ChannelBuffers;
-import org.jboss.netty.buffer.LittleEndianHeapChannelBuffer;
 import org.jboss.netty.util.internal.jzlib.JZlib;
 import org.jboss.netty.util.internal.jzlib.ZStream;
 import org.slf4j.Logger;
@@ -22,6 +22,7 @@ public class BufferUtil {
     private static final Logger logger = LoggerFactory.getLogger(BufferUtil.class);
 
     public static final ChannelBuffer[] EMPTY_ARRAY = new ChannelBuffer[0];
+    private static ByteOrder endian = ByteOrder.BIG_ENDIAN;
 
     private BufferUtil() {
     }
@@ -36,11 +37,14 @@ public class BufferUtil {
      * @return
      */
     public static ChannelBuffer newFixedSizeMessage(int moduleID, int sequenceID, int sureSizeExcludingSizeAndID) {
-        ChannelBuffer buffer = new LittleEndianHeapChannelBuffer(2 + sureSizeExcludingSizeAndID + 32);
+        ChannelBuffer buffer = newFixedSizeMessage(2 + sureSizeExcludingSizeAndID + 32);
         //        buffer.writeShort(10);
         buffer.writeShort(0);// place holder for buffer size
         buffer.writeInt(moduleID * 1000 + sequenceID);
         return buffer;
+    }
+    public static ChannelBuffer newFixedSizeMessage(int size) {
+        return new BigEndianHeapChannelBuffer(size);
     }
 
     public static ChannelBuffer dynamicBuffer() {
@@ -48,7 +52,7 @@ public class BufferUtil {
     }
 
     public static ChannelBuffer dynamicBuffer(int size) {
-        return ChannelBuffers.dynamicBuffer(ByteOrder.LITTLE_ENDIAN, size);
+        return ChannelBuffers.dynamicBuffer(endian, size);
     }
 
     public static ChannelBuffer newDynamicMessage(int moduleID, int sequenceID) {
@@ -64,7 +68,7 @@ public class BufferUtil {
      * @return
      */
     public static ChannelBuffer newDynamicMessage(int moduleID, int sequenceID, int approxSizeExcludingSizeAndID) {
-        ChannelBuffer buffer = ChannelBuffers.dynamicBuffer(ByteOrder.LITTLE_ENDIAN, 12 + approxSizeExcludingSizeAndID);
+        ChannelBuffer buffer = ChannelBuffers.dynamicBuffer(endian, 12 + approxSizeExcludingSizeAndID);
         //        buffer.writeShort(10);
         buffer.writeShort(0);// place holder for buffer size
         buffer.writeInt(moduleID * 1000 + sequenceID);
@@ -778,7 +782,7 @@ public class BufferUtil {
     }
 
     public static final ChannelBuffer trimBuffer(ChannelBuffer buffer) {
-        ChannelBuffer result = new LittleEndianHeapChannelBuffer(buffer.writerIndex());
+        ChannelBuffer result = newFixedSizeMessage(buffer.writerIndex());
         result.writeBytes(buffer);
         return result;
     }

@@ -62,8 +62,20 @@ public enum ConfigType {
 
     XLS_TS_PATH,
 
-    XLS_TS_JSON_PATH,
 
+    XML_2_XLS_XML_PATH,
+
+    XML_2_XLS_XLS_PATH,
+
+    ATTR_XML_2_XLS_XML_PATH,
+
+    ATTR_XML_2_XLS_XLS_PATH,
+
+    TO_JAVA_XLS_PATH,
+
+    TO_JAVA_PATH,
+
+    XLS_DOUBLE_COL_COMPARE_PATH,
     //
     ;
 }

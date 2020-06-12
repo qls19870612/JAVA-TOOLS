@@ -132,6 +132,11 @@ public class ThreadServiceImpl implements IThreadService {
         return gameExec[id & GAME_THREAD_COUNT_TO_MOD];
     }
 
+    @Override
+    public DisruptorExecutor getSceneExecutor(int i) {
+        return null;
+    }
+
     /*
      * (non-Javadoc)
      *

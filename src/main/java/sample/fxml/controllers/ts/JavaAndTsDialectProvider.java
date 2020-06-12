@@ -4,9 +4,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import sample.db.TableField;
+import sample.utils.StringUtils;
 
 
 /**
@@ -40,7 +42,20 @@ public class JavaAndTsDialectProvider {
     public String getTsClass(String javaType) {
         FieldTypeMap fieldTypeMap = typeMap.get(javaType);
         if (fieldTypeMap == null) {
-            logger.warn("getJavaClass javaType:{}", javaType);
+            if (StringUtils.isNotEmpty(javaType)) {
+                //javaType : long[],int[]...
+                int first = javaType.indexOf(";");
+                String type = javaType.substring(0,first);
+
+
+                FieldTypeMap map = typeMap.get(type);
+                if (map !=null) {
+                    return javaType.replace(type,map.tsType);
+                }
+                else {
+                    return javaType;
+                }
+            }
             return "any";
         }
         return fieldTypeMap.tsType;

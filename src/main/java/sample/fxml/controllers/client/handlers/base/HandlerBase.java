@@ -37,4 +37,7 @@ public abstract class HandlerBase {
         return false;
     }
 
+    public void onNotice(int noticeId, IClient client) {
+
+    }
 }

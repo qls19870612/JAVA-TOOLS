@@ -1,6 +1,6 @@
 package sample.fxml.controllers.client;
 
-import org.jboss.netty.buffer.LittleEndianHeapChannelBuffer;
+import org.jboss.netty.buffer.ChannelBuffer;
 
 import java.util.ArrayList;
 
@@ -44,12 +44,12 @@ public class LongMsgCache {
 
         byte[] msg = concat(msgArrayList);
         msgArrayList.clear();
-        LittleEndianHeapChannelBuffer littleEndianHeapChannelBuffer = new LittleEndianHeapChannelBuffer(msg.length);
-        littleEndianHeapChannelBuffer.writeBytes(msg);
-        littleEndianHeapChannelBuffer.resetReaderIndex();
-        int msgId = BufferUtil.readVarInt32(littleEndianHeapChannelBuffer);
+        ChannelBuffer buffer = BufferUtil.newFixedSizeMessage(msg.length);
+        buffer.writeBytes(msg);
+        buffer.resetReaderIndex();
+        int msgId = BufferUtil.readVarInt32(buffer);
         int moduleId = msgId / 1000;
         int sequenceId = msgId % 1000;
-        client.onReceiveMsg(moduleId, sequenceId, littleEndianHeapChannelBuffer);
+        client.onReceiveMsg(moduleId, sequenceId, buffer);
     }
 }

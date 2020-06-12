@@ -29,7 +29,7 @@ import static sample.datas.vo.CodeInfo.EMPTY_CODE_INFO;
 
 public class AppConfig {
     private static DocumentBuilderFactory dbFactory = null;
-    private static DocumentBuilder db = null;
+    public static DocumentBuilder db = null;
     private static Document document = null;
 
     public static String fieldTemplate;
@@ -53,6 +53,7 @@ public class AppConfig {
     public static final int operatorID = 1;
     public static final int serverID = 1;
     private static ConfigMapper configMapper;
+    private static CodeInfo[] codeInfos1;
 
     public static boolean parseClassConfig() {
         boolean isUpdate = false;
@@ -152,19 +153,20 @@ public class AppConfig {
 
 
     public static CodeInfo[] getCodeInfos() {
-        if (codeInfos != null) {
-            CodeInfo[] codeInfos = AppConfig.codeInfos.values().toArray(EMPTY_CODE_INFO);
-            Arrays.sort(codeInfos, CodeInfo.COMPARATOR);
-            return codeInfos;
+        if (codeInfos1 == null) {
+            parseClassConfig();
+            codeInfos1 = codeInfos.values().toArray(EMPTY_CODE_INFO);
+            Arrays.sort(codeInfos1, CodeInfo.COMPARATOR);
+            return codeInfos1;
         }
-        return null;
+        return codeInfos1;
     }
 
     public static CodeInfo getItemItemInfo(String className) {
         if (codeInfos != null) {
-            return codeInfos.get(className);
+            parseClassConfig();
         }
-        return null;
+        return codeInfos.get(className);
     }
 
     public static void initSqlLite() {

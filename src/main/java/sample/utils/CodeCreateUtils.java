@@ -65,6 +65,9 @@ public class CodeCreateUtils {
     }
 
     public static String getTypeMap(String type) {
+        if (dateTypeMap == null) {
+            CodeCreateUtils.parseDataTypeMap();
+        }
         return dateTypeMap.get(type.toLowerCase());
     }
 
@@ -93,7 +96,7 @@ public class CodeCreateUtils {
 
     public static void createCode(CodeInfo item) {
         String path = null;
-        path = getEncodePath(AppConfig.baseCodePath + item.codePath + "\\" + item.className + ".java");
+        path = getEncodePath(item.codePath + "\\" + item.className + ".java");
         File codeFile = new File(path);
         parserClassTypeMap = findParserClassMap();
         if (codeFile.exists()) {
@@ -317,7 +320,11 @@ public class CodeCreateUtils {
     }
 
     private static ArrayList<FieldInfo> getFieldInfo(CodeInfo item) {
-        String xlsFolder = new File(item.xlsPath).getParentFile().getPath();
+        File file = new File(item.xlsPath);
+        if (!file.exists()) {
+            return new ArrayList<>();
+        }
+        String xlsFolder = file.getParentFile().getPath();
         System.out.println("xlsFolder:" + xlsFolder);
         FileLoader fileLoader = FileLoaderOS.of(xlsFolder);
         byte[] fileContent = new byte[0];
@@ -332,15 +339,19 @@ public class CodeCreateUtils {
         ArrayList<FieldInfo> fieldInfos = null;
         try {
             workbook = new HSSFWorkbook(is);
-            Sheet sheet = workbook.getSheetAt(0);
+            Sheet sheet = workbook.getSheetAt(item.sheetIndex);
             int rowNum = sheet.getLastRowNum() + 1;
             if (rowNum < 3) {
                 throw new RuntimeException("表： " + item.xlsPath + " 中 sheet:" + sheet.getSheetName() + " 的数据至少3行");
             }
             Row fileds = sheet.getRow(0);
+            if (fileds == null) {
+                return new ArrayList<>();
+            }
             Row types = sheet.getRow(1);
             Row comments = sheet.getRow(2);
             fieldInfos = createFileInfos(fileds, types, comments);
+            fieldInfos.sort(FieldInfo.compare);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -378,7 +389,7 @@ public class CodeCreateUtils {
         if (StringUtils.isNotEmpty(codeFieldsInfo.extClassName)) {
             classStr = classStr + " extends " + codeFieldsInfo.extClassName;
             appendImport(codeFieldsInfo.extClassPackageName + "." + codeFieldsInfo.extClassName, importBuffer, packageNameMap);
-            code = code.replace("$super", "\n\t\tsuper(config, initializer);");
+            code = code.replace("$super", "\n\t\tsuper(config);");
 
         } else {
             code = code.replace("$super", "\n\t\tsuper(config);");
@@ -388,11 +399,12 @@ public class CodeCreateUtils {
 
         code = code.replace("$imports", importBuffer.toString());
         code = code.replace("$fields", fields.toString());
+        code = code.replace("$fileName", item.xlsPath);
         Date date = new Date();
         String dateStr = dateTimeFormatter.get().format(date);
         code = code.replace("$date", dateStr);
 
-        File file = new File(AppConfig.baseCodePath + item.codePath + "\\" + item.className + ".java");
+        File file = new File(item.codePath + "\\" + item.className + ".java");
         if (file.exists() == false) {
             file.getParentFile().mkdirs();
         }
@@ -459,6 +471,14 @@ public class CodeCreateUtils {
             if (StringUtils.isEmpty(filedCol)) {
                 continue;
             }
+            filedCol = filedCol.trim();
+            if (StringUtils.isEmpty(filedCol)) {
+                continue;
+            }
+            if ("id".equals(filedCol) || "name".equals(filedCol)) {
+                //id和名字在基类里
+                continue;
+            }
             cell = comments.getCell(i);
             String commentCol;
             if (cell == null) {
@@ -467,7 +487,7 @@ public class CodeCreateUtils {
                 commentCol = cell.getStringCellValue();
             }
             //            System.out.println("表头信息:"+filedCol+","+typeCol+","+commentCol);
-            FieldInfo fieldInfo = new FieldInfo(filedCol, typeCol, commentCol);
+            FieldInfo fieldInfo = new FieldInfo(filedCol, typeCol, commentCol, i);
             //            fieldInfo.setInfo(filedCol,typeCol,commentCol);
             ret.add(fieldInfo);
         }

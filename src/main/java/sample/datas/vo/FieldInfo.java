@@ -1,5 +1,7 @@
 package sample.datas.vo;
 
+import java.util.Comparator;
+
 import sample.utils.CodeCreateUtils;
 import sample.utils.FieldMergerEnum;
 import sample.utils.StringUtils;
@@ -10,6 +12,12 @@ import sample.utils.StringUtils;
  * @创建时间 $date$
  */
 public class FieldInfo {
+    public static Comparator<? super FieldInfo> compare = new Comparator<FieldInfo>() {
+        @Override
+        public int compare(FieldInfo o1, FieldInfo o2) {
+            return o1.colIndex - o2.colIndex;
+        }
+    };
     private String _name;
     private String _type;
     private String _comment;
@@ -22,14 +30,16 @@ public class FieldInfo {
     private StringBuffer _cfgKeys;
     private StringBuffer _comments;
     private FieldMergerEnum mergerEnum = FieldMergerEnum.NONE;
+    private int colIndex;
 
-    public FieldInfo(String filedCol, String typeCol, String commentCol) {
-        setInfo(filedCol, typeCol, commentCol);
+    public FieldInfo(String filedCol, String typeCol, String commentCol, int colIndex) {
+
+        setInfo(filedCol, typeCol, commentCol, colIndex);
     }
 
-    public void setInfo(String filedCol, String typeCol, String commentCol) {
+    public void setInfo(String filedCol, String typeCol, String commentCol, int colIndex) {
         this._name = filedCol;
-
+        this.colIndex = colIndex;
         this._typeCol = typeCol;
         String[] types = typeCol.split(":");
         this._type = types[0];

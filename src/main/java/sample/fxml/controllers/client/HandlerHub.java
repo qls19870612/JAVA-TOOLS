@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
+import sample.fxml.controllers.client.handlers.NoticeHandler;
 import sample.fxml.controllers.client.handlers.base.Handler;
 import sample.fxml.controllers.client.handlers.base.HandlerBase;
 import sample.spring.utils.SpringUtil;
@@ -39,6 +40,8 @@ public class HandlerHub implements IHandlerHub {
             Handler annotation = handlerBase.getClass().getAnnotation(Handler.class);
             this.handlers[annotation.moduleId()] = handlerBase;
         }
+        NoticeHandler handler = (NoticeHandler) getHandler(Modules.NOTICE_MODULE_ID);
+        handler.setHandlerHub(this);
 
 
     }

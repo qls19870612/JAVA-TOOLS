@@ -7,6 +7,7 @@
     <groupId>javaTools</groupId>
     <artifactId>javaTools</artifactId>
     <version>1.0-SNAPSHOT</version>
+
     <properties>
         <fileName>javaTools</fileName>
     </properties>
@@ -74,10 +75,10 @@
                             <jar>${project.build.directory}/${fileName}.jar</jar>
                             <outfile>${project.build.directory}/${fileName}.exe</outfile>
                             <downloadUrl>http://java.com/download</downloadUrl>
-                            <classpath>
-                                <mainclass>org.springframework.boot.loader.WarLauncher</mainclass>
-                                <precp>anything</precp>
-                            </classpath>
+<!--                            <classpath>-->
+<!--                                <mainclass>org.springframework.boot.loader.WarLauncher</mainclass>-->
+<!--                                <precp>anything</precp>-->
+<!--                            </classpath>-->
 
                             <icon>config/0.ico</icon>
                             <jre>
@@ -113,7 +114,7 @@
                         </goals>
                         <configuration>
                             <overwrite>true</overwrite>
-                            <outputDirectory>D:\workspace\project\misc</outputDirectory>
+                            <outputDirectory>D:\workspace\card\misc</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>${project.build.directory}</directory>
@@ -202,6 +203,12 @@
             <groupId>com.google.googlejavaformat</groupId>
             <artifactId>google-java-format</artifactId>
             <version>1.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.java-websocket</groupId>
+            <artifactId>Java-WebSocket</artifactId>
+            <version>1.4.1</version>
         </dependency>
     </dependencies>
 

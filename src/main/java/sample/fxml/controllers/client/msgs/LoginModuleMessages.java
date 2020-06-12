@@ -12,6 +12,7 @@ import static sample.utils.BufferUtil.newFixedSizeMessage;
 import static sample.utils.BufferUtil.onlySendHeadAndAByteMessage;
 import static sample.utils.BufferUtil.writeUTF;
 
+
 public class LoginModuleMessages {
 
     public static final int MODULE_ID = Modules.LOGIN_MODULE_ID;
@@ -20,22 +21,18 @@ public class LoginModuleMessages {
      * 登陆账号
      *
      * string 账号名
-     * int 平台id
-     * int 区服id
+     * varint32 平台id
+     * varint32 区服id
      * String 设备ID
+     * String 渠道标识 channel
+     * String 签名 sign
+     * String 时间戳 time
      */
     public static final int C2S_ACCOUNT_LOGIN = 1;
 
     /**
      * 登陆成功
-     *
-     * byte count 角色个数
-     * for(count){
-     *     string 角色ID
-     *     string 角色名
-     *     varint32 职业
-     *     varint32 等级
-     * }
+     * bytes HeroProto 角色信息
      */
     public static final int S2C_ACCOUNT_LOGIN_OK = 1;
 
@@ -44,153 +41,18 @@ public class LoginModuleMessages {
     }
 
     /**
-     * 登录账号失败
-     *
-     * 1 你要登录的区服不存在,如果是测试阶段,改登录时的参数,正式时不该有这个问题
-     * 2 你被ban了,请联系客服
-     * 3 服务器内部错误,稍后再试
-     * 4 GM正在登录你的账号
-     * 5 已经登录了
-     * 6 其他地方登录了
-     * 7 还没有登录成功，但是发了非登录模块的消息
-     * 8 长时间未登录
-     */
-    public static final int S2C_ACCOUNT_LOGIN_ERR = 2;
-
-    public static ChannelBuffer ERR_ACCOUNT_LOGIN_ERROR_SERVER = onlySendHeadAndAByteMessage(MODULE_ID, S2C_ACCOUNT_LOGIN_ERR, 1);
-    public static ChannelBuffer ERR_ACCOUNT_LOGIN_BAN = onlySendHeadAndAByteMessage(MODULE_ID, S2C_ACCOUNT_LOGIN_ERR, 2);
-    public static ChannelBuffer ERR_ACCOUNT_LOGIN_INNER_ERROR = onlySendHeadAndAByteMessage(MODULE_ID, S2C_ACCOUNT_LOGIN_ERR, 3);
-    public static ChannelBuffer ERR_ACCOUNT_LOGIN_GM_LOGIN = onlySendHeadAndAByteMessage(MODULE_ID, S2C_ACCOUNT_LOGIN_ERR, 4);
-    public static ChannelBuffer ERR_ACCOUNT_LOGIN_ALREADY_LOGIN = onlySendHeadAndAByteMessage(MODULE_ID, S2C_ACCOUNT_LOGIN_ERR, 5);
-    public static ChannelBuffer ERR_ACCOUNT_LOGIN_LOGIN_SOMEWHERE = onlySendHeadAndAByteMessage(MODULE_ID, S2C_ACCOUNT_LOGIN_ERR, 6);
-    public static ChannelBuffer ERR_ACCOUNT_LOGIN_NOT_LOGIN_MESSAGES = onlySendHeadAndAByteMessage(MODULE_ID, S2C_ACCOUNT_LOGIN_ERR, 7);
-    public static ChannelBuffer ERR_ACCOUNT_LOGIN_NOT_LOGGED_IN_FOR_A_LONG_TIME = onlySendHeadAndAByteMessage(MODULE_ID, S2C_ACCOUNT_LOGIN_ERR, 8);
-
-    /**
-     * 创角
-     *
-     * byte 职业
-     * bool 是否男性
-     * string 角色名
-     */
-    public static final int C2S_CREATE_ROLE = 2;
-
-    /**
-     * 创角成功,直接登陆这个角色
-     *
-     * byte count 角色个数
-     * for(count){
-     *     string 角色ID
-     *     string 角色名
-     *     varint32 职业
-     *     varint32 等级
-     * }
-     */
-    public static final int S2C_CREATE_ROLE_OK = 3;
-
-    public static ChannelBuffer createRoleOk() {
-        return newDynamicMessage(MODULE_ID, S2C_CREATE_ROLE_OK);
-    }
-
-    /**
-     * 创建角色失败，返回byte错误码
-     *
-     * 1 名字长度错误，长度为3-16个字符
-     * 2 使用了非法字符
-     * 3 名字已经存在
-     * 4 职业非法
-     * 5 角色已满
-     * 6 没有登录账号却发了创角消息
-     */
-    public static final int S2C_CREATE_ROLE_ERR = 4;
-
-    public static ChannelBuffer ERR_CREATE_ROLE_INVALID_LENGTH = onlySendHeadAndAByteMessage(MODULE_ID, S2C_CREATE_ROLE_ERR, 1);
-    public static ChannelBuffer ERR_CREATE_ROLE_INVALID_NAME = onlySendHeadAndAByteMessage(MODULE_ID, S2C_CREATE_ROLE_ERR, 2);
-    public static ChannelBuffer ERR_CREATE_ROLE_REPEAT_NAME = onlySendHeadAndAByteMessage(MODULE_ID, S2C_CREATE_ROLE_ERR, 3);
-    public static ChannelBuffer ERR_CREATE_ROLE_INVALID_RACE = onlySendHeadAndAByteMessage(MODULE_ID, S2C_CREATE_ROLE_ERR, 4);
-    public static ChannelBuffer ERR_CREATE_ROLE_FULL_ROLE = onlySendHeadAndAByteMessage(MODULE_ID, S2C_CREATE_ROLE_ERR, 5);
-    public static ChannelBuffer ERR_CREATE_ROLE_ACCOUNT_NOT_LOGIN = onlySendHeadAndAByteMessage(MODULE_ID, S2C_CREATE_ROLE_ERR, 6);
-
-    /**
-     * 角色登陆
-     *
-     * string 角色id
-     */
-    public static final int C2S_ROLE_LOGIN = 3;
-
-    /**
-     * 角色登陆成功
-     *
-     * varint32 场景id id
-     * varint32 地图id mapId
-     * varint32 场景类型 sceneType
-     * varint32 玩家坐标x x
-     * varint32 玩家坐标y y
-     * heroProto 角色信息
-     */
-    public static final int S2C_ROLE_LOGIN_OK = 5;
-
-    public static ChannelBuffer roleLoginOk() {
-        return newDynamicMessage(MODULE_ID, S2C_ROLE_LOGIN_OK);
-    }
-
-    /**
-     * 1 角色未找到
-     * 2 服务器重启
-     * 3 frame太长
-     */
-    public static final int S2C_ROLE_LOGIN_ERR = 6;
-
-    public static ChannelBuffer ERR_ROLE_LOGIN_NO_ROLE = onlySendHeadAndAByteMessage(MODULE_ID, S2C_ROLE_LOGIN_ERR, 1);
-    public static ChannelBuffer ERR_ROLE_LOGIN_SERVER_RESTART = onlySendHeadAndAByteMessage(MODULE_ID, S2C_ROLE_LOGIN_ERR, 2);
-    public static ChannelBuffer ERR_ROLE_LOGIN_TOO_LONG_FRAME = onlySendHeadAndAByteMessage(MODULE_ID, S2C_ROLE_LOGIN_ERR, 3);
-
-    /**
-     * 删除角色
-     *
-     * string 角色id
-     */
-    public static final int C2S_DELETE_ROLE = 4;
-
-    /**
-     * 删除角色成功,返回角色列表
-     *
-     * byte count 角色个数
-     * for(count){
-     *     string 角色ID
-     *     string 角色名
-     *     varint32 职业
-     *     varint32 等级
-     * }
-     */
-    public static final int S2C_DELETE_ROLE_OK = 7;
-
-    public static ChannelBuffer deleteRoleOk() {
-        return newDynamicMessage(MODULE_ID, S2C_DELETE_ROLE_OK);
-    }
-
-    /**
-     * 删除角色失败，返回byte错误码
-     *
-     * 1 非法id
-     */
-    public static final int S2C_DELETE_ROLE_ERR = 8;
-
-    public static ChannelBuffer ERR_DELETE_ROLE_INVALID_ID = onlySendHeadAndAByteMessage(MODULE_ID, S2C_DELETE_ROLE_ERR, 1);
-
-    /**
      * 角色重连
      *
      * string 重连key
      */
-    public static final int C2S_RECONNECT_LOGIN = 5;
+    public static final int C2S_RECONNECT_LOGIN = 2;
 
     /**
      * 角色重连的key
      *
      * string 重连key key
      */
-    public static final int S2C_RECONNECT_LOGIN_OK = 9;
+    public static final int S2C_RECONNECT_LOGIN_OK = 2;
 
     public static ChannelBuffer reconnectLoginOk() {
         return newDynamicMessage(MODULE_ID, S2C_RECONNECT_LOGIN_OK);
@@ -199,48 +61,33 @@ public class LoginModuleMessages {
     /**
      * 1 重连key失效请重新登录
      */
-    public static final int S2C_RECONNECT_LOGIN_ERR = 10;
+    public static final int S2C_RECONNECT_LOGIN_ERR = 3;
 
     public static ChannelBuffer ERR_RECONNECT_LOGIN_INVALID_KEY = onlySendHeadAndAByteMessage(MODULE_ID, S2C_RECONNECT_LOGIN_ERR, 1);
-
-    /**
-     * 退出角色
-     */
-    public static final int C2S_ROLE_LOGOUT = 6;
-
-    /**
-     * 退出角色成功
-     *
-     * byte count 角色个数
-     * for(count){
-     *     string 角色ID
-     *     string 角色名
-     *     varint32 职业
-     *     varint32 等级
-     * }
-     */
-    public static final int S2C_ROLE_LOGOUT_OK = 11;
-
-    public static ChannelBuffer roleLogoutOk() {
-        return newDynamicMessage(MODULE_ID, S2C_ROLE_LOGOUT_OK);
-    }
 
     /**
      * 随机名字
      * bool 是否男性
      */
-    public static final int C2S_RANDOM_NAME = 7;
+    public static final int C2S_RANDOM_NAME = 3;
 
     /**
      * 随机名字
      * string 名字
      */
-    public static final int S2C_RANDOM_NAME_OK = 12;
+    public static final int S2C_RANDOM_NAME_OK = 4;
 
     public static ChannelBuffer randomNameOk(String name) {
         ChannelBuffer buffer = newFixedSizeMessage(MODULE_ID, S2C_RANDOM_NAME_OK, computeUTF(name));
         writeUTF(buffer, name);
         return buffer;
     }
+
+    /**
+     * 创建账号,创建账号成功后，会发送账号登录成功协议S2C_ACCOUNT_LOGIN_OK
+     * varint32 sex 1:男,2：女
+     * varint32 name 名字
+     */
+    public static final int C2S_ACCOUNT_CREATE = 4;
 
 }

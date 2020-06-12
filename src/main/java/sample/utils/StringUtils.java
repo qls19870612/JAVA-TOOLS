@@ -7,6 +7,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static java.lang.Character.isLetter;
+
 /**
  * @描述
  * @创建人 liangsong
@@ -119,24 +121,29 @@ public class StringUtils {
         StringBuilder ret = new StringBuilder();
         boolean hasBig = false;
         for (char c : newValue.toCharArray()) {
-            if (isSmall(c)) {
+            if (isLetter(c)) {
 
                 if (ret.length() == 0) {
-                    hasBig = true;
                     if (firstUpper) {
                         ret.append(Character.toUpperCase(c));
+                        hasBig = true;
                         continue;
+                    } else {
+                        if (isBig(c)) {
+                            ret.append(Character.toLowerCase(c));
+                            hasBig = true;
+                            continue;
+                        }
                     }
                 } else if (!hasBig) {
                     ret.append(Character.toUpperCase(c));
                     hasBig = true;
                     continue;
                 }
+
                 ret.append(c);
 
-            } else if (isBig(c)) {
-                ret.append(c);
-                hasBig = true;
+
             } else {
                 hasBig = false;
                 if (isNumber(c)) {
@@ -145,6 +152,10 @@ public class StringUtils {
             }
         }
         return ret.toString();
+    }
+
+    private static boolean isLetter(char c) {
+        return isSmall(c) || isBig(c);
     }
 
     private static boolean isNumber(char c) {
@@ -217,5 +228,30 @@ public class StringUtils {
             s = s + oneChar;
         }
         return s;
+    }
+
+    public static boolean strIsNumber(String nodeValue) {
+        if (StringUtils.isEmpty(nodeValue)) {
+            return true;
+        }
+
+        for (int i = 0; i < nodeValue.length(); i++) {
+            if (!isNumber(nodeValue.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static String joinArray(String[] s, int startIndex, String spliter) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (int i = startIndex; i < s.length; i++) {
+            stringBuilder.append(s[i]).append(spliter);
+        }
+        if (stringBuilder.length() > 0) {
+            stringBuilder.setLength(stringBuilder.length() - spliter.length());
+        }
+        return stringBuilder.toString();
     }
 }
