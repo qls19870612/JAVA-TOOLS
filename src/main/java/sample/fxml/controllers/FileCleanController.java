@@ -12,10 +12,13 @@ import java.util.Map.Entry;
 
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
+import sample.Controller;
 import sample.ITab;
 import sample.file.FileOperator;
 import sample.fxml.componet.AlertBox;
 import sample.fxml.componet.fxml.FileSelector;
+import sample.fxml.componet.fxml.InputComponent;
+import sample.utils.FileRenameUtils;
 import sample.utils.StringUtils;
 
 /**
@@ -28,6 +31,8 @@ public class FileCleanController implements ITab {
     public FileSelector srcFolderSelector;
     public FileSelector targetFolderSelector;
     public TextArea infoTA;
+    public InputComponent srcMatchRegTI;
+    public InputComponent replaceTI;
 
     public void onCleanBtnClick(MouseEvent mouseEvent) {
         if (!srcFolderSelector.isExistsDirectory()) {
@@ -227,5 +232,46 @@ public class FileCleanController implements ITab {
         //
         //        }
         //        return "未发现新增文件";
+    }
+
+    public void onStartRename(MouseEvent mouseEvent) {
+        if (!srcFolderSelector.isExistsDirectory()) {
+            AlertBox.showAlert("源文件夹不存在");
+            return;
+        }
+        if (!targetFolderSelector.isExistsDirectory()) {
+            AlertBox.showAlert("目标文件夹不存在");
+            return;
+        }
+        if (StringUtils.isEmpty(srcMatchRegTI.getInputText())) {
+            AlertBox.showAlert("没有设置源文件匹配正则");
+            return;
+        }
+        if (StringUtils.isEmpty(replaceTI.getInputText())) {
+            AlertBox.showAlert("没有目标文件匹配规则");
+            return;
+        }
+        if (!replaceTI.getInputText().contains("$")) {
+            AlertBox.showAlert("目标文件匹配规则必需有'$'符号，否则配置成一样的啦!");
+            return;
+        }
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    FileRenameUtils.rename(srcFolderSelector.getPath(), targetFolderSelector.getPath(), srcMatchRegTI.getInputText(),
+                            replaceTI.getInputText());
+                } catch (Exception e) {
+                    logger.error("onStartRename getMessage:{}", e.getMessage());
+                    AlertBox.showAlert("执行出错:" + e.getMessage());
+                }
+                Controller.log("全部重命名或复制完成");
+
+            }
+        });
+        thread.start();
+
+
     }
 }

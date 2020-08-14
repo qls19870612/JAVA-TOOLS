@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -20,11 +21,13 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.Tooltip;
 import sample.config.AppConfig;
 import sample.enums.ConfigType;
+import sample.fxml.controllers.CocosCodeCreatorController;
 import sample.fxml.controllers.CreateConfigController;
 import sample.fxml.controllers.DbEntityCreatorController;
 import sample.fxml.controllers.DiabloPublishController;
 import sample.fxml.controllers.FileCleanController;
 import sample.fxml.controllers.GMProxyController;
+import sample.fxml.controllers.PhpLanguageConvertController;
 import sample.fxml.controllers.RobotController;
 import sample.fxml.controllers.StringFormatterController;
 import sample.fxml.controllers.XlsController;
@@ -38,6 +41,7 @@ public class Controller implements AutowireInterface {
     private static final Logger logger = LoggerFactory.getLogger(Controller.class);
     private static int count = 0;
     private static ClientDepends clientDepends;
+
     @FXML
     public CreateConfigController createConfigController;
     @FXML
@@ -58,6 +62,10 @@ public class Controller implements AutowireInterface {
     @FXML
     public XlsDoubleColCompareController xlsDoubleColCompareController;
     @FXML
+    public CocosCodeCreatorController cocosCodeCreatorController;
+    @FXML
+    public PhpLanguageConvertController phpLanguageConvertController;
+    @FXML
     public Label timeLabel;
     @FXML
     public Label infoLabel;
@@ -73,8 +81,10 @@ public class Controller implements AutowireInterface {
     public Tab dbEntityCreatorTab;
     public Tab fileCleanTab;
     public Tab xlsDoubleColCompareTab;
+    public Tab cocosCodeCreatorTab;
+    public Tab phpLanguageConvertTab;
     private SimpleDateFormat timeDataFormat;
-    private ArrayList<ITab> tabs;
+    private HashMap<Tab,ITab> tabs;
 
     @Autowired
     private ConfigMapper configMapper;
@@ -88,16 +98,18 @@ public class Controller implements AutowireInterface {
 
 
     public void init() {
-        tabs = new ArrayList<>();
-        tabs.add(createConfigController);
-        tabs.add(stringFormatterController);
-        tabs.add(xlsController);
-        tabs.add(gmProxyController);
-        tabs.add(robotController);
-        tabs.add(diabloPublishController);
-        tabs.add(dbEntityCreatorController);
-        tabs.add(fileCleanController);
-        tabs.add(xlsDoubleColCompareController);
+        tabs = new HashMap<>();
+        tabs.put(configTab,createConfigController);
+        tabs.put(txtTab,stringFormatterController);
+        tabs.put(xlsTab,xlsController);
+        tabs.put(gmTab,gmProxyController);
+        tabs.put(robotTab,robotController);
+        tabs.put(diabloPublishTab,diabloPublishController);
+        tabs.put(dbEntityCreatorTab,dbEntityCreatorController);
+        tabs.put(fileCleanTab,fileCleanController);
+        tabs.put(xlsDoubleColCompareTab,xlsDoubleColCompareController);
+        tabs.put(cocosCodeCreatorTab,cocosCodeCreatorController);
+        tabs.put(phpLanguageConvertTab,phpLanguageConvertController);
         timeDataFormat = new SimpleDateFormat("HH:mm:ss");
         instance = this;
         tabPanel.getSelectionModel().select(-1);
@@ -105,26 +117,12 @@ public class Controller implements AutowireInterface {
             @Override
             public void changed(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
 
-                if (newValue == gmTab) {
-                    gmProxyController.onSelect();
-                } else if (newValue == xlsTab) {
-                    xlsController.onSelect();
-                } else if (newValue == txtTab) {
-                    stringFormatterController.onSelect();
-                } else if (newValue == configTab) {
-                    createConfigController.onSelect();
-                } else if (newValue == robotTab) {
-                    robotController.onSelect();
-                } else if (newValue == diabloPublishTab) {
-                    diabloPublishController.onSelect();
-                } else if (newValue == dbEntityCreatorTab) {
-                    dbEntityCreatorController.onSelect();
-                } else if (newValue == fileCleanTab) {
-                    fileCleanController.onSelect();
-                }else if(newValue==xlsDoubleColCompareTab){
-                    xlsDoubleColCompareController.onSelect();
-                }
-                else {
+
+                ITab iTab = tabs.get(newValue);
+
+                if (iTab!=null) {
+                    iTab.onSelect();
+                } else {
                     throw new RuntimeException("未处理的Tab:" + newValue.getText());
                 }
             }
@@ -191,8 +189,8 @@ public class Controller implements AutowireInterface {
 
 
     public void onAppClose() {
-        for (ITab tab : tabs) {
-            tab.onAppClose();
+        for (ITab value : tabs.values()) {
+            value.onAppClose();
         }
         configMapper.setInt(ConfigType.TAB_SELECT_INDEX, tabPanel.getSelectionModel().getSelectedIndex());
     }

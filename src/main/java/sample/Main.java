@@ -134,7 +134,7 @@ public class Main extends Application {
 
     private void initConfig() {
         AppConfig.initSqlLite();
-        AppConfig.initFactory();
+
         AppConfig.parserTemplate();
 
     }
@@ -221,14 +221,14 @@ public class Main extends Application {
 
     private void initPrimaryStage(Stage primaryStage) throws Exception {
 
-        URL resource = getClass().getResource("/sample.fxml");
+        URL resource = getClass().getResource("/Main.fxml");
         FXMLLoader loader = new FXMLLoader(resource);
         loader.load();
         Controller controller = loader.getController();
 
         Parent root = loader.getRoot();
         primaryStage.setTitle("工具箱");
-        primaryStage.setScene(new Scene(root, 820, 600));
+        primaryStage.setScene(new Scene(root, 1000, 600));
         primaryStage.getIcons().addAll(icons);
         primaryStage.show();
         //        root.getScene().getStylesheets().add(this.getClass().getResource("/css/listview.css").toExternalForm());

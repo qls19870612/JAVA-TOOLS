@@ -1,0 +1,14 @@
+import View from "../../../com/base/View";
+
+const {ccclass, property} = cc._decorator;
+//CREATE BY JAVATOOLS !!DONT MODIFY
+@ccclass
+export default class ${name}View extends View {
+#foreach($filedNameInfo in $list)
+
+    @property({type: ${filedNameInfo.codeType}})
+    ${filedNameInfo.name}: ${filedNameInfo.codeType} = null;
+#end
+
+
+}

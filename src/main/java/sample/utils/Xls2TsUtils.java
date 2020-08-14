@@ -48,6 +48,13 @@ public class Xls2TsUtils {
     public static VelocityEngine velocityEngine = null;
     private static JavaAndTsDialectProvider dialectProvider;
 
+    public static void main(String[] args) {
+        XlsController.tsPath = "D:\\SVN\\client\\client\\SummonWorld\\assets\\resources\\config\\dataXML";
+        File file = new File("D:\\SVN\\server\\new_card_client\\configxml\\dataXML\\towerShopItem.xls");
+        XlsController.xlsPath = file.getParent();
+        XlsInfo xlsInfo = new XlsInfo(file);
+        createTs(xlsInfo);
+    }
 
     public static boolean createTs(XlsInfo item) {
 
@@ -190,15 +197,15 @@ public class Xls2TsUtils {
                         arr = (JSONArray) o;
                     } else {
                         arr = new JSONArray();
-                        rowObj.put(fieldInfo.getArrayFieldName(),arr);
+                        rowObj.put(fieldInfo.getArrayFieldName(), arr);
                     }
                     while (arr.size() <= fieldInfo.getArrayIndex()) {
                         arr.add(new JSONObject());
                     }
                     JSONObject object = arr.getJSONObject(fieldInfo.getArrayIndex());
                     value = convertValue(fieldInfo, value);
-                    object.put(fieldInfo.getSubFieldName(),value);
-//                    logger.debug("createTemplateInfo getArrayIndex:{},size:{},getSubFieldName:{},value:{}", fieldInfo.getArrayIndex(),arr.size(),fieldInfo.getSubFieldName(),value);
+                    object.put(fieldInfo.getSubFieldName(), value);
+                    //                    logger.debug("createTemplateInfo getArrayIndex:{},size:{},getSubFieldName:{},value:{}", fieldInfo.getArrayIndex(),arr.size(),fieldInfo.getSubFieldName(),value);
                 } else {
 
                     value = convertValue(fieldInfo, value);

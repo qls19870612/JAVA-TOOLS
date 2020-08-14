@@ -76,6 +76,16 @@ public enum ConfigType {
     TO_JAVA_PATH,
 
     XLS_DOUBLE_COL_COMPARE_PATH,
+
+    COCOS_PREFAB_PATH,
+
+    PREFAB_TO_TS_PATH,
+
+    FILE_NAME_MATCH_PATTERN,
+
+    TO_FILE_NAME_PATTERN,
+
+    PHP_LANGUAGE_PATH
     //
     ;
 }

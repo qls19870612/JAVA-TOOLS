@@ -6,6 +6,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import sample.fxml.componet.fxml.FileSelector?>
+<?import javafx.scene.control.Label?>
+<?import sample.fxml.componet.fxml.InputComponent?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="sample.fxml.controllers.FileCleanController"
@@ -18,6 +20,14 @@
             <Button prefWidth="1000" HBox.hgrow="ALWAYS" text="开始整理" onMouseClicked="#onCleanBtnClick"/>
             <Button prefWidth="1000" HBox.hgrow="ALWAYS" text="移动到目标目录未有文件" onMouseClicked="#onMoveBtnClick"/>
         </HBox>
+
+        <HBox spacing="10">
+            <InputComponent label="源文件名字匹配正则:" labelWidth="140" fx:id="srcMatchRegTI" configType="FILE_NAME_MATCH_PATTERN"/>
+            <InputComponent label="替换规则例如($0,$1...):" labelWidth="140" fx:id="replaceTI" configType="TO_FILE_NAME_PATTERN"/>
+            <Button prefWidth="1000" HBox.hgrow="ALWAYS" text="开始整理或替换" onMouseClicked="#onStartRename"/>
+
+        </HBox>
+
         <TextArea VBox.vgrow="ALWAYS" fx:id="infoTA" prefHeight="2000"/>
     </VBox>
 

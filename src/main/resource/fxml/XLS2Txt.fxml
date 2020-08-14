@@ -35,13 +35,13 @@
         <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0"
               AnchorPane.rightAnchor="0" alignment="TOP_RIGHT" >
             <Button style="-fx-border-color: #FFB346;-fx-end-margin: 10" text="关闭设置" onMouseClicked="#settingCloseBtnClick" />
-            <FileSelector labelWidth="140" label="Xls目录" folder="true" fx:id="xlsFolderSelector" configType="XLS_PATH"/>
-            <FileSelector labelWidth="140" label="Lua目录" folder="true" fx:id="luaFolderSelector" configType="XLS_LUA_PATH"/>
-            <FileSelector labelWidth="140" label="TS目录" folder="true" fx:id="tsFolderSelector" configType="XLS_TS_PATH"/>
-            <FileSelector labelWidth="140" label="XML2XLS_XML目录" folder="true" fx:id="xmlFolderSelector" configType="XML_2_XLS_XML_PATH"/>
-            <FileSelector labelWidth="140" label="XML2XLS_XLS目录" folder="true" fx:id="xml2XlsFolderSelector" configType="XML_2_XLS_XLS_PATH"/>
-            <FileSelector labelWidth="140" label="ATTR_XML_2_XLS_XML目录" folder="true" fx:id="attrXmlFolderSelector" configType="ATTR_XML_2_XLS_XML_PATH"/>
-            <FileSelector labelWidth="140" label="ATTR_XML_2_XLS_XLS目录" folder="true" fx:id="attrXml2XlsFolderSelector"
+            <FileSelector labelWidth="180" label="Xls目录" folder="true" fx:id="xlsFolderSelector" configType="XLS_PATH"/>
+            <FileSelector labelWidth="180" label="Lua目录" folder="true" fx:id="luaFolderSelector" configType="XLS_LUA_PATH"/>
+            <FileSelector labelWidth="180" label="TS目录" folder="true" fx:id="tsFolderSelector" configType="XLS_TS_PATH"/>
+            <FileSelector labelWidth="180" label="XML2XLS_XML目录" folder="true" fx:id="xmlFolderSelector" configType="XML_2_XLS_XML_PATH"/>
+            <FileSelector labelWidth="180" label="XML2XLS_XLS目录" folder="true" fx:id="xml2XlsFolderSelector" configType="XML_2_XLS_XLS_PATH"/>
+            <FileSelector labelWidth="180" label="ATTR_XML_2_XLS_XML目录" folder="true" fx:id="attrXmlFolderSelector" configType="ATTR_XML_2_XLS_XML_PATH"/>
+            <FileSelector labelWidth="180" label="ATTR_XML_2_XLS_XLS目录" folder="true" fx:id="attrXml2XlsFolderSelector"
                           configType="ATTR_XML_2_XLS_XLS_PATH"/>
         </VBox>
     </AnchorPane>

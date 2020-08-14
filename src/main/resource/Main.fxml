@@ -8,7 +8,7 @@
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <children>
         <TabPane fx:id="tabPanel" tabClosingPolicy="UNAVAILABLE" tabMinWidth="70" AnchorPane.bottomAnchor="40.0"
-                 AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                 AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0"  >
 
                 <Tab text="配置生成" fx:id="configTab">
                     <fx:include fx:id="createConfig" source="/fxml/CreateConfig.fxml"/>
@@ -37,6 +37,12 @@
                 </Tab>
                 <Tab text="Xls列比较" fx:id="xlsDoubleColCompareTab">
                     <fx:include fx:id="xlsDoubleColCompare" source="/fxml/XlsDobuleColCompare.fxml"/>
+                </Tab>
+                <Tab text="Cocos代码生成" fx:id="cocosCodeCreatorTab">
+                    <fx:include fx:id="cocosCodeCreator" source="/fxml/CocosCodeCreator.fxml"/>
+                </Tab>
+                <Tab text="Php语言转换" fx:id="phpLanguageConvertTab">
+                    <fx:include fx:id="phpLanguageConvert" source="/fxml/PhpLanguageConvert.fxml"/>
                 </Tab>
 
             </TabPane>

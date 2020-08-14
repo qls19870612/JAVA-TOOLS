@@ -9,6 +9,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -107,28 +108,78 @@ public class AttrXml2XlsUtils {
         AlertBox.showAlert("全部转换完成");
     }
 
+    public static void main(String[] args) {
+//        File file = new File("D:\\client_workspace\\SummonWorld\\resources\\zhCN\\XML\\assets\\dataXML\\vipReward.xml");
+        File file = new File("D:\\client_workspace\\SummonWorld\\resources\\zhCN\\XML\\assets\\dataXML\\towerShopItem.xml");
+        attrXmlPath=file.getParent();
+        attrXml2XlsPath=file.getParent();
+        String content = FileOperator.readFiles(file);
+        try {
+            convert(file,content );
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        }
+    }
     private static void convert(File file, String content) throws IOException, SAXException {
 
 
         InputSource inputSource = new InputSource(new StringReader(content));
-        Document document = AppConfig.db.parse(inputSource);
+        Document document = AppConfig.getDb().parse(inputSource);
         NodeList childNodes = document.getChildNodes();
 
-        HashMap<String, Integer> attrColMap = new HashMap<>();
-        ArrayList<CellHeaderInfo> headerInfos = new ArrayList<>();
 
-        AtomicInteger currCol = new AtomicInteger(0);
         Node item = findFirstElement(childNodes);
         if (item == null) {
             return;
         }
-        NodeList itemChildNodes = item.getChildNodes();
-        int childNodesLength = itemChildNodes.getLength();
-
         HSSFWorkbook workbook = new HSSFWorkbook();
-        String shellName = file.getName().replace(".xml", "");
+        Node subFirstItem = findFirstElement(item.getChildNodes());
+        if (subFirstItem == null) {
+            return;
+        }
+        if (subFirstItem.getAttributes().getLength() <= 0) {
+            NodeList childNodes1 = item.getChildNodes();
+            int length = childNodes1.getLength();
+            boolean hasShell = false;
+            for(int i = 0; i < length; i++) {
+                Node item1 = childNodes1.item(i);
+                if (item1.getNodeType() != Node.ELEMENT_NODE) {
+                    continue;
+                }
+                String shellName = item1.getNodeName();
+                createShell(item1, workbook,shellName);
+                hasShell = true;
+            }
+            if (!hasShell) {
+                return;
+            }
+
+        }
+        else {
+
+            String shellName = file.getName().replace(".xml", "");
+            createShell( item, workbook,shellName);
+        }
+        String shortPath = file.getAbsolutePath().replace(attrXmlPath, "");
+        File targetXls = new File(attrXml2XlsPath + "/" + shortPath.replace(".xml", ".xls"));
+        writeToXls(targetXls, workbook);
+
+    }
+
+    private static void createShell(Node item, HSSFWorkbook workbook, String shellName) {
+        HashMap<String, Integer> attrColMap = new HashMap<>();
+        ArrayList<CellHeaderInfo> headerInfos = new ArrayList<>();
+
+        AtomicInteger currCol = new AtomicInteger(0);
+
         shellName = StringUtils.toUpLowerString(shellName, true);
         HSSFSheet sheet = workbook.createSheet(shellName);
+
+
+        NodeList itemChildNodes = item.getChildNodes();
+        int childNodesLength = itemChildNodes.getLength();
         int rowCount = HEAD_ROW - 1;
         for (int i = 0; i < childNodesLength; i++) {
             Node attrItem = itemChildNodes.item(i);
@@ -167,10 +218,6 @@ public class AttrXml2XlsUtils {
             cell2.setCellValue("");
 
         }
-        String shortPath = file.getAbsolutePath().replace(attrXmlPath, "");
-        File targetXls = new File(attrXml2XlsPath + "/" + shortPath.replace(".xml", ".xls"));
-        writeToXls(targetXls, workbook);
-
     }
 
     private static void addCol(HashMap<String, Integer> attrColMap, ArrayList<CellHeaderInfo> headerInfos, AtomicInteger currCol, HSSFSheet sheet,
@@ -220,7 +267,7 @@ public class AttrXml2XlsUtils {
             }
 
             if (!"".equals(nodeValue)) {
-//                logger.debug("addCol row:{} col:{},nodeValue:{},nodeName:{}", row.getRowNum(), col, nodeValue, nodeName);
+                logger.debug("addCol row:{} col:{},nodeValue:{},nodeName:{}", row.getRowNum(), col, nodeValue, nodeName);
                 HSSFCell cell = row.createCell(col);
                 cell.setCellType(cellHeaderInfo.cellType);
 

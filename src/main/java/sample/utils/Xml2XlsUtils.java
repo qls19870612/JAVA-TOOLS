@@ -79,7 +79,7 @@ public class Xml2XlsUtils {
             try {
                 InputSource inputSource = new InputSource(new StringReader(content));
 
-                Document document = AppConfig.db.parse(inputSource);
+                Document document = AppConfig.getDb().parse(inputSource);
                 Element templates = (Element) document.getElementsByTagName("Worksheet").item(0);
                 if (templates == null) {
                     continue;

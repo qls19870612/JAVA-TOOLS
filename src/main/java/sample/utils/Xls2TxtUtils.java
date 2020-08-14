@@ -186,7 +186,17 @@ public class Xls2TxtUtils {
 //                    value = String.valueOf(intv);
 //                }
                 value = cell.getNumericCellValue();
-                //                logger.debug("getCellValue value:{}", value);
+                String s = value.toString();
+                if (s.endsWith(".0")) {
+                    s = s.substring(0,s.length()-2);
+                    long longValue = Long.parseLong(s);
+                    if (longValue < Integer.MIN_VALUE) {
+                         value = (int)longValue;
+                    }
+                    else {
+                        value = longValue;
+                    }
+                }
                 break;
             case Cell.CELL_TYPE_STRING:
                 value = cell.getStringCellValue();

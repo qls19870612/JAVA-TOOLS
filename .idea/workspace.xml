@@ -2,214 +2,35 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aed95fc1-e526-4bd3-b844-fa4ae712b8ad" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/app/game/module/Modules.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/app/game/module/login/LoginModuleNotice.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/app/game/service/guicejob/AutoBindType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/app/game/service/guicejob/GuiceAutoBind.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/app/game/service/guicejob/GuiceClean.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/app/game/service/guicejob/GuiceInit.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/app/game/service/guicejob/GuiceTicker.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/app/game/service/guicejob/TickTaskSupplier.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/app/game/service/notice/ArgType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/app/game/service/notice/ExcelNoticeProcessor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/app/game/service/notice/ExcelUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/app/game/service/notice/IModuleNotice.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/app/game/service/notice/IMsgModuleMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/app/game/service/notice/ModuleNoticeEnum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/app/game/service/notice/MyRowInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/app/game/service/notice/compoundArgs/ModuleNoticeArg.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/app/game/service/notice/compoundArgs/NoticeArgType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/CustomWebSocket.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/XlsDoubleColCompareController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/client/WebSocketHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/client/notice/IModuleNotice.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/client/notice/IMsgModuleMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/client/notice/ModuleNoticeEnum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sample/utils/AttrXml2XlsUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sample/utils/ExcelUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sample/utils/XlsDoubleColCompareUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sample/utils/Xml2XlsUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resource/fxml/XlsDobuleColCompare.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sample/Test.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/CocosCodeCreatorController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/PhpLanguageConvertController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/cocos/CocosNode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sample/utils/FileRenameUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sample/utils/HttpRequestUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sample/utils/PrefabToViewTsUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resource/config/cocosViewTemplate.vm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resource/fxml/CocosCodeCreator.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resource/fxml/PhpLanguageConvert.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resource/fxml/lang.account_gold.inc.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/sample/utils/HttpRequestUtilTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/classConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/config/classConfig.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/javaTool.db" beforeDir="false" afterPath="$PROJECT_DIR$/config/javaTool.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/lua.cfg" beforeDir="false" afterPath="$PROJECT_DIR$/config/lua.cfg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/tsTemplate1.vm" beforeDir="false" afterPath="$PROJECT_DIR$/config/tsTemplate.vm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/AchievementContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/ActivityContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/AlpacaIslandContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/AppearanceClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/AuctionContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/BaoKuContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/BossContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/ChatClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/CommonContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/ConsumeClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/EquipLotteryClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/ExamClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/ExamContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/ExternalDisplayClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/FunctionClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/GoodsContainerClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/GoodsContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/GuildClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/GuildExamClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/HandbookClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/HegemonyClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/HeraldryContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/HeraldryMysteryClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/HeroBasicContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/HeroContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/HeroMiscClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/KvConfigContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/LivenessClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/LuckShopClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/MailClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/MailConfigContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/MarriageClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/MiscDataContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/MoKuClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/MountClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/MountServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/NicknameClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/OfflineHangContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/PVPClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/PetClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/PetPluginClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/PetServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/PrayClilentContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/RealmClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/ReinClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/RelationModuleClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/ResourceBackClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/ResourceBackMinorContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/RewardContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/RuneContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/RuneLotteryClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/SceneClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/SoulBeastClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/SpellClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/SpriteClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/SpriteStatContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/TaskClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/TeamClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/TowerClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/TransformClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/TreasureClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/UpgradeContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/UtilContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/ValueContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/VipClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/client/XueZhenClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/AchievementServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/ActivityServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/AlpacaIslandServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/AppearanceServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/BaoKuServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/BossServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/ChatServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/CompoundServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/ConsumeServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/EquipLotteryServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/ExamServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/ExternalDisplayServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/FunctionOpenContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/GoodsContainerServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/GoodsServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/GuardGuildServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/GuildExamServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/GuildServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/HandbookServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/HegemonyServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/HeraldryMysteryServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/HeraldryServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/HeroBasicServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/HeroMinorContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/HeroMiscServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/HeroServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/HotSwapProtos.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/KfServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/LivenessServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/LogContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/LuckShopServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/MailServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/MarriageServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/MoKuServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/MountServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/NicknameServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/OfflineHangServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/PVPServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/PetPluginServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/PetServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/PlatformUserInfoContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/PrayServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/RealmServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/ReinMinorContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/RelationServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/ResetServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/ResourceBackServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/RewardServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/RuneLotteryServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/RuneServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/SceneServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/ServerInfoContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/ShopClientContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/ShopServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/SoulBeastServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/SpellServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/SpriteServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/StatisticsServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/TaskServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/TeamServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/TowerServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/TransformServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/TreasureServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/UserContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/VipServerContent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/protobuf/server/XueZhenServerContent.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/sample/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/sample/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/sample/config/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/config/AppConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/datas/vo/CodeInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/datas/vo/CodeInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/datas/vo/FieldInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/datas/vo/FieldInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/datas/vo/XlsInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/datas/vo/XlsInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/sample/enums/ConfigType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/enums/ConfigType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/sample/file/FileOperator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/file/FileOperator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/fxml/componet/fxml/FileSelector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/fxml/componet/fxml/FileSelector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/CreateConfigController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/CreateConfigController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/XLS2LUAController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/XLS2LUAController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/XlsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/XlsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/client/ClientBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/client/ClientBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/client/HandlerHub.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/client/HandlerHub.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/client/IClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/client/IClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/client/LongMsgCache.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/client/LongMsgCache.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/client/Modules.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/client/Modules.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/client/config/NoticeDatas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/client/config/NoticeDatas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/client/handlers/LoginHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/client/handlers/LoginHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/client/handlers/NoticeHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/client/handlers/NoticeHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/client/handlers/RelationHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/client/handlers/RelationHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/client/handlers/SceneHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/client/handlers/SceneHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/client/handlers/base/HandlerBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/client/handlers/base/HandlerBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/client/msgs/LoginModuleMessages.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/client/msgs/LoginModuleMessages.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/client/msgs/RelationModuleMessages.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/client/msgs/RelationModuleWrittenMessages.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/client/msgs/SceneModuleMessages.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/client/robots/RobotClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/client/robots/RobotClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/client/threads/ThreadServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/client/threads/ThreadServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/ts/JavaAndTsDialectProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/ts/JavaAndTsDialectProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/ts/TsClassTemplate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/ts/TsClassTemplate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/utils/BufferUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/utils/BufferUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/utils/CodeCreateUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/utils/CodeCreateUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/utils/StringUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/utils/StringUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/utils/Xls2LuaUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/utils/Xls2LuaUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/FileCleanController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/fxml/controllers/FileCleanController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sample/utils/AttrXml2XlsUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/utils/AttrXml2XlsUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sample/utils/ExcelUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/utils/ExcelUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/sample/utils/Xls2TsUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/utils/Xls2TsUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/sample/utils/Xls2TxtUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/utils/Xls2TxtUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resource/config/config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resource/config/config.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resource/config/tsTemplate.vm" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resource/config/tsTemplate.vm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resource/fxml/CreateConfig.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resource/fxml/CreateConfig.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sample/utils/Xml2XlsUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/utils/Xml2XlsUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resource/fxml/FileClean.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resource/fxml/FileClean.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resource/fxml/XLS2Txt.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resource/fxml/XLS2Txt.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resource/sample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resource/sample.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resource/sample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resource/Main.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/velocity.log" beforeDir="false" afterPath="$PROJECT_DIR$/velocity.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../pinyin4j/src/main/java/com/hp/hpl/sparta/BuildDocument.java" beforeDir="false" afterPath="$PROJECT_DIR$/../pinyin4j/src/main/java/com/hp/hpl/sparta/BuildDocument.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../pinyin4j/src/main/java/com/hp/hpl/sparta/CharCircBuffer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../pinyin4j/src/main/java/com/hp/hpl/sparta/CharCircBuffer.java" afterDir="false" />
@@ -298,6 +119,7 @@
   </component>
   <component name="CoverageViewManager">
     <option name="myFlattenPackages" value="true" />
+    <option name="myElementSize" value="238" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -326,10 +148,13 @@
         <option value="XSLT Stylesheet" />
         <option value="AnnotationType" />
         <option value="Interface" />
-        <option value="JUnit4 Test Class" />
         <option value="CSS File" />
+        <option value="view" />
+        <option value="module" />
+        <option value="TsView" />
         <option value="FxmlFile" />
         <option value="Class" />
+        <option value="JUnit4 Test Class" />
       </list>
     </option>
   </component>
@@ -377,13 +202,13 @@
     <property name="extract.method.default.visibility" value="private" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/config" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/sample/utils" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.38374487" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="settings.editor.selected.configurable" value="fileTemplates" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\IntelliJ IDEA 2019.3.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
@@ -392,8 +217,8 @@
       <recent name="" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
-      <recent name="sample.file" />
       <recent name="sample.utils" />
+      <recent name="sample.file" />
     </key>
     <key name="MoveMembersDialog.RECENTS_KEY">
       <recent name="test" />
@@ -413,11 +238,11 @@
       <recent name="sample.fxml.controllers.client.handlers" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\workspace\JAVA-TOOLS\src\main\java\sample\utils" />
+      <recent name="D:\workspace\JAVA-TOOLS\src\main\resource\fxml" />
       <recent name="D:\workspace\JAVA-TOOLS\config" />
       <recent name="D:\workspace\JAVA-TOOLS\src\main\java\app\game\service\guicejob" />
       <recent name="D:\workspace\JAVA-TOOLS\src\main\java\app\game\service\notice" />
-      <recent name="D:\workspace\JAVA-TOOLS\src\main\java\sample\app\game\service\notice" />
-      <recent name="D:\workspace\JAVA-TOOLS\src\main\java\sample\fxml\controllers\client\notice" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -434,6 +259,34 @@
     </key>
   </component>
   <component name="RunManager" selected="Application.Main">
+    <configuration name="AttrXml2XlsUtils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="sample.utils.AttrXml2XlsUtils" />
+      <module name="javaTools" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="sample.utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CocosCodeCreatorController" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="sample.fxml.controllers.CocosCodeCreatorController" />
+      <module name="javaTools" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="sample.fxml.controllers.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="sample.Main" />
       <module name="javaTools" />
@@ -447,6 +300,20 @@
       <RunnerSettings RunnerId="Debug with VisualVM">
         <option name="visualVMId" value="890028245766269" />
       </RunnerSettings>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Xls2TsUtils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="sample.utils.Xls2TsUtils" />
+      <module name="javaTools" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="sample.utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -468,7 +335,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CodeCreateUtilsTest.testArrayRemove" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="HttpRequestUtilTest.name" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="javaTools" />
       <extension name="coverage">
         <pattern>
@@ -477,62 +344,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="sample.utils" />
-      <option name="MAIN_CLASS_NAME" value="sample.utils.CodeCreateUtilsTest" />
-      <option name="METHOD_NAME" value="testArrayRemove" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CodeCreateUtilsTest.testArrayRemove1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="javaTools" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="sample.utils.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="sample.utils" />
-      <option name="MAIN_CLASS_NAME" value="sample.utils.CodeCreateUtilsTest" />
-      <option name="METHOD_NAME" value="testArrayRemove1" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CodeCreateUtilsTest.testArrayRemove2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="javaTools" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="sample.utils.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="sample.utils" />
-      <option name="MAIN_CLASS_NAME" value="sample.utils.CodeCreateUtilsTest" />
-      <option name="METHOD_NAME" value="testArrayRemove2" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CodeCreateUtilsTest.testJson" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="javaTools" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="sample.utils.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="sample.utils" />
-      <option name="MAIN_CLASS_NAME" value="sample.utils.CodeCreateUtilsTest" />
-      <option name="METHOD_NAME" value="testJson" />
+      <option name="MAIN_CLASS_NAME" value="sample.utils.HttpRequestUtilTest" />
+      <option name="METHOD_NAME" value="name" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
@@ -560,19 +373,19 @@
     </configuration>
     <list>
       <item itemvalue="Application.Main" />
+      <item itemvalue="Application.AttrXml2XlsUtils" />
+      <item itemvalue="Application.Xls2TsUtils" />
+      <item itemvalue="Application.CocosCodeCreatorController" />
       <item itemvalue="Batch.start" />
-      <item itemvalue="JUnit.CodeCreateUtilsTest.testJson" />
-      <item itemvalue="JUnit.CodeCreateUtilsTest.testArrayRemove" />
-      <item itemvalue="JUnit.CodeCreateUtilsTest.testArrayRemove1" />
-      <item itemvalue="JUnit.CodeCreateUtilsTest.testArrayRemove2" />
+      <item itemvalue="JUnit.HttpRequestUtilTest.name" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
-        <item itemvalue="JUnit.CodeCreateUtilsTest.testArrayRemove1" />
-        <item itemvalue="JUnit.CodeCreateUtilsTest.testArrayRemove2" />
-        <item itemvalue="JUnit.CodeCreateUtilsTest.testArrayRemove" />
-        <item itemvalue="JUnit.CodeCreateUtilsTest.testJson" />
+        <item itemvalue="JUnit.HttpRequestUtilTest.name" />
+        <item itemvalue="Application.CocosCodeCreatorController" />
+        <item itemvalue="Application.Xls2TsUtils" />
+        <item itemvalue="Application.AttrXml2XlsUtils" />
       </list>
     </recent_temporary>
   </component>
@@ -622,41 +435,25 @@
       <workItem from="1590646372480" duration="100000" />
       <workItem from="1590646525467" duration="5917000" />
       <workItem from="1591170487455" duration="21000" />
-      <workItem from="1591268129271" duration="29182000" />
+      <workItem from="1591268129271" duration="29462000" />
+      <workItem from="1591933412088" duration="800000" />
+      <workItem from="1592190763364" duration="5858000" />
+      <workItem from="1592279128662" duration="2189000" />
+      <workItem from="1592647244366" duration="20436000" />
+      <workItem from="1592893694104" duration="265000" />
+      <workItem from="1592894299714" duration="20839000" />
+      <workItem from="1594025932206" duration="636000" />
+      <workItem from="1594180189276" duration="1237000" />
+      <workItem from="1594777998978" duration="1369000" />
+      <workItem from="1595036630926" duration="842000" />
+      <workItem from="1595209014405" duration="1189000" />
+      <workItem from="1596781936630" duration="652000" />
+      <workItem from="1596784239849" duration="3907000" />
+      <workItem from="1597022671836" duration="2117000" />
+      <workItem from="1597125708015" duration="6247000" />
+      <workItem from="1597282420146" duration="7924000" />
     </task>
     <servers />
-  </component>
-  <component name="TestHistory">
-    <history-entry file="CodeCreateUtilsTest_testJson - 2019.12.14 at 17h 18m 40s.xml">
-      <configuration name="CodeCreateUtilsTest.testJson" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="CodeCreateUtilsTest_testJson - 2019.12.14 at 17h 18m 50s.xml">
-      <configuration name="CodeCreateUtilsTest.testJson" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="CodeCreateUtilsTest_testArrayRemove - 2019.12.14 at 17h 27m 37s.xml">
-      <configuration name="CodeCreateUtilsTest.testArrayRemove" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="CodeCreateUtilsTest_testArrayRemove - 2019.12.14 at 17h 27m 50s.xml">
-      <configuration name="CodeCreateUtilsTest.testArrayRemove" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="CodeCreateUtilsTest_testArrayRemove1 - 2019.12.14 at 17h 29m 18s.xml">
-      <configuration name="CodeCreateUtilsTest.testArrayRemove1" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="CodeCreateUtilsTest_testArrayRemove1 - 2019.12.14 at 17h 29m 32s.xml">
-      <configuration name="CodeCreateUtilsTest.testArrayRemove1" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="CodeCreateUtilsTest_testArrayRemove2 - 2019.12.14 at 17h 29m 50s.xml">
-      <configuration name="CodeCreateUtilsTest.testArrayRemove2" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="CodeCreateUtilsTest_testArrayRemove2 - 2019.12.14 at 17h 30m 04s.xml">
-      <configuration name="CodeCreateUtilsTest.testArrayRemove2" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="CodeCreateUtilsTest_testArrayRemove2 - 2019.12.14 at 17h 30m 15s.xml">
-      <configuration name="CodeCreateUtilsTest.testArrayRemove2" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="CodeCreateUtilsTest_testArrayRemove1 - 2019.12.14 at 17h 30m 21s.xml">
-      <configuration name="CodeCreateUtilsTest.testArrayRemove1" configurationId="JUnit" />
-    </history-entry>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -693,118 +490,102 @@
     </ignored-roots>
   </component>
   <component name="WindowStateProjectService">
-    <state x="552" y="181" key="#Project_Structure" timestamp="1587986306772">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="552" y="181" key="#Project_Structure/0.0.1920.1040@0.0.1920.1040" timestamp="1587986306772" />
     <state x="414" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1589164370491">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="414" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1589164370491" />
-    <state x="765" y="239" key="#com.intellij.ide.util.MemberChooser" timestamp="1591269959944">
+    <state x="765" y="239" key="#com.intellij.ide.util.MemberChooser" timestamp="1596785560597">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="765" y="239" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1591269959944" />
-    <state x="584" y="448" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1588905107029">
+    <state x="765" y="239" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1596785560597" />
+    <state x="584" y="448" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1592190782512">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="584" y="448" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1588905107029" />
+    <state x="584" y="448" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1592190782512" />
     <state x="744" y="408" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages" timestamp="1588905110322">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="744" y="408" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/0.0.1920.1040@0.0.1920.1040" timestamp="1588905110322" />
-    <state x="353" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1591582384517">
+    <state x="353" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1592796609870">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="353" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1591582384517" />
-    <state width="1291" height="466" key="DebuggerActiveHint" timestamp="1591601315215">
+    <state x="353" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1592796609870" />
+    <state width="1291" height="466" key="DebuggerActiveHint" timestamp="1592980147808">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1291" height="466" key="DebuggerActiveHint/0.0.1920.1040@0.0.1920.1040" timestamp="1591601315215" />
-    <state x="657" y="331" key="FileChooserDialogImpl" timestamp="1588067587409">
+    <state width="1291" height="466" key="DebuggerActiveHint/0.0.1920.1040@0.0.1920.1040" timestamp="1592980147808" />
+    <state width="1460" height="287" key="GridCell.Tab.0.bottom" timestamp="1597377420893">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="657" y="331" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1588067587408" />
-    <state width="1470" height="463" key="GridCell.Tab.0.bottom" timestamp="1591602570269">
+    <state width="1460" height="287" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1597377420893" />
+    <state width="1460" height="287" key="GridCell.Tab.0.center" timestamp="1597377420891">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1470" height="463" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1591602570269" />
-    <state width="1470" height="463" key="GridCell.Tab.0.center" timestamp="1591602570269">
+    <state width="1460" height="287" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1597377420891" />
+    <state width="1460" height="287" key="GridCell.Tab.0.left" timestamp="1597377420891">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1470" height="463" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1591602570269" />
-    <state width="1470" height="463" key="GridCell.Tab.0.left" timestamp="1591602570269">
+    <state width="1460" height="287" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1597377420891" />
+    <state width="1460" height="287" key="GridCell.Tab.0.right" timestamp="1597377420892">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1470" height="463" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1591602570269" />
-    <state width="1470" height="463" key="GridCell.Tab.0.right" timestamp="1591602570269">
+    <state width="1460" height="287" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1597377420892" />
+    <state width="1460" height="287" key="GridCell.Tab.1.bottom" timestamp="1597377420124">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1470" height="463" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1591602570269" />
-    <state width="1470" height="463" key="GridCell.Tab.1.bottom" timestamp="1591602570270">
+    <state width="1460" height="287" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1597377420124" />
+    <state width="1460" height="287" key="GridCell.Tab.1.center" timestamp="1597377420124">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1470" height="463" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1591602570270" />
-    <state width="1470" height="463" key="GridCell.Tab.1.center" timestamp="1591602570270">
+    <state width="1460" height="287" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1597377420124" />
+    <state width="1460" height="287" key="GridCell.Tab.1.left" timestamp="1597377420124">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1470" height="463" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1591602570270" />
-    <state width="1470" height="463" key="GridCell.Tab.1.left" timestamp="1591602570270">
+    <state width="1460" height="287" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1597377420124" />
+    <state width="1460" height="287" key="GridCell.Tab.1.right" timestamp="1597377420124">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1470" height="463" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1591602570270" />
-    <state width="1470" height="463" key="GridCell.Tab.1.right" timestamp="1591602570270">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1470" height="463" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1591602570270" />
+    <state width="1460" height="287" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1597377420124" />
     <state x="490" y="178" key="Maven.ArtifactSearchDialog" timestamp="1588856662787">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="490" y="178" key="Maven.ArtifactSearchDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1588856662787" />
-    <state x="623" y="291" key="NewModule_or_Project.wizard" timestamp="1587986409281">
+    <state x="782" y="457" key="ReplaceDuplicatesPrompt" timestamp="1592898486727">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="291" key="NewModule_or_Project.wizard/0.0.1920.1040@0.0.1920.1040" timestamp="1587986409281" />
-    <state x="782" y="457" key="ReplaceDuplicatesPrompt" timestamp="1588059061543">
+    <state x="782" y="457" key="ReplaceDuplicatesPrompt/0.0.1920.1040@0.0.1920.1040" timestamp="1592898486727" />
+    <state x="463" y="165" key="SettingsEditor" timestamp="1592191270975">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="782" y="457" key="ReplaceDuplicatesPrompt/0.0.1920.1040@0.0.1920.1040" timestamp="1588059061543" />
-    <state x="463" y="165" key="SettingsEditor" timestamp="1588855492638">
+    <state x="463" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1592191270975" />
+    <state x="681" y="261" width="549" height="524" key="StructurePopup" timestamp="1597135441373">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="463" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1588855492638" />
-    <state x="681" y="261" width="549" height="524" key="StructurePopup" timestamp="1591431037295">
+    <state x="681" y="261" width="549" height="524" key="StructurePopup/0.0.1920.1040@0.0.1920.1040" timestamp="1597135441373" />
+    <state x="724" y="250" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1597135600807">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="681" y="261" width="549" height="524" key="StructurePopup/0.0.1920.1040@0.0.1920.1040" timestamp="1591431037295" />
-    <state x="690" y="293" width="540" height="489" key="extract.method.dialog" timestamp="1591435095180">
+    <state x="724" y="250" key="com.intellij.testIntegration.createTest.CreateTestDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1597135600807" />
+    <state x="690" y="293" width="540" height="489" key="extract.method.dialog" timestamp="1592981874547">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="690" y="293" width="540" height="489" key="extract.method.dialog/0.0.1920.1040@0.0.1920.1040" timestamp="1591435095180" />
-    <state x="646" y="275" width="808" height="548" key="find.popup" timestamp="1591845141331">
+    <state x="690" y="293" width="540" height="489" key="extract.method.dialog/0.0.1920.1040@0.0.1920.1040" timestamp="1592981874547" />
+    <state x="646" y="275" width="808" height="548" key="find.popup" timestamp="1597374341583">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="646" y="275" width="808" height="548" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1591845141331" />
+    <state x="646" y="275" width="808" height="548" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1597374341583" />
     <state x="579" y="318" key="new project wizard" timestamp="1588993699056">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="579" y="318" key="new project wizard/0.0.1920.1040@0.0.1920.1040" timestamp="1588993699056" />
-    <state x="601" y="246" width="700" height="530" key="recent.locations.popup" timestamp="1588157333847">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="601" y="246" width="700" height="530" key="recent.locations.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1588157333847" />
     <state x="663" y="152" key="refactoring.ChangeSignatureDialog" timestamp="1588905737304">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="663" y="152" key="refactoring.ChangeSignatureDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1588905737304" />
-    <state x="616" y="240" key="run.anything.popup" timestamp="1588210878186">
+    <state x="1258" y="186" width="672" height="678" key="search.everywhere.popup" timestamp="1597135337085">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1588210878186" />
-    <state x="1258" y="186" width="672" height="678" key="search.everywhere.popup" timestamp="1591602553673">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="1258" y="186" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1591602553673" />
+    <state x="1258" y="186" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1597135337085" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -856,5 +637,10 @@
       </path>
     </expand>
     <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/javaTools$Main.ic" NAME="Main Coverage Results" MODIFIED="1597373135396" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>sample.*</FILTER>
+    </SUITE>
   </component>
 </project>

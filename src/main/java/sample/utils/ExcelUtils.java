@@ -64,7 +64,15 @@ public class ExcelUtils {
 
         switch (cell.getCellType()) {
             case Cell.CELL_TYPE_NUMERIC:
-                cell.setCellValue(Double.valueOf(s));
+//                if (s.contains(".")) {
+
+                    cell.setCellValue(Double.valueOf(s));
+//                }
+//                else {
+//                    cell.setCellValue(Long.valueOf(s));
+//                }
+                String cellValue = getCellValue(cell);
+                logger.debug("writeCell cellValue:{}", cellValue);
                 break;
             case Cell.CELL_TYPE_STRING:
                 cell.setCellValue(s);

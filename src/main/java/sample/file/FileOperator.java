@@ -163,7 +163,21 @@ public class FileOperator {
 
         return ret;
     }
+    private static void readToList(File root, ArrayList<File> ret, Filter<File> filter) throws IOException {
 
+        if (root.isDirectory()) {
+            File[] subFiles = root.listFiles();
+            if (subFiles != null) {
+                for (File file : subFiles) {
+                    readToList(file, ret, filter);
+                }
+            }
+        } else {
+            if (filter.accept(root)) {
+                ret.add(root);
+            }
+        }
+    }
     public static String readFiles(File file) {
         String code = null;
         try {
@@ -188,7 +202,7 @@ public class FileOperator {
             }
 
         } catch (IOException e) {
-            //            System.out.println(e.getMessage());
+                        System.out.println(e.getMessage());
         } finally {
             try {
                 if (fileInput != null) {
@@ -268,21 +282,7 @@ public class FileOperator {
         }
     }
 
-    private static void readToList(File root, ArrayList<File> ret, Filter<File> filter) throws IOException {
 
-        if (root.isDirectory()) {
-            File[] subFiles = root.listFiles();
-            if (subFiles != null) {
-                for (File file : subFiles) {
-                    readToList(file, ret, filter);
-                }
-            }
-        } else {
-            if (filter.accept(root)) {
-                ret.add(root);
-            }
-        }
-    }
 
     public static String getExtensionName(String filename) {
         if ((filename != null) && (filename.length() > 0)) {

@@ -68,7 +68,7 @@ public class AppConfig {
         try {
             String content = FileOperator.readFiles(configFile);
             InputSource inputSource = new InputSource(new StringReader(content));
-            document = db.parse(inputSource);
+            document = getDb().parse(inputSource);
 
             baseCodePath = document.getElementsByTagName("baseCodePath").item(0).getChildNodes().item(0).getNodeValue();
             NodeList configItem = document.getElementsByTagName("configitem");
@@ -88,7 +88,7 @@ public class AppConfig {
 
         try {
             InputSource inputSource = new InputSource(new StringReader(content));
-            document = db.parse(inputSource);
+            document = getDb().parse(inputSource);
             Element templates = (Element) document.getElementsByTagName("templates").item(0);
 
             fieldTemplate = getCDATA(templates, "field");
@@ -119,7 +119,12 @@ public class AppConfig {
         }
 
     }
-
+    public static DocumentBuilder getDb(){
+        if (db == null) {
+            initFactory();
+        }
+        return db;
+    }
     private static HashMap<String, CodeInfo> getCodeInfos(NodeList chidren) {
         HashMap<String, CodeInfo> ret = new HashMap<>();
         //        NodeList chidren = configItem.getChildNodes();

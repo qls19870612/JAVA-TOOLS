@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import sample.fxml.componet.fxml.FileSelector?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="sample.fxml.controllers.CocosCodeCreatorController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <VBox AnchorPane.topAnchor="10" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" spacing="10">
+        <FileSelector labelWidth="140" label="Prefab目录" folder="true" fx:id="prefabFolder" configType="COCOS_PREFAB_PATH"
+                      extendStr=".xls"/>
+        <FileSelector labelWidth="140" label="Ts目录" folder="true" fx:id="tsFolder" configType="PREFAB_TO_TS_PATH"
+                      extendStr=".xls"/>
+        <Button text="上次prefab文件重新生成" onMouseClicked="#reCreateLastFiles"/>
+    </VBox>
+    <AnchorPane AnchorPane.topAnchor="70" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.bottomAnchor="10"
+                onDragOver="#onDragOver"
+                onDragDropped="#onDragDropped" style="-fx-background-color: LIGHTSKYBLUE;">
+        <Label AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" alignment="CENTER"
+               text="  拖动到此处生成view ts代码">
+        </Label>
+    </AnchorPane>
+</AnchorPane>
